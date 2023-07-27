@@ -1,0 +1,10 @@
+<mat-nav-list>
+  <ng-container *ngFor="let item of items">
+    <a mat-list-item class="no-select" [routerLink]="[item.route]" routerLinkActive="active">
+      <div class="list-item-content">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <div class="list-item-text">{{ item.title }}</div>
+      </div>
+    </a>
+  </ng-container>
+</mat-nav-list>

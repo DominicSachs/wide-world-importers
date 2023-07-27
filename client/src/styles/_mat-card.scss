@@ -1,0 +1,8 @@
+@use '@angular/material/theming' as *;
+
+$primaryPalette: mat-palette($mat-deep-purple);
+
+.mdc-card__actions {
+  justify-content: end;
+  gap: 10px;
+}

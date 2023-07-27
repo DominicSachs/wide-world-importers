@@ -1,0 +1,30 @@
+@use 'variables' as *;
+@use 'material-theme' as *;
+@use '@angular/material' as mat;
+
+.mat-toolbar {
+  height: $header-height;
+  h1 {
+    margin: 0;
+  }
+}
+
+.app-container {
+  height: 100%;
+}
+$sidebar-width: 90px;
+
+mat-sidenav-container {
+  flex: 1;
+  height: calc(100% - $header-height);
+  background: mat.get-color-from-palette($primaryPalette, 50);
+
+  mat-sidenav {
+    width: $sidebar-width;
+  }
+
+  mat-sidenav-content {
+    height: 100%;
+    padding: 16px;
+  }
+}

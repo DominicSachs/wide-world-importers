@@ -1,0 +1,33 @@
+<ng-container *ngIf="(data$ | async) || { items: [], count: 0 } as data">
+  <mat-table [dataSource]="data.items" matSort matSortActive="customerName" matSortDisableClear matSortDirection="asc" (matSortChange)="sortChange($event)">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.name }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="postalAddress">
+      <mat-header-cell *matHeaderCellDef>Postal address</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.postalAddress }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="deliveryAddress">
+      <mat-header-cell *matHeaderCellDef>Delivery address</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.deliveryAddress }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let c">
+        <a mat-icon-button color="primary" [routerLink]="['/', 'customers', c.id]" title="Details">
+          <mat-icon>search</mat-icon>
+        </a>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns" />
+    <mat-row *matRowDef="let row; columns: displayedColumns" />
+  </mat-table>
+  <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
+</ng-container>

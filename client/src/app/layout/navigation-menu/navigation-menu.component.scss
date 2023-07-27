@@ -1,0 +1,37 @@
+@use 'mixins' as *;
+@use '@angular/material' as mat;
+@use 'material-theme' as *;
+
+.mat-mdc-nav-list {
+  background: mat.get-color-from-palette($primaryPalette, 100);
+  height: calc(100% - 16px);
+
+  .mat-mdc-list-item {
+    box-sizing: border-box;
+    height: 80px;
+
+    &.active {
+      background: mat.get-color-from-palette($primaryPalette, 200);
+    }
+
+    .list-item-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+
+      .mat-icon {
+        @include mat-icon-size(42px);
+      }
+
+      .list-item-text {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+      }
+    }
+  }
+}

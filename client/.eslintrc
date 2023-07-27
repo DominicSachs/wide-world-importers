@@ -1,0 +1,338 @@
+{
+  "root": true,
+  // "ignorePatterns": [
+  //   "projects/**/*"
+  // ],
+  "plugins": [
+    "import",
+    "unused-imports"
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts"
+      ]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:import/typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:import/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@typescript-eslint/array-type": [
+          "error"
+        ],
+        "brace-style": "off",
+        "@typescript-eslint/brace-style": [
+          "error",
+          "1tbs",
+          {
+            "allowSingleLine": true
+          }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true
+          }
+        ],
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/member-delimiter-style": [
+          "error",
+          {
+            "multiline": {
+              "delimiter": "semi",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": true
+            }
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "private-static-field",
+              "private-instance-field",
+              "protected-static-field",
+              "protected-instance-field",
+              "public-static-field",
+              "public-instance-field",
+              "public-constructor",
+              "protected-constructor",
+              "private-constructor",
+              "public-instance-method",
+              "public-static-method",
+              "protected-instance-method",
+              "protected-static-method",
+              "private-instance-method",
+              "private-static-method"
+            ]
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": [
+              "enumMember"
+            ],
+            "format": [
+              "PascalCase"
+            ]
+          },
+          {
+            "selector": "interface",
+            "format": [
+              "PascalCase"
+            ],
+            "custom": {
+              "regex": "^I[A-Z]",
+              "match": false
+            }
+          },
+          {
+            "selector": "typeLike",
+            "format": [
+              "PascalCase"
+            ],
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          },
+          {
+            "selector": [
+              "variableLike",
+              "property"
+            ],
+            "format": [
+              "strictCamelCase"
+            ],
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          },
+          {
+            "selector": "parameter",
+            "format": [
+              "strictCamelCase",
+              "camelCase"
+            ],
+            "leadingUnderscore": "allow"
+          },
+          {
+            "selector": "variable",
+            "modifiers": [
+              "const",
+              "global"
+            ],
+            "format": [
+              "UPPER_CASE"
+            ],
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          }
+        ],
+        "@typescript-eslint/no-empty-interface": [
+          "error",
+          {
+            "allowSingleExtends": true
+          }
+        ],
+        "no-extra-parens": "off",
+        "@typescript-eslint/no-extra-parens": [
+          "error"
+        ],
+        "@typescript-eslint/no-unnecessary-boolean-literal-compare": [
+          "error"
+        ],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "_"
+          }
+        ],
+        "@typescript-eslint/no-var-requires": [
+          "error"
+        ],
+        "@typescript-eslint/semi": [
+          "error"
+        ],
+        "arrow-body-style": [
+          "error",
+          "as-needed",
+          {
+            "requireReturnForObjectLiteral": true
+          }
+        ],
+        "arrow-parens": [
+          "error",
+          "as-needed"
+        ],
+        "comma-dangle": [
+          "error",
+          "never"
+        ],
+        "curly": [
+          "error",
+          "all"
+        ],
+        "eqeqeq": [
+          "error",
+          "always",
+          {
+            "null": "ignore"
+          }
+        ],
+        "import/order": [
+          "error",
+          // {
+          //   "alphabetize": {
+          //     "order": "asc"
+          //   }
+          // }
+          {
+            "groups": [
+              "builtin", // Built-in types are first
+              ["sibling", "parent"], // Then sibling and parent types. They can be mingled together
+              "index", // Then the index file
+              "object"
+            ]
+          }
+        ],
+        "max-len": [
+          "error",
+          {
+            "code": 200,
+            "ignoreRegExpLiterals": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreUrls": true
+          }
+        ],
+        "no-console": [
+          "error"
+        ],
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": false
+          }
+        ],
+        "no-else-return": [
+          "error"
+        ],
+        "no-fallthrough": [
+          "error"
+        ],
+        "no-trailing-spaces": [
+          "error"
+        ],
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
+          }
+        ],
+        "no-var": [
+          "error"
+        ],
+        "object-curly-newline": [
+          "error",
+          {
+            "ObjectExpression": {
+              "consistent": true,
+              "multiline": true
+            },
+            "ObjectPattern": {
+              "consistent": true,
+              "multiline": true
+            },
+            "ImportDeclaration": {
+              "consistent": true,
+              "multiline": true
+            },
+            "ExportDeclaration": "never"
+          }
+        ],
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "prefer-const": [
+          "error",
+          {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+          }
+        ],
+        "quote-props": [
+          "error",
+          "as-needed"
+        ],
+        "quotes": [
+          "error",
+          "single"
+        ],
+        "semi": "off",
+        "space-before-blocks": "error",
+        "spaced-comment": [
+          "error",
+          "always"
+        ],
+        "unused-imports/no-unused-imports": [
+          "error"
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}
