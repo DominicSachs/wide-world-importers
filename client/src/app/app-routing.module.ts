@@ -6,7 +6,8 @@ const ROUTES: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'customers', loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule) },
-  { path: 'orders', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule) }
+  { path: 'orders', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule) },
+  { path: 'suppliers', loadChildren: () => import('./modules/supplier/supplier.module').then(m => m.SupplierModule) }
 ];
 
 @NgModule({

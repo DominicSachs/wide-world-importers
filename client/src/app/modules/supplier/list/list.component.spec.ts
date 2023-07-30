@@ -1,21 +1,21 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CustomerService } from '@app/modules/customer/customer.service';
-import { CustomerListComponent } from '@app/modules/customer/list/list.component';
+import { SupplierListComponent } from '@app/modules/supplier/list/list.component';
+import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
-describe('CustomerListComponent', () => {
-  let component: CustomerListComponent;
-  let fixture: ComponentFixture<CustomerListComponent>;
+describe('SupplierListComponent', () => {
+  let component: SupplierListComponent;
+  let fixture: ComponentFixture<SupplierListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MaterialModule, NoopAnimationsModule],
-      declarations: [CustomerListComponent],
-      providers: [CustomerService]
+      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule],
+      declarations: [SupplierListComponent],
+      providers: [SupplierService]
     });
-    fixture = TestBed.createComponent(CustomerListComponent);
+    fixture = TestBed.createComponent(SupplierListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

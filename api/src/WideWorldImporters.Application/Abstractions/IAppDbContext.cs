@@ -6,5 +6,7 @@ namespace WideWorldImporters.Application.Abstractions;
 public interface IAppDbContext
 {
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+
     Task<int> SaveChangesAsync(CancellationToken token);
 }

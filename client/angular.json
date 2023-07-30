@@ -115,7 +115,10 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            }
           }
         },
         "lint": {
