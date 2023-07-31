@@ -3,7 +3,7 @@
 @use 'material-theme' as *;
 
 .mat-mdc-nav-list {
-  background: mat.get-color-from-palette($primaryPalette, 100);
+  background: mat.get-color-from-palette($primary, 100);
   height: calc(100% - 16px);
 
   .mat-mdc-list-item {
@@ -11,7 +11,7 @@
     height: 80px;
 
     &.active {
-      background: mat.get-color-from-palette($primaryPalette, 200);
+      background: mat.get-color-from-palette($primary, 200);
     }
 
     .list-item-content {

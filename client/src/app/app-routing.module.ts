@@ -7,7 +7,8 @@ const ROUTES: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'customers', loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule) },
   { path: 'orders', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule) },
-  { path: 'suppliers', loadChildren: () => import('./modules/supplier/supplier.module').then(m => m.SupplierModule) }
+  { path: 'suppliers', loadChildren: () => import('./modules/supplier/supplier.module').then(m => m.SupplierModule) },
+  { path: 'settings', loadChildren: () => import('./modules/master-data/master-data.module').then(m => m.MasterDataModule) }
 ];
 
 @NgModule({

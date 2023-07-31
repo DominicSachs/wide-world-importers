@@ -5,4 +5,3 @@ export interface SupplierListReponse {
   phone: string;
   fax: string;
 }
-

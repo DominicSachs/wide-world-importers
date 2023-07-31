@@ -1,7 +1,7 @@
 ﻿using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Domain.Models;
 
-namespace WideWorldImporters.Application.Queries.Customers;
+namespace WideWorldImporters.Application.Queries.Suppliers;
 
 public sealed class GetSuppliersQuery : Query<PagedResult<SupplierListResponse>>
 {

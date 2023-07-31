@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Application.Abstractions;
+using WideWorldImporters.Application.Extensions;
 using WideWorldImporters.Domain.Entities;
 using WideWorldImporters.Domain.Models;
 
-namespace WideWorldImporters.Application.Queries.Customers;
+namespace WideWorldImporters.Application.Queries.Suppliers;
 
 internal sealed class GetSuppliersQueryHandler : IQueryHandlerAsync<GetSuppliersQuery, PagedResult<SupplierListResponse>>
 {
@@ -16,9 +17,11 @@ internal sealed class GetSuppliersQueryHandler : IQueryHandlerAsync<GetSuppliers
 
     public async Task<PagedResult<SupplierListResponse>> HandleAsync(GetSuppliersQuery query, CancellationToken token)
     {
+        query.Filter.SetSortStrategy(new SupplierListSortStrategy());
         var sortColumn = query.Filter.SortColumn ?? nameof(Supplier.Name);
 
         var suppliers = await _context.Suppliers.AsNoTracking()
+            .OrderBy(sortColumn, query.Filter.SortDirection)
             .Skip(query.Filter.SkippedItems)
             .Take(query.Filter.PageSize)
             .Select(c => new SupplierListResponse(

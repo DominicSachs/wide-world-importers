@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
-// import { CustomUrlEncoder } from '../../../core/infrastructure/http/custom-url-encoder';
 
 export class DataFilter {
   sortColumn = '';
+  sortDirection = ListSortDirection.Ascending;
   page = 0;
   pageSize = 10;
 
@@ -13,11 +13,17 @@ export class DataFilter {
   }
 
   toQueryString(): string {
-    const params = new HttpParams() // { encoder: new CustomUrlEncoder() }
+    const params = new HttpParams()
       .set('page', this.page.toString())
       .set('pageSize', this.pageSize.toString())
-      .set('sortColumn', this.sortColumn);
+      .set('sortColumn', this.sortColumn)
+      .set('sortDirection', this.sortDirection);
 
     return params.toString();
   }
+}
+
+export enum ListSortDirection {
+    Ascending = 0,
+    Descending = 1
 }

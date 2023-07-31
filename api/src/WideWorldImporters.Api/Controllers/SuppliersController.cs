@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WideWorldImporters.Application.Abstractions;
-using WideWorldImporters.Application.Queries.Customers;
+using WideWorldImporters.Application.Queries.Suppliers;
 using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Api.Controllers;
