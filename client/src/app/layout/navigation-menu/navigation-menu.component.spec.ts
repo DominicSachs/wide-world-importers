@@ -17,6 +17,6 @@ describe('NavigationMenuComponent', () => {
   });
 
   it('should create', () => {
-    expect(testObject.items.length).toBe(3);
+    expect(testObject.items.length).toBe(4);
   });
 });

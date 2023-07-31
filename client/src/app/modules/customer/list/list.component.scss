@@ -4,7 +4,6 @@
   @include mat-table-columns((
     name: (width: 30%),
     postalAddress: (width: 30%),
-    //deliveryAddress: (width: 30%),
     actions: (width: 5%)
   ));
 }

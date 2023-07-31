@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Application.Abstractions;
+using WideWorldImporters.Application.Extensions;
 using WideWorldImporters.Domain.Entities;
 using WideWorldImporters.Domain.Models;
 
@@ -16,9 +17,11 @@ internal sealed class GetCustomersQueryHandler : IQueryHandlerAsync<GetCustomers
 
     public async Task<PagedResult<CustomerListResponse>> HandleAsync(GetCustomersQuery query, CancellationToken token)
     {
+        query.Filter.SetSortStrategy(new CustomerListSortStrategy());
         var sortColumn = query.Filter.SortColumn ?? nameof(Customer.Name);
 
         var customers = await _context.Customers.AsNoTracking()
+            .OrderBy(sortColumn, query.Filter.SortDirection)
             .Skip(query.Filter.SkippedItems)
             .Take(query.Filter.PageSize)
             .Select(c => new CustomerListResponse(

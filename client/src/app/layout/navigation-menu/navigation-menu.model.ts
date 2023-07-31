@@ -17,4 +17,8 @@ export const NAVIGATION_MENU_ITEMS: NavigationMenuItem[] = [{
   title: 'Suppliers',
   route: '/suppliers',
   icon: 'local_shipping'
+}, {
+  title: 'Settings',
+  route: '/settings',
+  icon: 'settings'
 }];

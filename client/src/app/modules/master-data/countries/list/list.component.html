@@ -6,22 +6,34 @@
         {{ t.name }}
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="category">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+    <ng-container matColumnDef="formalName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Formal Name</mat-header-cell>
       <mat-cell *matCellDef="let t">
-        {{ t.category }}
+        {{ t.formalName }}
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+    <ng-container matColumnDef="region">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Region</mat-header-cell>
       <mat-cell *matCellDef="let t">
-        {{ t.phone }}
+        {{ t.region }}
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="fax">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fax</mat-header-cell>
+    <ng-container matColumnDef="subregion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Subregion</mat-header-cell>
       <mat-cell *matCellDef="let t">
-        {{ t.fax }}
+        {{ t.subregion }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="continent">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Continent</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.continent }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Population</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.population }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions">
@@ -35,5 +47,5 @@
     <mat-header-row *matHeaderRowDef="displayedColumns" />
     <mat-row *matRowDef="let row; columns: displayedColumns" />
   </mat-table>
-  <mat-paginator color="primary" (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
+  <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
 </ng-container>

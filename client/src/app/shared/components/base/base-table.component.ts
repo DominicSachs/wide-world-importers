@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { DataFilter } from '@app/shared/models/data-filter.model';
+import { DataFilter, ListSortDirection } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { BehaviorSubject, Observable, combineLatest, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
     protected pageSize = 10
   ) {
     this.dataFilter = new DataFilter();
-    this.dataFilter.sortColumn = `${this.sortColumn}.${this.sortDirection}`;
+    this.dataFilter.sortColumn = this.sortColumn;
     this.dataFilter.pageSize = this.pageSize;
     this.currentPage$ = new BehaviorSubject<PageEvent>({ pageIndex: 0, pageSize: this.pageSize } as PageEvent);
     this.currentSort$ = new BehaviorSubject<Sort>({ active: this.sortColumn, direction: this.sortDirection });
@@ -37,7 +37,8 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
       switchMap(() => {
         this.dataFilter.page = this.paginator.pageIndex;
         this.dataFilter.pageSize = this.paginator.pageSize;
-        this.dataFilter.sortColumn = `${this.sort.active}.${this.sort.direction}`;
+        this.dataFilter.sortColumn = this.sort.active;
+        this.dataFilter.sortDirection = this.sort.direction === 'asc' ? ListSortDirection.Ascending : ListSortDirection.Descending;
 
         return this.loadData(this.dataFilter);
       }),

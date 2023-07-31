@@ -1,0 +1,12 @@
+@use 'mixins' as *;
+
+.mat-mdc-table {
+  @include mat-table-columns((
+    name: (width: 15%),
+    region: (width: 10%),
+    subregion: (width: 15%),
+    continent: (width: 10%),
+    population: (width: 10%),
+    actions: (width: 5%)
+  ));
+}
