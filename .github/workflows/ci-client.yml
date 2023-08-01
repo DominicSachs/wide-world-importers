@@ -1,0 +1,29 @@
+name: Client CI
+on:
+  push:
+    branches: ['master']
+    paths:
+      - client/**
+  pull_request:
+    branches: ['master']
+    paths:
+      - client/**
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-build-
+      - name: npm install and npm run CI commands
+        working-directory: './client'
+        run: |
+          npm i
+          npm run test:ci
+          npm run build

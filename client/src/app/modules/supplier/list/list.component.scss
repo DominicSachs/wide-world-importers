@@ -1,4 +1,4 @@
-@use 'mixins' as *;
+@use 'src/styles/mixins' as *;
 
 .mat-mdc-table {
   @include mat-table-columns((
