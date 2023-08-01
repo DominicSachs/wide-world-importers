@@ -1,6 +1,6 @@
-@use 'variables' as *;
-@use 'material-theme' as *;
 @use '@angular/material' as mat;
+@use 'src/styles/variables' as *;
+@use 'src/styles/material-theme' as *;
 
 .mat-toolbar {
   height: $header-height;

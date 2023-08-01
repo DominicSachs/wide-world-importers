@@ -1,6 +1,6 @@
-@use 'mixins' as *;
 @use '@angular/material' as mat;
-@use 'material-theme' as *;
+@use 'src/styles/material-theme' as *;
+@use 'src/styles/mixins' as *;
 
 .mat-mdc-nav-list {
   background: mat.get-color-from-palette($primary, 100);
