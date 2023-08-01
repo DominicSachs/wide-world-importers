@@ -2,13 +2,13 @@ name: .NET
 
 on:
   push:
-    branches: ["master", "build/ci"]
-#    paths:
-#      - api/**
+    branches: ["master"]
+    paths:
+      - api/**
   pull_request:
     branches: ["master"]
-#    paths:
-#      - api/**
+    paths:
+      - api/**
 
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
