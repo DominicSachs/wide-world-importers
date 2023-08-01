@@ -29,7 +29,7 @@ public sealed class OrSpecification<T> : Specification<T>
         }
 
         var visitor = new SwapVisitor(left.Parameters[0], right.Parameters[0]);
-        var binaryExpression = Expression.OrElse(visitor.Visit(left.Body), right.Body);
+        var binaryExpression = Expression.OrElse(visitor.Visit(left.Body)!, right.Body);
 
         return Expression.Lambda<Func<T, bool>>(binaryExpression, right.Parameters);
     }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -15,5 +15,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WideWorldImporters.Application\WideWorldImporters.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>WideWorldImporters.Application.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
