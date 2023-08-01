@@ -1,9 +1,9 @@
-name: Angulaar
+name: Angular
 on:
   push:
-    branches: ["master", "build/ci"]
+    branches: ['master', 'build/ci']
   pull_request:
-    branches: ["master"]
+    branches: ['master']
   workflow_dispatch:
 jobs:
   build:
@@ -18,6 +18,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-build-
       - name: npm install and npm run CI commands
+        working-directory: './client'
         run: |
           npm i
           #npm run test
