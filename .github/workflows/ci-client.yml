@@ -1,9 +1,13 @@
-name: Angular
+name: Client CI
 on:
   push:
     branches: ['master', 'build/ci']
+    paths:
+      - client/**
   pull_request:
     branches: ['master']
+    paths:
+      - client/**
   workflow_dispatch:
 jobs:
   build:
@@ -21,5 +25,5 @@ jobs:
         working-directory: './client'
         run: |
           npm i
-          #npm run test
+          npm run test:ci
           npm run build
