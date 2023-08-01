@@ -1,7 +1,7 @@
 name: Client CI
 on:
   push:
-    branches: ['master', 'build/ci']
+    branches: ['master']
     paths:
       - client/**
   pull_request:
