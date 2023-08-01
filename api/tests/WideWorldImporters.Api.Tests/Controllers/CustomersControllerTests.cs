@@ -80,5 +80,4 @@ public sealed class CustomersControllerTests
 
         result.Should().BeOfType<OkResult>();
     }
-
 }

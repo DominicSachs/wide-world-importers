@@ -5,6 +5,16 @@ namespace WideWorldImporters.Domain.Models;
 
 public sealed class DataFilter
 {
+    public DataFilter() { }
+
+    public DataFilter(int page, int pageSize, string sortColumn, ListSortDirection sortDirection)
+    {
+        Page = page;
+        PageSize = pageSize;
+        SortColumn = sortColumn;
+        SortDirection = sortDirection;
+    }
+
     private SortMapStrategy? _strategy;
     private string _sortColumn = default!;
 
@@ -13,11 +23,9 @@ public sealed class DataFilter
         get => _strategy == null ? _sortColumn : _strategy.Map(_sortColumn);
         set => _sortColumn = value;
     }
-
-    public ListSortDirection SortDirection { get; set; }
-
-    public int Page { get; set; }
-    public int PageSize { get; set; } = 10;
+    public ListSortDirection SortDirection { get; init; }
+    public int Page { get; init; }
+    public int PageSize { get; init; } = 10;
     public int SkippedItems => Page * PageSize;
 
     public void SetSortStrategy(SortMapStrategy strategy)

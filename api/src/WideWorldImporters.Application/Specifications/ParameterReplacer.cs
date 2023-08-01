@@ -13,7 +13,7 @@ internal sealed class SwapVisitor : ExpressionVisitor
         _to = to;
     }
 
-    public override Expression Visit(Expression node)
+    public override Expression? Visit(Expression? node)
     {
         return node == _from ? _to : base.Visit(node);
     }

@@ -29,7 +29,7 @@ public sealed class AndSpecification<T> : Specification<T>
         }
 
         var visitor = new SwapVisitor(left.Parameters[0], right.Parameters[0]);
-        var binaryExpression = Expression.AndAlso(visitor.Visit(left.Body), right.Body);
+        var binaryExpression = Expression.AndAlso(visitor.Visit(left.Body)!, right.Body);
 
         return Expression.Lambda<Func<T, bool>>(binaryExpression, right.Parameters);
     }
