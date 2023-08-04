@@ -31,6 +31,7 @@ internal sealed class GetCountriesQueryHandler : IQueryHandlerAsync<GetCountries
                 c.Region,
                 c.Subregion,
                 c.Continent,
+                c.StateProvinces.Count(),
                 c.LatestRecordedPopulation
                 )
             )

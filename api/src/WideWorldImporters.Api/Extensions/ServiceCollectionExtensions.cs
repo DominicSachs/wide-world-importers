@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped(s =>
         {
-            var id = Guid.Empty; // Guid.Parse(principal.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var id = 1; // Guid.Parse(principal.FindFirstValue(JwtRegisteredClaimNames.Sub));
             var email = "";
 
             return new Context(id, email, new string[0]);

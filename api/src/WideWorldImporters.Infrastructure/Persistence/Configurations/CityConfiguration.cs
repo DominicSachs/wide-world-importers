@@ -11,6 +11,6 @@ internal sealed class CityConfiguration : IEntityTypeConfiguration<City>
         builder.ToTable("Cities", EntityConfigurationConstants.ApplicationSchemaName);
 
         builder.Property(p => p.Id).HasColumnName("CityID");
-        builder.Property(p => p.Name).HasColumnName("CityName");
+        builder.Property(p => p.Name).HasColumnName("CityName").IsRequired();
     }
 }

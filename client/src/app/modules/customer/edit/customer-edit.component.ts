@@ -6,12 +6,11 @@ import { CustomerService } from '@app/modules/customer/customer.service';
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  selector: 'app-customer-edit',
+  templateUrl: './customer-edit.component.html',
+  styleUrls: ['./customer-edit.component.scss']
 })
-export class
-CustomerDetailComponent implements OnInit {
+export class CustomerEditComponent implements OnInit {
   editForm: FormGroup;
   customer$!: Observable<CustomerEditResponse>;
 

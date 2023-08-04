@@ -25,7 +25,7 @@ public sealed class GetCountriesQueryHandlerTests : DbContextTestBase
     [Fact]
     public async Task List_Paged_Countries()
     {
-        var query = new GetCountriesQuery(new(Guid.Empty, "", null!), new() { Page = 0, PageSize = 2, SortColumn = nameof(Country.LatestRecordedPopulation), SortDirection = ListSortDirection.Descending });
+        var query = new GetCountriesQuery(new(1, "", null!), new() { Page = 0, PageSize = 2, SortColumn = nameof(Country.LatestRecordedPopulation), SortDirection = ListSortDirection.Descending });
 
         var result = await _sut.HandleAsync(query, CancellationToken.None);
 

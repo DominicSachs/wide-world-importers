@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AddressComponent } from '@app/modules/customer/detail/address/address.component';
+import { AddressComponent } from '@app/modules/customer/edit/address/address.component';
 import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('AddressComponent', () => {

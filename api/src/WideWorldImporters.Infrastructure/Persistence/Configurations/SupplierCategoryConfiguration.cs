@@ -11,6 +11,6 @@ internal sealed class SupplierCategoryConfiguration : IEntityTypeConfiguration<S
         builder.ToTable("SupplierCategories", EntityConfigurationConstants.PurchasingSchemaName);
 
         builder.Property(p => p.Id).HasColumnName("SupplierCategoryID");
-        builder.Property(p => p.Name).HasColumnName("SupplierCategoryName");
+        builder.Property(p => p.Name).HasColumnName("SupplierCategoryName").IsRequired();
     }
 }

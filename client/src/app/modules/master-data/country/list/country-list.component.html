@@ -30,6 +30,12 @@
         {{ t.continent }}
       </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="stateProvinceCount">
+      <mat-header-cell *matHeaderCellDef>State Count</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.stateProvinceCount }}
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="population">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Population</mat-header-cell>
       <mat-cell *matCellDef="let t">
@@ -39,8 +45,8 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let c">
-        <a mat-icon-button color="primary" [routerLink]="['/', 'suppliers', c.id]" title="Details">
-          <mat-icon>glyphicon-edit</mat-icon>
+        <a mat-icon-button color="primary" [routerLink]="[c.id]" title="Details">
+          <mat-icon>edit</mat-icon>
         </a>
       </mat-cell>
     </ng-container>

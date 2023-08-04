@@ -3,7 +3,7 @@ using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Application.Commands.Customers;
 
-public class UpdateCustomerCommand : Command
+public sealed class UpdateCustomerCommand : Command
 {
     public UpdateCustomerCommand(Context context, CustomerEditRequest request) : base(context)
     {

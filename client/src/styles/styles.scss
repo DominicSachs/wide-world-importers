@@ -14,6 +14,10 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 .no-select {
   -webkit-user-select: none;
   /* Safari */
@@ -27,6 +31,12 @@ body {
 .fx-row {
   display: flex;
   flex-direction: row;
+}
+
+.fx-align-center {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
 }
 
 .fx-gap10 {
