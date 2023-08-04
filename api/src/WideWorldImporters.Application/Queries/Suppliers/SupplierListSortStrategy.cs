@@ -4,7 +4,7 @@ using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Application.Queries.Suppliers;
 
-internal class SupplierListSortStrategy : SortMapStrategy
+internal sealed class SupplierListSortStrategy : SortMapStrategy
 {
     protected override void InitializeMap()
     {

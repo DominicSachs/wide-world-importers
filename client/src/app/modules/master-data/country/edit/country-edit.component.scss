@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  h2 {
+    margin: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 16px 16px;
+  }
+}

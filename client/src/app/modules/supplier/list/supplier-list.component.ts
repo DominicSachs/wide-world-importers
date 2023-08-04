@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-supplier-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  templateUrl: './supplier-list.component.html',
+  styleUrls: ['./supplier-list.component.scss']
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
   displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];

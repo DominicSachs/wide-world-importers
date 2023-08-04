@@ -1,6 +1,6 @@
 ﻿namespace WideWorldImporters.Infrastructure.Persistence.Configurations;
 
-internal class EntityConfigurationConstants
+internal static class EntityConfigurationConstants
 {
     internal const string SalesSchemaName = "Sales";
     internal const string ApplicationSchemaName = "Application";

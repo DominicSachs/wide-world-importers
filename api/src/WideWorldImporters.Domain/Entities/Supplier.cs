@@ -3,7 +3,7 @@
 public sealed class Supplier : BaseEntity
 {
     public string Name { get; set; } = default!;
-    public string Reference { get; set; } = default!;
+    public string? Reference { get; set; }
     public string PhoneNumber { get; set; } = default!;
     public string FaxNumber { get; set; } = default!;
     public int SupplierCategoryId { get; set; }

@@ -17,7 +17,7 @@ public sealed class CustomersControllerTests
         _commandDispatcher = Substitute.For<ICommandDispatcher>();
         _queryDispatcher = Substitute.For<IQueryDispatcher>();
 
-        _sut = new(new(Guid.NewGuid(), "test@test.com", null!), _queryDispatcher, _commandDispatcher);
+        _sut = new(new(1, "test@test.com", null!), _queryDispatcher, _commandDispatcher);
     }
 
     [Fact]

@@ -3,7 +3,7 @@ using WideWorldImporters.Domain.Entities;
 
 namespace WideWorldImporters.Application.Specifications.CustomerSpecifications;
 
-public class CustomerIdSpecification : Specification<Customer>
+public sealed class CustomerIdSpecification : Specification<Customer>
 {
     private readonly int _id;
 

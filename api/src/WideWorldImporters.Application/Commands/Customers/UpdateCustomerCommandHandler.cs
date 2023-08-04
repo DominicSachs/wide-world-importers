@@ -6,7 +6,7 @@ using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Application.Commands.Customers;
 
-internal class UpdateCustomerCommandHandler : ICommandHandlerAsync<UpdateCustomerCommand>
+internal sealed class UpdateCustomerCommandHandler : ICommandHandlerAsync<UpdateCustomerCommand>
 {
     private readonly IAppDbContext _context;
 

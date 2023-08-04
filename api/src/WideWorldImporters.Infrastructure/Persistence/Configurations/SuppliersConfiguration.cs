@@ -11,9 +11,10 @@ internal sealed class SuppliersConfiguration : IEntityTypeConfiguration<Supplier
         builder.ToTable("Suppliers", EntityConfigurationConstants.PurchasingSchemaName);
 
         builder.Property(p => p.Id).HasColumnName("SupplierID");
-        builder.Property(p => p.Name).HasColumnName("SupplierName");
-        builder.Property(p => p.PhoneNumber).IsRequired().HasMaxLength(20);
-        builder.Property(p => p.FaxNumber).IsRequired().HasMaxLength(20);
+        builder.Property(p => p.Name).HasColumnName("SupplierName").IsRequired();
+        builder.Property(p => p.Reference).HasColumnName("SupplierReference");
+        builder.Property(p => p.PhoneNumber).IsRequired().HasMaxLength(20).IsRequired();
+        builder.Property(p => p.FaxNumber).IsRequired().HasMaxLength(20).IsRequired();
 
         builder.OwnsOne(a => a.PostalAddress, address =>
         {

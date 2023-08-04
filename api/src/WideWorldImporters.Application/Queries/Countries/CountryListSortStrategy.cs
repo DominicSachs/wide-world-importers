@@ -4,7 +4,7 @@ using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Application.Queries.Countries;
 
-internal class CountryListSortStrategy : SortMapStrategy
+internal sealed class CountryListSortStrategy : SortMapStrategy
 {
     protected override void InitializeMap()
     {

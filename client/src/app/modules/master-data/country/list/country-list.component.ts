@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  templateUrl: './country-list.component.html',
+  styleUrls: ['./country-list.component.scss']
 })
 export class CountryListComponent extends BaseTableComponent<CountryListReponse> {
-  displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'population', 'actions'];
+  displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];
 
   constructor(private masterDataService: MasterDataService) {
     super('name', 'asc', 15);

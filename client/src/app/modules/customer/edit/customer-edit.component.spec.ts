@@ -4,25 +4,25 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
-import { CustomerDetailComponent } from '@app/modules/customer/detail/detail.component';
+import { CustomerEditComponent } from '@app/modules/customer/edit/customer-edit.component';
 import { of } from 'rxjs';
 
-describe('CustomerDetailComponent', () => {
-  let sut: CustomerDetailComponent;
-  let fixture: ComponentFixture<CustomerDetailComponent>;
+describe('CustomerEditComponent', () => {
+  let sut: CustomerEditComponent;
+  let fixture: ComponentFixture<CustomerEditComponent>;
   let router: Router;
   let service: CustomerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [CustomerDetailComponent],
+      declarations: [CustomerEditComponent],
       providers: [CustomerService]
     });
 
     router = TestBed.inject(Router);
     service = TestBed.inject(CustomerService);
-    fixture = TestBed.createComponent(CustomerDetailComponent);
+    fixture = TestBed.createComponent(CustomerEditComponent);
     sut = fixture.componentInstance;
     fixture.detectChanges();
   });
