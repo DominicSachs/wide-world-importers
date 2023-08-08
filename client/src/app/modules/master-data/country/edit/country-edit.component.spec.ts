@@ -61,9 +61,11 @@ describe('CountryEditComponent', () => {
     spyOn(service, 'getCountry').and.returnValue(of(mockResult));
     spyOn(sut.editForm, 'patchValue');
 
+    sut.id = 1;
     sut.ngOnInit();
     sut.country$.subscribe();
 
+    expect(service.getCountry).toHaveBeenCalledOnceWith(1);
     expect(sut.editForm.patchValue).toHaveBeenCalledTimes(1);
     expect(sut.states.length).toBe(1);
   }));
@@ -99,7 +101,7 @@ describe('CountryEditComponent', () => {
   });
 
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
-    spyOn(service, 'update').and.returnValue(of(void 0));
+    spyOn(service, 'saveCountry').and.returnValue(of(void 0));
     spyOn(router, 'navigateByUrl');
 
     const mockResult = {
@@ -117,18 +119,18 @@ describe('CountryEditComponent', () => {
     sut.id = 1;
     sut.save();
 
-    expect(service.update).toHaveBeenCalledWith({ ...mockResult, id: 1 });
+    expect(service.saveCountry).toHaveBeenCalledWith({ ...mockResult, id: 1 });
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/countries');
   }));
 
   it('save does not call masterDataService.update if form is invalid', () => {
-    spyOn(service, 'update');
+    spyOn(service, 'saveCountry');
 
     sut.ngOnInit();
     sut.editForm.controls['name'].setValue(null);
     sut.save();
 
-    expect(service.update).not.toHaveBeenCalled();
+    expect(service.saveCountry).not.toHaveBeenCalled();
   });
 
   it('cancel resets the edit form and navigates to list', () => {

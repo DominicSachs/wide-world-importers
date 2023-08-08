@@ -1,0 +1,14 @@
+@use 'src/styles/mixins' as *;
+
+.mat-mdc-table {
+  @include mat-table-columns((
+    state: (width: 25%),
+    country: (width: 25%),
+    population: (width: 10%),
+    actions: (width: 70px)
+  ));
+}
+
+.mat-mdc-raised-button {
+  width: 150px;
+}

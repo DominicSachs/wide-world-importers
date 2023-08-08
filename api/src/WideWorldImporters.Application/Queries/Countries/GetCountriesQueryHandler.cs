@@ -20,7 +20,7 @@ internal sealed class GetCountriesQueryHandler : IQueryHandlerAsync<GetCountries
         query.Filter.SetSortStrategy(new CountryListSortStrategy());
         var sortColumn = query.Filter.SortColumn ?? nameof(Country.Name);
 
-        var customers = await _context.Countries.AsNoTracking()
+        var countries = await _context.Countries.AsNoTracking()
             .OrderBy(sortColumn, query.Filter.SortDirection)
             .Skip(query.Filter.SkippedItems)
             .Take(query.Filter.PageSize)
@@ -39,6 +39,6 @@ internal sealed class GetCountriesQueryHandler : IQueryHandlerAsync<GetCountries
 
         var count = await _context.Countries.CountAsync(token);
 
-        return new(customers, count);
+        return new(countries, count);
     }
 }

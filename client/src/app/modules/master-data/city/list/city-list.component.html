@@ -1,0 +1,44 @@
+<div *ngIf="(data$ | async) || { items: [], count: 0 } as data" class="fx-column fx-gap10">
+  <a mat-raised-button routerLink="/settings/cities/0" class="fx-row">
+    <mat-icon color="primary">add_location</mat-icon>
+    <div>Add City</div>
+  </a>
+
+  <mat-table [dataSource]="data.items" matSort matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="sortChange($event)">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.name }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.state }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.country }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Population</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.population }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let c">
+        <a mat-icon-button color="primary" [routerLink]="[c.id]" title="Details">
+          <mat-icon>edit</mat-icon>
+        </a>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns" />
+    <mat-row *matRowDef="let row; columns: displayedColumns" />
+  </mat-table>
+  <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
+</div>

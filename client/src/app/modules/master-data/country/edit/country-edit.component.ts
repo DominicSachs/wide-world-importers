@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormArray, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
@@ -14,7 +14,7 @@ export class CountryEditComponent implements OnInit {
   editForm: FormGroup;
   country$!: Observable<CountryEditReponse>;
 
-  @Input()
+  @Input({ transform: numberAttribute })
   id = 0;
 
   constructor(private fb: UntypedFormBuilder, private masterDataService: MasterDataService, private router: Router) {
@@ -79,7 +79,7 @@ export class CountryEditComponent implements OnInit {
     }
 
     const request = { ...this.editForm.value, id: this.id } as CountryEditReponse;
-    this.masterDataService.update(request).subscribe(() => this.router.navigateByUrl('/settings/countries'));
+    this.masterDataService.saveCountry(request).subscribe(() => this.router.navigateByUrl('/settings/countries'));
   }
 
   cancel(): void {

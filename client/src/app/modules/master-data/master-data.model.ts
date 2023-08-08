@@ -26,3 +26,19 @@ export interface StateProvinces {
   salesTerritory: string;
   population?: number;
 }
+
+export interface CityListReponse {
+  id: number;
+  name: string;
+  state: string;
+  country: string;
+  population?: number;
+}
+
+export interface CityEditResponse {
+  id: number;
+  name: string;
+  population?: number;
+  countryId: number;
+  stateId: number;
+}

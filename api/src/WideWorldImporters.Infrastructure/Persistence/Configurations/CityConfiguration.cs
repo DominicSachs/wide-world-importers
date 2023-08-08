@@ -12,5 +12,6 @@ internal sealed class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.Property(p => p.Id).HasColumnName("CityID");
         builder.Property(p => p.Name).HasColumnName("CityName").IsRequired();
+        builder.Property(p => p.LastEditedById).HasColumnName("LastEditedBy");
     }
 }

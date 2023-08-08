@@ -1,0 +1,43 @@
+<form *ngIf="city$ | async as c" [formGroup]="editForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Country Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="fx-row fx-gap10">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" maxlength="60" />
+          <mat-error *ngIf="editForm.get('name')!.hasError('required')">Field ist mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Population</mat-label>
+          <input matInput formControlName="population" maxlength="60" />
+          <mat-error *ngIf="editForm.get('population')!.hasError('required')">Field ist mandatory.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="fx-row fx-gap10">
+        <ng-container >
+          <mat-form-field *ngIf="countries$ | async as countries">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="countryId">
+              <mat-option *ngFor="let c of countries" [value]="c.key">{{ c.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select formControlName="stateId">
+              <ng-container *ngIf="states$ | async as states">
+                <mat-option *ngFor="let s of states" [value]="s.key">{{ s.value }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

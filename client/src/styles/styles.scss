@@ -28,9 +28,17 @@ h1, h2, h3, h4, h5, h6 {
   user-select: none;
 }
 
-.fx-row {
+@mixin fx-core($direction) {
   display: flex;
-  flex-direction: row;
+  flex-direction: $direction;
+}
+
+.fx-row {
+  @include fx-core(row);
+}
+
+.fx-column {
+  @include fx-core(column);
 }
 
 .fx-align-center {
