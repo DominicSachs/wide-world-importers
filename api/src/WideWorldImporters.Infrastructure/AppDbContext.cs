@@ -11,6 +11,8 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Country> Countries { get; set; }
+    public DbSet<StateProvince> StateProvinces { get; set; }
+    public DbSet<City> Cities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

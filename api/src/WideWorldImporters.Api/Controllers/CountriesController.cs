@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Application.Commands.Countries;
 using WideWorldImporters.Application.Queries.Countries;
+using WideWorldImporters.Application.Queries.States;
 using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Api.Controllers;
@@ -27,10 +28,22 @@ public sealed class CountriesController : ControllerBase
         return _queryDispatcher.HandleAsync<GetCountriesQuery, PagedResult<CountryListResponse>>(new(_context, filter), token);
     }
 
+    [HttpGet("names")]
+    public Task<List<KeyValuePair<int, string>>> GetNames(CancellationToken token)
+    {
+        return _queryDispatcher.HandleAsync<GetCountryNamesQuery, List<KeyValuePair<int, string>>>(new(_context), token);
+    }
+
     [HttpGet("{id}")]
     public Task<CountryEditResponse> GetById(int id, CancellationToken token)
     {
         return _queryDispatcher.HandleAsync<GetCountryQuery, CountryEditResponse>(new(_context, id), token);
+    }
+
+    [HttpGet("{id}/states")]
+    public Task<List<KeyValuePair<int, string>>> GetCountryStates(int id, CancellationToken token)
+    {
+        return _queryDispatcher.HandleAsync<GetCountryStateNamesQuery, List<KeyValuePair<int, string>>>(new(_context, id), token);
     }
 
     [HttpPut("{id}")]

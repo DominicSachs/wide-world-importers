@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
@@ -14,7 +14,7 @@ export class CustomerEditComponent implements OnInit {
   editForm: FormGroup;
   customer$!: Observable<CustomerEditResponse>;
 
-  @Input()
+  @Input({ transform: numberAttribute })
   id = 0;
 
   constructor(private fb: UntypedFormBuilder, private router: Router, private customerService: CustomerService) {
