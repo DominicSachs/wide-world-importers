@@ -33,7 +33,7 @@ public abstract class DbContextTestBase : IDisposable
         await context.SaveChangesAsync();
     }
 
-    private AppDbContext CreateDbContext()
+    private protected AppDbContext CreateDbContext()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(_databaseName)
