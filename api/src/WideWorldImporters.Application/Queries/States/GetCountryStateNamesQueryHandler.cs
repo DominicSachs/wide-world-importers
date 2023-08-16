@@ -19,6 +19,7 @@ internal sealed class GetCountryStateNamesQueryHandler : IQueryHandlerAsync<GetC
 
         return _context.StateProvinces.AsNoTracking()
             .Where(expression)
+            .OrderBy(s => s.Name)
             .Select(s => new KeyValuePair<int, string>(s.Id, s.Name))
             .ToListAsync(token);
     }
