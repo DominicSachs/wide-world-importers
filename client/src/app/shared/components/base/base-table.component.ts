@@ -54,5 +54,11 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
     this.currentSort$.next(sort);
   }
 
+  reloadToFirstPage(): void {
+    this.currentPage$.value.pageIndex = 0;
+    this.paginator.pageIndex = 0;
+    this.currentPage$.next(this.currentPage$.value);
+  }
+
   protected abstract loadData(filter: DataFilter): Observable<PagedResponse<T>>;
 }

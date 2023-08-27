@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
@@ -100,24 +100,18 @@ describe('CityEditComponent', () => {
     spyOn(service, 'saveCity');
 
     sut.ngOnInit();
-    sut.editForm.controls['name'].setValue(null);
     sut.save();
 
     expect(service.saveCity).not.toHaveBeenCalled();
   });
 
   it('cancel resets the edit form and navigates to list', () => {
-    sut.editForm = new FormGroup({
-      name: new FormControl('test-name')
-    });
-
-    spyOn(sut.editForm, 'reset').and.callThrough();
     spyOn(router, 'navigateByUrl');
 
+    sut.editForm.controls.name.setValue('test-name');
     sut.cancel();
 
-    expect(sut.editForm.reset).toHaveBeenCalled();
-    expect(sut.editForm.controls['name'].value).toEqual(null);
+    expect(sut.editForm.controls.name.value).toEqual('');
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/cities');
   });
 });

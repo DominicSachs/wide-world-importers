@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { fakeAsync } from '@angular/core/testing';
 import { SupplierListReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { DataFilter } from '@app/shared/models/data-filter.model';
@@ -18,7 +19,7 @@ describe('SupplierService', () => {
     sut = new SupplierService(httpClient);
   });
 
-  it('gets a list of suppliers and sets the correct query string', done => {
+  it('gets a list of suppliers and sets the correct query string', fakeAsync(() => {
     const pagedResult = {
       items: [
         { id: 1, name: 'Supplier 1' },
@@ -32,10 +33,10 @@ describe('SupplierService', () => {
 
     spyOn(httpClient, 'get').and.returnValue(of(pagedResult));
 
-    sut.getSuppliers(filter).subscribe(result => {
-      expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/suppliers?${filter.toQueryString()}`);
-      expect(result.count).toBe(2);
-      done();
-    });
-  });
+    let result = {} as PagedResponse<SupplierListReponse>;
+    sut.getSuppliers(filter).subscribe(s => result = s);
+
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/suppliers?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
+    expect(result.count).toBe(2);
+  }));
 });
