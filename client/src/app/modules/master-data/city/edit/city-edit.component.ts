@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CityFormGroup } from '@app/modules/master-data/city/edit/city-form.model';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
@@ -16,19 +17,19 @@ export class CityEditComponent implements OnInit {
   readonly countries$: Observable<KeyValueItem<number, string>[]>;
   states$!: Observable<KeyValueItem<number, string>[]>;
   city$!: Observable<CityEditResponse>;
-  editForm: FormGroup;
+  editForm: CityFormGroup;
 
   @Input({ transform: numberAttribute })
   id = 0;
 
-  constructor(fb: UntypedFormBuilder, private masterDataService: MasterDataService, private router: Router) {
+  constructor(fb: FormBuilder, private masterDataService: MasterDataService, private router: Router) {
     this.countries$ = this.masterDataService.getCountryNames();
 
     this.editForm = fb.group({
-      name: ['', Validators.required],
-      population: [''],
-      countryId: ['', Validators.required],
-      stateId: ['', Validators.required]
+      name: fb.nonNullable.control('', Validators.required),
+      population: fb.control<number | null>(null),
+      countryId: fb.nonNullable.control(0, [Validators.required, Validators.min(1)]),
+      stateId: fb.nonNullable.control(0, [Validators.required, Validators.min(1)])
     });
 
     this.editForm.controls['countryId']!.valueChanges.subscribe(() => this.statesReloadSubject$.next());
@@ -53,7 +54,7 @@ export class CityEditComponent implements OnInit {
       return;
     }
 
-    const request = { ...this.editForm.value, id: this.id };
+    const request = { ...this.editForm.value, id: this.id } as CityEditResponse;
     this.masterDataService.saveCity(request).subscribe(() => this.router.navigateByUrl('/settings/cities'));
   }
 

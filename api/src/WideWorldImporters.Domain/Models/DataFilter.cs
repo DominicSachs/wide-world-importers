@@ -7,12 +7,13 @@ public sealed class DataFilter
 {
     public DataFilter() { }
 
-    public DataFilter(int page, int pageSize, string sortColumn, ListSortDirection sortDirection)
+    public DataFilter(int page, int pageSize, string sortColumn, ListSortDirection sortDirection, string? searchTerm)
     {
         Page = page;
         PageSize = pageSize;
         SortColumn = sortColumn;
         SortDirection = sortDirection;
+        SearchTerm = searchTerm;
     }
 
     private SortMapStrategy? _strategy;
@@ -27,6 +28,8 @@ public sealed class DataFilter
     public int Page { get; init; }
     public int PageSize { get; init; } = 10;
     public int SkippedItems => Page * PageSize;
+
+    public string? SearchTerm { get; init; }
 
     public void SetSortStrategy(SortMapStrategy strategy)
     {

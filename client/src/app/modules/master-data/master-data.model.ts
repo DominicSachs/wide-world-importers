@@ -38,7 +38,7 @@ export interface CityListReponse {
 export interface CityEditResponse {
   id: number;
   name: string;
-  population?: number;
+  population?: number | null;
   countryId: number;
   stateId: number;
 }

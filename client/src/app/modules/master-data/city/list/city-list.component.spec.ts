@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CityListComponent } from '@app/modules/master-data/city/list/city-list.component';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -12,7 +13,7 @@ describe('CityListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule],
+      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule],
       declarations: [CityListComponent],
       providers: [MasterDataService]
     });
@@ -30,5 +31,14 @@ describe('CityListComponent', () => {
     sut.ngAfterViewInit();
 
     expect(service.getCities).toHaveBeenCalledTimes(1);
+  }));
+
+  it('search value change loads data', fakeAsync(() => {
+    spyOn(sut, 'reloadToFirstPage');
+
+    sut.citySearch.setValue('test');
+    tick(410);
+
+    expect(sut.reloadToFirstPage).toHaveBeenCalledTimes(1);
   }));
 });

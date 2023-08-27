@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Application.Extensions;
+using WideWorldImporters.Application.Specifications.CountrySpecifications;
 using WideWorldImporters.Domain.Entities;
 using WideWorldImporters.Domain.Models;
 
@@ -19,8 +20,10 @@ internal sealed class GetCitiesQueryHandler : IQueryHandlerAsync<GetCitiesQuery,
     {
         query.Filter.SetSortStrategy(new CityListSortStrategy());
         var sortColumn = query.Filter.SortColumn ?? nameof(City.Name);
+        var expression = new CitySearchSpecification(query.Filter.SearchTerm!).ToExpression();
 
         var cities = await _context.Cities.AsNoTracking()
+            .Where(expression)
             .OrderBy(sortColumn, query.Filter.SortDirection)
             .Skip(query.Filter.SkippedItems)
             .Take(query.Filter.PageSize)
@@ -29,12 +32,11 @@ internal sealed class GetCitiesQueryHandler : IQueryHandlerAsync<GetCitiesQuery,
                 c.Name,
                 c.StateProvince.Name,
                 c.StateProvince.Country.Name,
-                c.LatestRecordedPopulation
-                )
+                c.LatestRecordedPopulation)
             )
             .ToListAsync(token);
 
-        var count = await _context.Cities.CountAsync(token);
+        var count = await _context.Cities.CountAsync(expression, token);
 
         return new(cities, count);
     }

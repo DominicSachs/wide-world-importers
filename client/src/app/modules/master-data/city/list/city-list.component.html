@@ -1,8 +1,14 @@
 <div *ngIf="(data$ | async) || { items: [], count: 0 } as data" class="fx-column fx-gap10">
-  <a mat-raised-button routerLink="/settings/cities/0" class="fx-row">
-    <mat-icon color="primary">add_location</mat-icon>
-    <div>Add City</div>
-  </a>
+  <div class="fx-row">
+    <a mat-raised-button routerLink="/settings/cities/0" class="fx-row">
+      <mat-icon color="primary">add_location</mat-icon>
+      <div>Add City</div>
+    </a>
+    <mat-form-field class="density-5" subscriptSizing="dynamic">
+      <input matInput [formControl]="citySearch" placeholder="Search by city name...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
 
   <mat-table [dataSource]="data.items" matSort matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="sortChange($event)">
     <ng-container matColumnDef="name">

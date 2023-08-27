@@ -36,7 +36,7 @@ describe('CustomerService', () => {
     let result = {} as PagedResponse<CustomerListReponse>;
     sut.getCustomers(filter).subscribe(c => result = c);
 
-    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/customers?${filter.toQueryString()}`);
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/customers?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
     expect(result.count).toBe(2);
   }));
 

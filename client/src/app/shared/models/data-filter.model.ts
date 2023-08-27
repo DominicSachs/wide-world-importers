@@ -5,6 +5,7 @@ export class DataFilter {
   sortDirection = ListSortDirection.Ascending;
   page = 0;
   pageSize = 10;
+  searchTerm: string | null = null;
 
   reset(): void {
     this.page = 0;
@@ -13,17 +14,21 @@ export class DataFilter {
   }
 
   toQueryString(): string {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('page', this.page.toString())
       .set('pageSize', this.pageSize.toString())
       .set('sortColumn', this.sortColumn)
       .set('sortDirection', this.sortDirection);
+
+      if (this.searchTerm) {
+        params = params.set('searchTerm', this.searchTerm);
+      }
 
     return params.toString();
   }
 }
 
 export enum ListSortDirection {
-    Ascending = 0,
-    Descending = 1
+  Ascending = 0,
+  Descending = 1
 }

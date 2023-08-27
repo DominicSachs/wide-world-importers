@@ -32,12 +32,13 @@ describe('MasterDataService', () => {
 
     const filter = new DataFilter();
     filter.sortColumn = 'name';
+    filter.searchTerm = 'Denver';
     spyOn(httpClient, 'get').and.returnValue(of(pagedResult));
 
     let result = {} as PagedResponse<CityListReponse>;
     sut.getCities(filter).subscribe(c => result = c);
 
-    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/cities?${filter.toQueryString()}`);
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/cities?page=0&pageSize=10&sortColumn=name&sortDirection=0&searchTerm=Denver`);
     expect(result.count).toBe(2);
   }));
 
@@ -86,7 +87,7 @@ describe('MasterDataService', () => {
     let result = {} as PagedResponse<CountryListReponse>;
     sut.getCountries(filter).subscribe(c => result = c);
 
-    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries?${filter.toQueryString()}`);
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
     expect(result.count).toBe(2);
   }));
 
