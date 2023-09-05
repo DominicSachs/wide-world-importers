@@ -1,3 +1,4 @@
+using HealthChecks.UI.Client;
 using WideWorldImporters.Api.Extensions;
 using WideWorldImporters.Application.Extensions;
 using WideWorldImporters.Application.Settings;
@@ -6,15 +7,16 @@ using WideWorldImporters.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 var appSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
+var connectionString = builder.Configuration.GetConnectionString("AppDbConnection")!;
 
 builder.Services.AddSingleton(appSettings);
 builder.Services.AddContext();
-
+builder.Services.AddHealthChecks().AddSqlServer(connectionString);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("AppDbConnection")!);
+builder.Services.AddInfrastructureServices(connectionString);
 
 var app = builder.Build();
 
@@ -30,6 +32,7 @@ if (!string.IsNullOrEmpty(appSettings.AllowedOrigins))
     app.UseCors(x => x.WithOrigins(origins).AllowAnyMethod().AllowCredentials().AllowAnyHeader());
 }
 
+app.MapHealthChecks("/health", new() { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse });
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
