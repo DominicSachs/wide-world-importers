@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 import { of } from 'rxjs';
 
 describe('CityEditComponent', () => {
@@ -17,8 +16,7 @@ describe('CityEditComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule],
-      declarations: [CityEditComponent],
+      imports: [CityEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule],
       providers: [MasterDataService]
     });
 

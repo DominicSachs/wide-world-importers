@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MasterDataComponent } from '@app/modules/master-data/master-data.component';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('MasterDataComponent', () => {
   let component: MasterDataComponent;
@@ -9,8 +8,7 @@ describe('MasterDataComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, RouterTestingModule.withRoutes([])],
-      declarations: [MasterDataComponent]
+      imports: [MasterDataComponent, RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(MasterDataComponent);
     component = fixture.componentInstance;

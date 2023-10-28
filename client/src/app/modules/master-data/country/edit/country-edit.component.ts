@@ -1,5 +1,12 @@
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
-import { FormArray, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -7,6 +14,9 @@ import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-edit',
+  standalone: true,
+  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, NgForOf, NgIf, ReactiveFormsModule],
+  providers: [MasterDataService],
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.scss']
 })

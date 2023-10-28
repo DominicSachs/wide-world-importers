@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { CountryEditComponent } from '@app/modules/master-data/country/edit/country-edit.component';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 import { of } from 'rxjs';
 
 describe('CountryEditComponent', () => {
@@ -16,8 +15,7 @@ describe('CountryEditComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule],
-      declarations: [CountryEditComponent],
+      imports: [CountryEditComponent, HttpClientTestingModule],
       providers: [MasterDataService]
     });
 

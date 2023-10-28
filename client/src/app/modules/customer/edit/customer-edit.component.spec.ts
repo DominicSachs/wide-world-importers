@@ -1,9 +1,15 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
+import { AddressComponent } from '@app/modules/customer/edit/address/address.component';
 import { CustomerEditComponent } from '@app/modules/customer/edit/customer-edit.component';
 import { of } from 'rxjs';
 
@@ -13,15 +19,19 @@ describe('CustomerEditComponent', () => {
   let router: Router;
   let service: CustomerService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [CustomerEditComponent],
-      providers: [CustomerService]
-    });
+  beforeEach(async () => {
+    service = {
+      getCustomer: () => of({} as CustomerEditResponse)
+    } as unknown as CustomerService;
+
+    await TestBed.configureTestingModule({
+      imports: [AddressComponent, CustomerEditComponent, HttpClientTestingModule, ReactiveFormsModule, AsyncPipe,  MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, NgIf],
+      providers: [{ provide: CustomerService, useValue: service }]
+    })
+    .compileComponents();
 
     router = TestBed.inject(Router);
-    service = TestBed.inject(CustomerService);
+    // service = TestBed.inject(CustomerService);
     fixture = TestBed.createComponent(CustomerEditComponent);
     sut = fixture.componentInstance;
     fixture.detectChanges();

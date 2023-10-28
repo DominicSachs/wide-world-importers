@@ -1,5 +1,13 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
 import { CityListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { BaseTableComponent } from '@app/shared/components/base/base-table.component';
@@ -11,6 +19,9 @@ import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 @UntilDestroy()
 @Component({
   selector: 'app-city-list',
+  standalone: true,
+  imports: [AsyncPipe, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule, NgIf, ReactiveFormsModule, RouterLink],
+  providers: [MasterDataService],
   templateUrl: './city-list.component.html',
   styleUrls: ['./city-list.component.scss']
 })

@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CountryListComponent } from '@app/modules/master-data/country/list/country-list.component';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('CountryListComponent', () => {
   let sut: CountryListComponent;
@@ -12,8 +11,7 @@ describe('CountryListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule],
-      declarations: [CountryListComponent],
+      imports: [CountryListComponent, HttpClientTestingModule, NoopAnimationsModule],
       providers: [MasterDataService]
     });
 

@@ -2,9 +2,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { CityListComponent } from '@app/modules/master-data/city/list/city-list.component';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('CityListComponent', () => {
   let sut: CityListComponent;
@@ -13,8 +13,7 @@ describe('CityListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule],
-      declarations: [CityListComponent],
+      imports: [CityListComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule, RouterTestingModule],
       providers: [MasterDataService]
     });
 

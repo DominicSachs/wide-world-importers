@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { CustomerListComponent } from '@app/modules/customer/list/customer-list.component';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('CustomerListComponent', () => {
   let sut: CustomerListComponent;
@@ -12,8 +11,7 @@ describe('CustomerListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MaterialModule, NoopAnimationsModule],
-      declarations: [CustomerListComponent],
+      imports: [CustomerListComponent, HttpClientTestingModule, NoopAnimationsModule],
       providers: [CustomerService]
     });
 
