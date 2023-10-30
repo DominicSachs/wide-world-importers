@@ -1,15 +1,10 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
-import { AddressComponent } from '@app/modules/customer/edit/address/address.component';
 import { CustomerEditComponent } from '@app/modules/customer/edit/customer-edit.component';
 import { of } from 'rxjs';
 
@@ -21,17 +16,24 @@ describe('CustomerEditComponent', () => {
 
   beforeEach(async () => {
     service = {
-      getCustomer: () => of({} as CustomerEditResponse)
+      getCustomer: () => of({} as CustomerEditResponse),
+      update: () => of(void 0)
     } as unknown as CustomerService;
 
     await TestBed.configureTestingModule({
-      imports: [AddressComponent, CustomerEditComponent, HttpClientTestingModule, ReactiveFormsModule, AsyncPipe,  MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, NgIf],
-      providers: [{ provide: CustomerService, useValue: service }]
+      imports: [CustomerEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
+    })
+    .overrideComponent(CustomerEditComponent, {
+      add: {
+        providers: [{ provide: CustomerService, useValue: service }]
+      },
+      remove: {
+        providers: [CustomerService]
+      }
     })
     .compileComponents();
 
     router = TestBed.inject(Router);
-    // service = TestBed.inject(CustomerService);
     fixture = TestBed.createComponent(CustomerEditComponent);
     sut = fixture.componentInstance;
     fixture.detectChanges();

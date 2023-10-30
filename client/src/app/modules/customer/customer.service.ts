@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CustomerService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getCustomers(filter: DataFilter): Observable<PagedResponse<CustomerListReponse>> {
     return this.httpClient.get<PagedResponse<CustomerListReponse>>(`${environment.apiUrl}/customers?${filter.toQueryString()}`);

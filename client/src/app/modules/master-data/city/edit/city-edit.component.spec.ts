@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
+import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { of } from 'rxjs';
 
 describe('CityEditComponent', () => {
@@ -14,13 +15,27 @@ describe('CityEditComponent', () => {
   let router: Router;
   let service: MasterDataService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [CityEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule],
-      providers: [MasterDataService]
-    });
+  beforeEach(async () => {
+    service = {
+      getCountryNames: () => of([] as KeyValueItem<number, string>[]),
+      getStateNamesForCountry: () => of([] as KeyValueItem<number, string>[]),
+      getCity: () => of({} as CityEditResponse),
+      saveCity: () => of(void 0)
+    } as unknown as MasterDataService;
 
-    service = TestBed.inject(MasterDataService);
+    await TestBed.configureTestingModule({
+      imports: [CityEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
+    })
+    .overrideComponent(CityEditComponent, {
+      add: {
+        providers: [{ provide: MasterDataService, useValue: service }]
+      },
+      remove: {
+        providers: [MasterDataService]
+      }
+    })
+    .compileComponents();
+
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CityEditComponent);
     sut = fixture.componentInstance;

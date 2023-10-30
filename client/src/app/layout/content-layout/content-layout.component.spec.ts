@@ -7,8 +7,8 @@ describe('ContentLayoutComponent', () => {
   let component: ContentLayoutComponent;
   let fixture: ComponentFixture<ContentLayoutComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [ContentLayoutComponent, NoopAnimationsModule, RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(ContentLayoutComponent);

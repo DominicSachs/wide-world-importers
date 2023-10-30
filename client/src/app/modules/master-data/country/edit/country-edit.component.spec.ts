@@ -13,13 +13,26 @@ describe('CountryEditComponent', () => {
   let router: Router;
   let service: MasterDataService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    service = {
+      getCountry: () => of({}),
+      saveCountry: () => of(void 0)
+    } as unknown as MasterDataService;
+
+    await TestBed.configureTestingModule({
       imports: [CountryEditComponent, HttpClientTestingModule],
       providers: [MasterDataService]
-    });
+    })
+    .overrideComponent(CountryEditComponent, {
+      add: {
+        providers: [{ provide: MasterDataService, useValue: service }]
+      },
+      remove: {
+        providers: [MasterDataService]
+      }
+    })
+    .compileComponents();
 
-    service = TestBed.inject(MasterDataService);
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CountryEditComponent);
     sut = fixture.componentInstance;

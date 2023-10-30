@@ -47,10 +47,7 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customer$ = this.customerService.getCustomer(this.id).pipe(tap(c => {
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> tap');
-      this.editForm.patchValue(c);
-    }));
+    this.customer$ = this.customerService.getCustomer(this.id).pipe(tap(c => this.editForm.patchValue(c)));
   }
 
   save(): void {

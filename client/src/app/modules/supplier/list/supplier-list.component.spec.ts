@@ -8,8 +8,8 @@ describe('SupplierListComponent', () => {
   let component: SupplierListComponent;
   let fixture: ComponentFixture<SupplierListComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, NoopAnimationsModule, SupplierListComponent],
       providers: [SupplierService]
     });

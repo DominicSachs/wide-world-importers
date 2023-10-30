@@ -6,8 +6,8 @@ describe('MasterDataComponent', () => {
   let component: MasterDataComponent;
   let fixture: ComponentFixture<MasterDataComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [MasterDataComponent, RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(MasterDataComponent);
