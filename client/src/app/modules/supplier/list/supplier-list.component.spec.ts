@@ -3,16 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SupplierListComponent } from '@app/modules/supplier/list/supplier-list.component';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 
 describe('SupplierListComponent', () => {
   let component: SupplierListComponent;
   let fixture: ComponentFixture<SupplierListComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule, NoopAnimationsModule],
-      declarations: [SupplierListComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, NoopAnimationsModule, SupplierListComponent],
       providers: [SupplierService]
     });
     fixture = TestBed.createComponent(SupplierListComponent);

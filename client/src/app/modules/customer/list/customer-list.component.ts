@@ -1,4 +1,10 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
 import { CustomerListReponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { BaseTableComponent } from '@app/shared/components/base/base-table.component';
@@ -8,6 +14,9 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
+  standalone: true,
+  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, NgIf, RouterLink],
+  providers: [CustomerService],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss']
 })

@@ -5,9 +5,9 @@ describe('OrderListComponent', () => {
   let component: OrderListComponent;
   let fixture: ComponentFixture<OrderListComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [OrderListComponent]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [OrderListComponent]
     });
     fixture = TestBed.createComponent(OrderListComponent);
     component = fixture.componentInstance;

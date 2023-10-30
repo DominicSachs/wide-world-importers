@@ -1,12 +1,21 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
+import { AddressComponent } from '@app/modules/customer/edit/address/address.component';
 import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-customer-edit',
+  standalone: true,
+  imports: [AddressComponent, AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, NgIf, ReactiveFormsModule],
+  providers: [CustomerService],
   templateUrl: './customer-edit.component.html',
   styleUrls: ['./customer-edit.component.scss']
 })

@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
@@ -13,15 +14,26 @@ describe('CustomerEditComponent', () => {
   let router: Router;
   let service: CustomerService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [CustomerEditComponent],
-      providers: [CustomerService]
-    });
+  beforeEach(async () => {
+    service = {
+      getCustomer: () => of({} as CustomerEditResponse),
+      update: () => of(void 0)
+    } as unknown as CustomerService;
+
+    await TestBed.configureTestingModule({
+      imports: [CustomerEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
+    })
+    .overrideComponent(CustomerEditComponent, {
+      add: {
+        providers: [{ provide: CustomerService, useValue: service }]
+      },
+      remove: {
+        providers: [CustomerService]
+      }
+    })
+    .compileComponents();
 
     router = TestBed.inject(Router);
-    service = TestBed.inject(CustomerService);
     fixture = TestBed.createComponent(CustomerEditComponent);
     sut = fixture.componentInstance;
     fixture.detectChanges();

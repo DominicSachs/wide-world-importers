@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { CountryEditComponent } from '@app/modules/master-data/country/edit/country-edit.component';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { MaterialModule } from '@app/shared/modules/material-module/material.module';
 import { of } from 'rxjs';
 
 describe('CountryEditComponent', () => {
@@ -14,14 +13,26 @@ describe('CountryEditComponent', () => {
   let router: Router;
   let service: MasterDataService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule],
-      declarations: [CountryEditComponent],
-      providers: [MasterDataService]
-    });
+  beforeEach(async () => {
+    service = {
+      getCountry: () => of({}),
+      saveCountry: () => of(void 0)
+    } as unknown as MasterDataService;
 
-    service = TestBed.inject(MasterDataService);
+    await TestBed.configureTestingModule({
+      imports: [CountryEditComponent, HttpClientTestingModule],
+      providers: [MasterDataService]
+    })
+    .overrideComponent(CountryEditComponent, {
+      add: {
+        providers: [{ provide: MasterDataService, useValue: service }]
+      },
+      remove: {
+        providers: [MasterDataService]
+      }
+    })
+    .compileComponents();
+
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CountryEditComponent);
     sut = fixture.componentInstance;
