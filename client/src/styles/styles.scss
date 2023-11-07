@@ -1,6 +1,18 @@
 @use 'mat-card' as *;
 @use 'mat-form' as *;
 @use 'mat-table' as *;
+@use './theme/light';
+
+@include mat.core();
+
+@include mat.core-theme(light.$my-app-light-theme);
+@include mat.button-theme(light.$my-app-light-theme);
+@include mat.card-theme(light.$my-app-light-theme);
+@include mat.form-field-theme(light.$my-app-light-theme);
+@include mat.icon-theme(light.$my-app-light-theme);
+@include mat.input-theme(light.$my-app-light-theme);
+@include mat.table-theme(light.$my-app-light-theme);
+@include mat.toolbar-theme(light.$my-app-light-theme);
 
 html,
 body {
