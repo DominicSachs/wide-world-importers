@@ -1,5 +1,7 @@
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using WideWorldImporters.Api.Extensions;
+using WideWorldImporters.Api.Hosting;
 using WideWorldImporters.Application.Extensions;
 using WideWorldImporters.Application.Settings;
 using WideWorldImporters.Infrastructure.Extensions;
@@ -32,9 +34,11 @@ if (!string.IsNullOrEmpty(appSettings.AllowedOrigins))
     app.UseCors(x => x.WithOrigins(origins).AllowAnyMethod().AllowCredentials().AllowAnyHeader());
 }
 
-app.MapHealthChecks("/health", new() { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse });
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHealthChecks("/health", new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse })
+   .AddEndpointFilter(new ApiKeyEndpointFilter(builder.Configuration["AppSettings:ApiKeyHealthCheck"]!));
 
 app.Run();
