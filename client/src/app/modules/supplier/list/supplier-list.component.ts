@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-supplier-list',
   standalone: true,
-  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, NgIf, RouterLink],
+  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, RouterLink],
   providers: [SupplierService],
   templateUrl: './supplier-list.component.html',
   styleUrls: ['./supplier-list.component.scss']

@@ -1,4 +1,5 @@
-<form *ngIf="country$ | async as c" [formGroup]="editForm">
+@if (country$ | async; as c) {
+<form [formGroup]="editForm">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Country Details</mat-card-title>
@@ -8,34 +9,46 @@
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" maxlength="60" />
-          <mat-error *ngIf="editForm.get('name')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('name')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Formal Name</mat-label>
           <input matInput formControlName="formalName" maxlength="60" />
-          <mat-error *ngIf="editForm.get('formalName')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('formalName')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Population</mat-label>
           <input matInput formControlName="population" maxlength="60" />
-          <mat-error *ngIf="editForm.get('population')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('population')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
       </div>
       <div class="fx-row fx-gap10">
         <mat-form-field>
           <mat-label>Region</mat-label>
           <input matInput formControlName="region" maxlength="60" />
-          <mat-error *ngIf="editForm.get('region')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('region')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Subregion</mat-label>
           <input matInput formControlName="subregion" maxlength="60" />
-          <mat-error *ngIf="editForm.get('subregion')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('subregion')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Continent</mat-label>
           <input matInput formControlName="continent" maxlength="60" />
-          <mat-error *ngIf="editForm.get('continent')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('continent')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
       </div>
       <mat-accordion>
@@ -48,7 +61,7 @@
             <mat-icon>add</mat-icon>
           </button>
           <ng-container formArrayName="states">
-            <ng-container *ngFor="let s of states.controls; let i = index">
+            @for(s of states.controls; track s.value; let i = $index) {
               <div [formGroupName]="i" class="fx-row fx-gap10" ngClass="{'new-state: s.id === 0'}">
                 <mat-form-field style="width: 40%">
                   <mat-label>Name</mat-label>
@@ -70,7 +83,7 @@
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
-            </ng-container>
+            }
           </ng-container>
         </mat-expansion-panel>
       </mat-accordion>
@@ -81,3 +94,4 @@
     </mat-card-actions>
   </mat-card>
 </form>
+}
