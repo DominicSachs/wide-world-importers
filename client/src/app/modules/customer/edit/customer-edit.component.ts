@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +14,7 @@ import { Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-customer-edit',
   standalone: true,
-  imports: [AddressComponent, AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, NgIf, ReactiveFormsModule],
+  imports: [AddressComponent, AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
   providers: [CustomerService],
   templateUrl: './customer-edit.component.html',
   styleUrls: ['./customer-edit.component.scss']

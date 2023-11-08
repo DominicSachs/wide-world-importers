@@ -1,4 +1,5 @@
-<form *ngIf="city$ | async as c" [formGroup]="editForm">
+@if (city$ | async; as c) {
+  <form [formGroup]="editForm">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Country Details</mat-card-title>
@@ -8,28 +9,38 @@
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" maxlength="60" />
-          <mat-error *ngIf="editForm.get('name')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('name')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Population</mat-label>
           <input matInput formControlName="population" maxlength="60" />
-          <mat-error *ngIf="editForm.get('population')!.hasError('required')">Field ist mandatory.</mat-error>
+          @if (editForm.get('population')!.hasError('required')) {
+          <mat-error>Field ist mandatory.</mat-error>
+          }
         </mat-form-field>
       </div>
       <div class="fx-row fx-gap10">
         <ng-container >
-          <mat-form-field *ngIf="countries$ | async as countries">
+          @if (countries$ | async; as countries) {
+          <mat-form-field>
             <mat-label>Country</mat-label>
             <mat-select formControlName="countryId">
-              <mat-option *ngFor="let c of countries" [value]="c.key">{{ c.value }}</mat-option>
+              @for (c of countries; track c) {
+              <mat-option [value]="c.key">{{ c.value }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
+          }
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select formControlName="stateId">
-              <ng-container *ngIf="states$ | async as states">
-                <mat-option *ngFor="let s of states" [value]="s.key">{{ s.value }}</mat-option>
-              </ng-container>
+              @if (states$ | async; as states) {
+                @for (s of states; track s) {
+                <mat-option [value]="s.key">{{ s.value }}</mat-option>
+                }
+              }
             </mat-select>
           </mat-form-field>
         </ng-container>
@@ -41,3 +52,4 @@
     </mat-card-actions>
   </mat-card>
 </form>
+}

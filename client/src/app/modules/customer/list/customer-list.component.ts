@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-customer-list',
   standalone: true,
-  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, NgIf, RouterLink],
+  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, RouterLink],
   providers: [CustomerService],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss']
