@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'app-city-list',
   standalone: true,
-  imports: [AsyncPipe, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule, NgIf, ReactiveFormsModule, RouterLink],
+  imports: [AsyncPipe, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule, ReactiveFormsModule, RouterLink],
   providers: [MasterDataService],
   templateUrl: './city-list.component.html',
   styleUrls: ['./city-list.component.scss']

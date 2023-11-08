@@ -1,4 +1,5 @@
-<div *ngIf="(data$ | async) || { items: [], count: 0 } as data" class="fx-column fx-gap10">
+@if ((data$ | async) || { items: [], count: 0 }; as data) {
+  <div class="fx-column fx-gap10">
   <div class="fx-row">
     <a mat-raised-button routerLink="/settings/cities/0" class="fx-row">
       <mat-icon color="primary">add_location</mat-icon>
@@ -48,3 +49,4 @@
   </mat-table>
   <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
 </div>
+}

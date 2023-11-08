@@ -1,4 +1,4 @@
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +15,7 @@ import { Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, NgForOf, NgIf, ReactiveFormsModule],
+  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule],
   providers: [MasterDataService],
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.scss']

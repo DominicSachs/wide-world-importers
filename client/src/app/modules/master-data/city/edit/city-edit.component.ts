@@ -1,4 +1,4 @@
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,7 @@ import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 @Component({
   selector: 'app-city-edit',
   standalone: true,
-  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, NgForOf, NgIf, ReactiveFormsModule],
+  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
   providers: [MasterDataService],
   templateUrl: './city-edit.component.html',
   styleUrls: ['./city-edit.component.scss']
