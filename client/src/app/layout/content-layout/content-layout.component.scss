@@ -1,11 +1,14 @@
-@use '@angular/material' as mat;
 @use 'src/styles/variables' as *;
-@use 'src/styles/material-theme' as *;
 
 .mat-toolbar {
   height: $header-height;
   h1 {
     margin: 0;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+    cursor: pointer;
   }
 }
 
@@ -17,10 +20,13 @@ $sidebar-width: 90px;
 mat-sidenav-container {
   flex: 1;
   min-height: calc(100% - $header-height);
-  background: mat.get-color-from-palette($primary, 50);
 
   mat-sidenav {
     width: $sidebar-width;
+
+    &.mat-drawer-side {
+      border-right: none;
+    }
   }
 
   mat-sidenav-content {
