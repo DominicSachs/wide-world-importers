@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+@use '../variables';
+
+$my-app-light-primary: mat.define-palette(mat.$deep-purple-palette);
+$my-app-light-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
+$my-app-light-warn: mat.define-palette(mat.$red-palette);
+
+$theme-typography: mat.define-typography-config(
+  $font-family: variables.$font-family,
+  $body-1: mat.define-typography-level(16px, $line-height: 24px, $font-weight: 400, $letter-spacing: normal),
+  $button: mat.define-typography-level(14px, $font-weight: 500, $letter-spacing: normal),
+);
+
+$my-app-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-app-light-primary,
+      accent: $my-app-light-accent,
+      warn: $my-app-light-warn,
+    ),
+    typography: $theme-typography
+  )
+);
