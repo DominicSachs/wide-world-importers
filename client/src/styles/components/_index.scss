@@ -1,0 +1,7 @@
+@use '../../app/layout/navigation-menu/navigation-menu.component-theme' as nav;
+@use 'mat-table' as table;
+
+@mixin theme($theme) {
+  @include nav.theme($theme);
+  @include table.theme($theme);
+}

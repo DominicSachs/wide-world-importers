@@ -45,8 +45,8 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let c">
-        <a mat-icon-button color="primary" [routerLink]="[c.id]" title="Details">
-          <mat-icon>edit</mat-icon>
+        <a mat-icon-button [routerLink]="[c.id]" title="Details">
+          <mat-icon color="primary">edit</mat-icon>
         </a>
       </mat-cell>
     </ng-container>
