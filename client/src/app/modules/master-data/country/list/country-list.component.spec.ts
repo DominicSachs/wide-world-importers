@@ -16,7 +16,7 @@ describe('CountryListComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [CountryListComponent, HttpClientTestingModule, NoopAnimationsModule]
+      imports: [HttpClientTestingModule, NoopAnimationsModule]
     })
     .overrideComponent(CountryListComponent, {
       add: {

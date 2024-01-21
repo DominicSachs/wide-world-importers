@@ -8,6 +8,7 @@
 
 @include mat.core-theme(light.$my-app-light-theme);
 @include mat.button-theme(light.$my-app-light-theme);
+@include mat.icon-button-theme(light.$my-app-light-theme);
 @include mat.card-theme(light.$my-app-light-theme);
 @include mat.form-field-theme(light.$my-app-light-theme);
 @include mat.icon-theme(light.$my-app-light-theme);
@@ -18,6 +19,7 @@
 @include mat.paginator-theme(light.$my-app-light-theme);
 @include mat.sidenav-theme(light.$my-app-light-theme);
 @include mat.select-theme(light.$my-app-light-theme);
+@include mat.sort-theme(light.$my-app-light-theme);
 @include mat.toolbar-theme(light.$my-app-light-theme);
 @include mat.tooltip-theme(light.$my-app-light-theme);
 @include components.theme(light.$my-app-light-theme);

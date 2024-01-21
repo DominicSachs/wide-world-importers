@@ -16,7 +16,7 @@ describe('CustomerListComponent', () => {
     } as unknown as CustomerService;
 
     await TestBed.configureTestingModule({
-      imports: [CustomerListComponent, HttpClientTestingModule, NoopAnimationsModule]
+      imports: [HttpClientTestingModule, NoopAnimationsModule]
     })
     .overrideComponent(CustomerListComponent, {
       add: {

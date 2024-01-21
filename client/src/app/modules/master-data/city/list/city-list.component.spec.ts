@@ -18,7 +18,7 @@ describe('CityListComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [CityListComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule, RouterTestingModule]
+      imports: [HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule, RouterTestingModule]
     })
     .overrideComponent(CityListComponent, {
       add: {

@@ -20,7 +20,7 @@ describe('CountryEditComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [CountryEditComponent, HttpClientTestingModule],
+      imports: [HttpClientTestingModule],
       providers: [MasterDataService]
     })
     .overrideComponent(CountryEditComponent, {

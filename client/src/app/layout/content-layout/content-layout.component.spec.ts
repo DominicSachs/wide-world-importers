@@ -9,7 +9,7 @@ describe('ContentLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContentLayoutComponent, NoopAnimationsModule, RouterTestingModule.withRoutes([])]
+      imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(ContentLayoutComponent);
     component = fixture.componentInstance;

@@ -21,7 +21,7 @@ describe('CustomerEditComponent', () => {
     } as unknown as CustomerService;
 
     await TestBed.configureTestingModule({
-      imports: [CustomerEditComponent, HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
+      imports: [HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
     })
     .overrideComponent(CustomerEditComponent, {
       add: {

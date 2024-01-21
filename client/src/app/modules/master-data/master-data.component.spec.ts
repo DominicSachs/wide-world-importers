@@ -8,7 +8,7 @@ describe('MasterDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MasterDataComponent, RouterTestingModule.withRoutes([])]
+      imports: [RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(MasterDataComponent);
     component = fixture.componentInstance;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabLink, MatTabNav, MatTabNavPanel } from '@angular/material/tabs';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [MatTabsModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [MatTabLink, MatTabNav, MatTabNavPanel, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './master-data.component.html',
   styleUrls: ['./master-data.component.scss']
 })

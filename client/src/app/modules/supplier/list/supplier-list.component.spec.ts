@@ -10,7 +10,7 @@ describe('SupplierListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, SupplierListComponent],
+      imports: [HttpClientTestingModule, NoopAnimationsModule],
       providers: [SupplierService]
     });
     fixture = TestBed.createComponent(SupplierListComponent);

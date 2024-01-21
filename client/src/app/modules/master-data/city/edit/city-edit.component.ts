@@ -1,11 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatInput } from '@angular/material/input';
+import { MatError, MatFormField, MatLabel, MatOption, MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { CityFormGroup } from '@app/modules/master-data/city/edit/city-form.model';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
@@ -16,7 +15,22 @@ import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 @Component({
   selector: 'app-city-edit',
   standalone: true,
-  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
+  imports: [
+    AsyncPipe,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatError,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
+  ],
   providers: [MasterDataService],
   templateUrl: './city-edit.component.html',
   styleUrls: ['./city-edit.component.scss']
