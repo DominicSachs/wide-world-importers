@@ -1,6 +1,6 @@
 <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-  @for(i of menuItems; track i.key) {
-  <a mat-tab-link [routerLink]="i.value" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{ i.key }}</a>
+  @for (i of menuItems; track i.key) {
+    <a mat-tab-link [routerLink]="i.value" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{ i.key }}</a>
   }
 </nav>
 <mat-tab-nav-panel #tabPanel>

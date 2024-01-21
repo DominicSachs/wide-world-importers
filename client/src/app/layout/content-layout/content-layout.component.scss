@@ -2,8 +2,13 @@
 
 .mat-toolbar {
   height: $header-height;
-  h1 {
-    margin: 0;
+  a {
+    color: #fff;
+    text-decoration: none;
+
+    h1 {
+      margin: 0;
+    }
   }
 
   .theme-toggle {

@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
 })

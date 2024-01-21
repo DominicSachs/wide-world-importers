@@ -6,9 +6,7 @@ describe('NavigationMenuComponent', () => {
   let fixture: ComponentFixture<NavigationMenuComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [NavigationMenuComponent]
-    });
+    await TestBed.configureTestingModule({ });
 
     fixture = TestBed.createComponent(NavigationMenuComponent);
     testObject = fixture.componentInstance;

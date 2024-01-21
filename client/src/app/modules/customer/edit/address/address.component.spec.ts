@@ -9,7 +9,7 @@ describe('AddressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddressComponent, NoopAnimationsModule, ReactiveFormsModule]
+      imports: [NoopAnimationsModule, ReactiveFormsModule]
     });
     fixture = TestBed.createComponent(AddressComponent);
     component = fixture.componentInstance;

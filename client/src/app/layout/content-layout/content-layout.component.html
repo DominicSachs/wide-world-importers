@@ -1,8 +1,8 @@
 <div class="app-container">
   <mat-toolbar color="primary" class="app-toolbar">
-    <a mat-button routerLink="/home"><h1>Wide World Importers</h1></a>
+    <a routerLink="/home"><h1>Wide World Importers</h1></a>
     <a mat-icon-button (click)="toggleDarkTheme()" class="theme-toggle fx-row" aria-label="Toggle Dark Theme">
-      <mat-icon color="accent">{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
+      <mat-icon color="accent">{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
     </a>
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">

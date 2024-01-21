@@ -1,12 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, numberAttribute } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -15,7 +15,26 @@ import { Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [AsyncPipe, MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule],
+  imports: [
+    AsyncPipe,
+    MatAccordion,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardHeader,
+    MatCardContent,
+    MatCardTitle,
+    MatError,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule],
   providers: [MasterDataService],
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.scss']

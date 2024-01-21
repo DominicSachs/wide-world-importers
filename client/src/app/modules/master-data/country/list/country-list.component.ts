@@ -1,10 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { MAT_TABLE } from '@app/import-groups';
 import { CountryListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { BaseTableComponent } from '@app/shared/components/base/base-table.component';
@@ -15,7 +13,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [AsyncPipe, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, RouterLink],
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
   providers: [MasterDataService],
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss']

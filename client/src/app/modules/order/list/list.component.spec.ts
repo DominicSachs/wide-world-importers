@@ -6,9 +6,7 @@ describe('OrderListComponent', () => {
   let fixture: ComponentFixture<OrderListComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [OrderListComponent]
-    });
+    await TestBed.configureTestingModule({ });
     fixture = TestBed.createComponent(OrderListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
