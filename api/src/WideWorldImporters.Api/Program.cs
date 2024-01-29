@@ -9,9 +9,13 @@ using WideWorldImporters.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 var appSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
+var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>()!;
+
 var connectionString = builder.Configuration.GetConnectionString("AppDbConnection")!;
 
 builder.Services.AddSingleton(appSettings);
+builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddAuthenticationAndAuthorization(jwtSettings);
 builder.Services.AddContext();
 builder.Services.AddHealthChecks().AddSqlServer(connectionString);
 builder.Services.AddControllers();
@@ -36,6 +40,7 @@ if (!string.IsNullOrEmpty(appSettings.AllowedOrigins))
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health", new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse })

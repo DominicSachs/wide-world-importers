@@ -1,0 +1,26 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="fx-column">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <div class="mat-headline">Please login</div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="Email" aria-label="Email" formControlName="email" />
+        <mat-hint>kaylaw&#64;wideworldimporters.com</mat-hint>
+        <!-- <mat-error [input]="email" [group]="loginForm" appFieldError="invalid"> </mat-error> -->
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-icon matPrefix>vpn_key</mat-icon>
+        <input matInput placeholder="Password" aria-label="Password" type="password" formControlName="password" #password />
+        <mat-error [input]="password" [group]="loginForm" [appFieldError]="['required', 'minlength', 'maxlength']"> </mat-error>
+      </mat-form-field> -->
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- <div *ngIf="loginError" class="mat-caption error">{{ loginError }}</div> -->
+      <div class="flex-spacer"></div>
+      <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

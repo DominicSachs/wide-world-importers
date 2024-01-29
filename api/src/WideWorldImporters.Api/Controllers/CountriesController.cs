@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Application.Commands.Countries;
@@ -8,7 +9,8 @@ using WideWorldImporters.Domain.Models;
 namespace WideWorldImporters.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
+[Authorize]
 public sealed class CountriesController : ControllerBase
 {
     private readonly Context _context;
