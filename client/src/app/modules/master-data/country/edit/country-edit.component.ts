@@ -13,8 +13,10 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-edit',
   standalone: true,
+  selector: 'app-edit',
+  templateUrl: './country-edit.component.html',
+  styleUrls: ['./country-edit.component.scss'],
   imports: [
     AsyncPipe,
     MatAccordion,
@@ -35,9 +37,7 @@ import { Observable, tap } from 'rxjs';
     MatInput,
     MatLabel,
     ReactiveFormsModule],
-  providers: [MasterDataService],
-  templateUrl: './country-edit.component.html',
-  styleUrls: ['./country-edit.component.scss']
+  providers: [MasterDataService]
 })
 export class CountryEditComponent implements OnInit {
   editForm: FormGroup;

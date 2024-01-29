@@ -13,8 +13,8 @@ import { filter, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-login',
   standalone: true,
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatError, MatFormField, MatHint, MatIcon, MatInput, ReactiveFormsModule]

@@ -58,7 +58,7 @@ export class AuthService extends CacheService {
     }
 
     return {
-      isAuthenticated: true, // token.email ? true : false,
+      isAuthenticated: token.email ? true : false,
       userId: parseInt(token.sub!, 10)
     };
   }

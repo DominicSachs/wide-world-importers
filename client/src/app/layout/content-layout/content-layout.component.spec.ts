@@ -12,13 +12,20 @@ describe('ContentLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, RouterTestingModule.withRoutes([])]
-    });
+      imports: [HttpClientTestingModule, NoopAnimationsModule, RouterTestingModule.withRoutes([])],
+      providers: [StyleManager]
+    })
+    .compileComponents();
 
     styleManager = TestBed.inject(StyleManager);
+    styleManager.isDark = true;
     fixture = TestBed.createComponent(ContentLayoutComponent);
     sut = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('initializes isDarkMode with true', () => {
+    expect(sut.isDarkMode).toBeTrue();
   });
 
   it('toggleDarkTheme calls styleManager.toggleDarkTheme and sets isDarkMode', () => {

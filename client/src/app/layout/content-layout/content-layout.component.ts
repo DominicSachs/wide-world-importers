@@ -12,12 +12,11 @@ import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-content-layout',
   standalone: true,
-  providers: [StyleManager],
+  selector: 'app-content-layout',
   templateUrl: './content-layout.component.html',
   styleUrls: ['./content-layout.component.scss'],
-  imports: [AsyncPipe, MatIcon, MatIconButton, MatToolbar, MatSidenav, MatSidenavContainer, MatSidenavContent, NavigationMenuComponent, NgIf, RouterLink, RouterOutlet]
+  imports: [AsyncPipe, MatIcon, MatIconButton, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, NgIf, RouterLink, RouterOutlet]
 })
 export class ContentLayoutComponent {
   opened = false;

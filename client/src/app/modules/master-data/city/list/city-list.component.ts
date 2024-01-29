@@ -16,13 +16,13 @@ import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-city-list',
   standalone: true,
-  imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
-  providers: [MasterDataService],
+  selector: 'app-city-list',
   templateUrl: './city-list.component.html',
-  styleUrls: ['./city-list.component.scss']
-})
+  styleUrls: ['./city-list.component.scss'],
+  imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
+  providers: [MasterDataService]
+  })
 export class CityListComponent extends BaseTableComponent<CityListReponse> {
   displayedColumns = ['name', 'state', 'country', 'population', 'actions'];
   citySearch = new FormControl<string | null>(null);
