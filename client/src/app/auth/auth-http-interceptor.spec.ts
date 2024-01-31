@@ -4,6 +4,7 @@ import { TestBed, fakeAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AUTHORIZE_INTERCEPTOR } from '@app/auth/auth-http-interceptor';
 import { AuthService } from '@app/auth/auth.service';
+import { CacheService } from '@app/shared/services/cache.service';
 
 describe('AUTHORIZE_INTERCEPTOR', () => {
   let authService: AuthService;
@@ -23,7 +24,8 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
       providers: [
         provideHttpClient(withInterceptors([AUTHORIZE_INTERCEPTOR])),
         provideHttpClientTesting(),
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
+        CacheService
       ]
     });
 

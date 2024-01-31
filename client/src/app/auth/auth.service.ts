@@ -7,13 +7,11 @@ import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService extends CacheService {
-  readonly authStatus$ = new BehaviorSubject<AuthStatus>(DEFAULT_AUTH_STATUS);
-  // readonly currentUser$ = new BehaviorSubject<IUser>(new User())
+export class AuthService {
+  private readonly authStatusSubject$ = new BehaviorSubject<AuthStatus>(DEFAULT_AUTH_STATUS);
+  readonly authStatus$ = this.authStatusSubject$.asObservable();
 
-  constructor(private readonly httpClient: HttpClient) {
-    super();
-  }
+  constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) { }
 
   login(email: string): Observable<void> {
     const loginResponse$ = this.httpClient.post<AuthResponse>(`${environment.apiUrl}/auth/login`, { email })
@@ -22,7 +20,7 @@ export class AuthService extends CacheService {
           this.setToken(v.accessToken);
           return this.getAuthStatusFromToken();
         }),
-        tap(s => this.authStatus$.next(s))
+        tap(s => this.authStatusSubject$.next(s))
       );
 
     loginResponse$.subscribe();
@@ -35,19 +33,19 @@ export class AuthService extends CacheService {
       this.clearToken();
     }
 
-    setTimeout(() => this.authStatus$.next(DEFAULT_AUTH_STATUS), 0);
+    setTimeout(() => this.authStatusSubject$.next(DEFAULT_AUTH_STATUS), 0);
   }
 
   getToken(): string {
-    return this.getItem('jwt') ?? '';
+    return this.cacheService.getItem('jwt') ?? '';
   }
 
   private clearToken(): void {
-    this.removeItem('jwt');
+    this.cacheService.removeItem('jwt');
   }
 
   private setToken(jwt: string): void {
-    this.setItem('jwt', jwt);
+    this.cacheService.setItem('jwt', jwt);
   }
 
   private getAuthStatusFromToken(): AuthStatus {
