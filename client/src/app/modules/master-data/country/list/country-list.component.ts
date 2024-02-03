@@ -11,12 +11,12 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-list',
   standalone: true,
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
-  providers: [MasterDataService],
+  selector: 'app-list',
   templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.scss']
+  styleUrls: ['./country-list.component.scss'],
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
+  providers: [MasterDataService]
 })
 export class CountryListComponent extends BaseTableComponent<CountryListReponse> {
   displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];

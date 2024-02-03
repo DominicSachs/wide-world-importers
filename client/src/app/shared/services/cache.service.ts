@@ -1,23 +1,25 @@
-export abstract class CacheService {
-  protected getItem<T>(key: string): T | null {
-    const data = localStorage.getItem(key);
+import { Injectable } from '@angular/core';
+import { WindowRef } from '@app/shared/services/window.ref';
 
-    return data != null ? JSON.parse(data) : null;
+@Injectable({ providedIn: 'root' })
+export class CacheService {
+  constructor(private readonly windowRef: WindowRef) { }
+
+  getItem<T>(key: string): T | null {
+    const data = this.windowRef.nativeWindow.localStorage.getItem(key);
+
+    return data ? JSON.parse(data) : null;
   }
 
-  protected setItem(key: string, data: object | string): void {
+  setItem(key: string, data: object | string): void {
     if (typeof data === 'string') {
-      localStorage.setItem(key, data);
+      this.windowRef.nativeWindow.localStorage.setItem(key, data);
     }
 
-    localStorage.setItem(key, JSON.stringify(data));
+    this.windowRef.nativeWindow.localStorage.setItem(key, JSON.stringify(data));
   }
 
-  protected removeItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  protected clear(): void {
-    localStorage.clear();
+  removeItem(key: string): void {
+    this.windowRef.nativeWindow.localStorage.removeItem(key);
   }
 }

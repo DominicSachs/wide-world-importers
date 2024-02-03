@@ -23,7 +23,7 @@ public sealed class ApiKeyEndpointFilterTests
     public async Task Returns_Unauthorized_If_Api_Key_Is_Invalid()
     {
         var httpContext = new DefaultHttpContext();
-        httpContext.Request.Headers.Add("X-WWI-KEY", "the-invalid-key");
+        httpContext.Request.Headers.Append("X-WWI-KEY", "the-invalid-key");
         var context = new DefaultEndpointFilterInvocationContext(httpContext);
 
         var result = await _testObject.InvokeAsync(context, _ => ValueTask.FromResult<object?>(Results.Empty));
@@ -35,7 +35,7 @@ public sealed class ApiKeyEndpointFilterTests
     public async Task Returns_Ok_If_Api_Key_Is_Valid()
     {
         var httpContext = new DefaultHttpContext();
-        httpContext.Request.Headers.Add("X-WWI-KEY", "the-key");
+        httpContext.Request.Headers.Append("X-WWI-KEY", "the-key");
         var context = new DefaultEndpointFilterInvocationContext(httpContext);
 
         var result = await _testObject.InvokeAsync(context, _ => ValueTask.FromResult<object?>(Results.Ok("Test-Ok")));

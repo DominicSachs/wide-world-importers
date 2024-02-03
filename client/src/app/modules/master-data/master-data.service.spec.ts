@@ -33,7 +33,7 @@ describe('MasterDataService', () => {
     const filter = new DataFilter();
     filter.sortColumn = 'name';
     filter.searchTerm = 'Denver';
-    spyOn(httpClient, 'get').and.returnValue(of(pagedResult));
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<CityListReponse>;
     sut.getCities(filter).subscribe(c => result = c);
@@ -44,7 +44,7 @@ describe('MasterDataService', () => {
 
   it('gets a city and sets the correct paramter', fakeAsync(() => {
     const mockResult = { id: 1, name: 'City 1' };
-    spyOn(httpClient, 'get').and.returnValue(of(mockResult));
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
     let result = {};
     sut.getCity(1).subscribe(c => result = c);
@@ -54,7 +54,7 @@ describe('MasterDataService', () => {
   }));
 
   it('updates a city', fakeAsync(() => {
-    spyOn(httpClient, 'put').and.returnValue(of(void 0));
+    jest.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const cityToUpdate = { id: 1, name: 'City 1' } as CityEditResponse;
 
     sut.saveCity(cityToUpdate).subscribe();
@@ -63,7 +63,7 @@ describe('MasterDataService', () => {
   }));
 
   it('creates a city', fakeAsync(() => {
-    spyOn(httpClient, 'post').and.returnValue(of(void 0));
+    jest.spyOn(httpClient, 'post').mockReturnValue(of(void 0));
     const cityToUpdate = { id: 0, name: 'City 1' } as CityEditResponse;
 
     sut.saveCity(cityToUpdate).subscribe();
@@ -82,7 +82,7 @@ describe('MasterDataService', () => {
 
     const filter = new DataFilter();
     filter.sortColumn = 'name';
-    spyOn(httpClient, 'get').and.returnValue(of(pagedResult));
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<CountryListReponse>;
     sut.getCountries(filter).subscribe(c => result = c);
@@ -93,7 +93,7 @@ describe('MasterDataService', () => {
 
   it('gets a country and sets the correct paramter', fakeAsync(() => {
     const mockResult = { id: 1, name: 'Country 1' };
-    spyOn(httpClient, 'get').and.returnValue(of(mockResult));
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
     let result = {};
     sut.getCountry(1).subscribe(c => result = c);
@@ -103,7 +103,7 @@ describe('MasterDataService', () => {
   }));
 
   it('updates a country', fakeAsync(() => {
-    spyOn(httpClient, 'put').and.returnValue(of(void 0));
+    jest.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const countryToUpdate = { id: 1, name: 'Country 1' } as CountryEditReponse;
 
     sut.saveCountry(countryToUpdate).subscribe();

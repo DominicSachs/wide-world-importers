@@ -13,8 +13,10 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-city-edit',
   standalone: true,
+  selector: 'app-city-edit',
+  templateUrl: './city-edit.component.html',
+  styleUrls: ['./city-edit.component.scss'],
   imports: [
     AsyncPipe,
     MatButton,
@@ -31,9 +33,7 @@ import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
     MatSelect,
     ReactiveFormsModule
   ],
-  providers: [MasterDataService],
-  templateUrl: './city-edit.component.html',
-  styleUrls: ['./city-edit.component.scss']
+  providers: [MasterDataService]
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;

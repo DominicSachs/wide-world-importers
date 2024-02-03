@@ -25,5 +25,5 @@ jobs:
         working-directory: './client'
         run: |
           npm i
-          npm run test:ci
+          npm run test
           npm run build

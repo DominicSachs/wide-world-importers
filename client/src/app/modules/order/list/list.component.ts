@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-order-list',
   standalone: true,
-  imports: [],
+  selector: 'app-order-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  imports: []
 })
 export class OrderListComponent {
 

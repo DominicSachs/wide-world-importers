@@ -46,17 +46,17 @@ describe('CustomerEditComponent', () => {
       deliveryAddress: { addressLine1: 'dl1', addressLine2: '', postalCode: 'dc1', city: 'dcy1' }
     } as CustomerEditResponse;
 
-    spyOn(service, 'getCustomer').and.returnValue(of(mockResult));
-    spyOn(sut.editForm,'patchValue');
+    jest.spyOn(service, 'getCustomer').mockReturnValue(of(mockResult));
+    jest.spyOn(sut.editForm,'patchValue');
 
     sut.ngOnInit();
     sut.customer$.subscribe();
 
-    expect(sut.editForm.patchValue).toHaveBeenCalledOnceWith(mockResult);
+    expect(sut.editForm.patchValue).toHaveBeenNthCalledWith(1, mockResult);
   }));
 
   it('save calls customerService.update if form is valid', () => {
-    spyOn(service, 'update').and.returnValue(of(void 0));
+    jest.spyOn(service, 'update').mockReturnValue(of(void 0));
     const model = {
       name: 'test', phone: '111', fax: '111',
       postalAddress: { addressLine1: 'pl1', addressLine2: '', postalCode: 'pc1', city: 'pcy1' },
@@ -72,7 +72,7 @@ describe('CustomerEditComponent', () => {
   });
 
   it('save does not call customerService.update if form is invalid', () => {
-    spyOn(service, 'update');
+    jest.spyOn(service, 'update');
 
     sut.ngOnInit();
     sut.editForm.controls['name'].setValue(null);
@@ -86,8 +86,8 @@ describe('CustomerEditComponent', () => {
       name: new FormControl('test-name')
     });
 
-    spyOn(sut.editForm, 'reset').and.callThrough();
-    spyOn(router, 'navigateByUrl');
+    jest.spyOn(sut.editForm, 'reset');
+    jest.spyOn(router, 'navigateByUrl');
 
     sut.cancel();
 

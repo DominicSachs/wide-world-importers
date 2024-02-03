@@ -6,7 +6,7 @@
     </a>
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">
-    <mat-sidenav #sidenav [mode]="'side'" fixedTopGap="56" [opened]="true">
+    <mat-sidenav *ngIf="authStatus$ | async as authStatus" #sidenav [mode]="'side'" fixedTopGap="56" [opened]="authStatus.isAuthenticated">
       <app-navigation-menu />
     </mat-sidenav>
     <mat-sidenav-content>

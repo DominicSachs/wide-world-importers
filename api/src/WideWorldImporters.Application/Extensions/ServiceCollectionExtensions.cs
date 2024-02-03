@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Application.Execution;
+using WideWorldImporters.Application.Services;
 
 namespace WideWorldImporters.Application.Extensions;
 
@@ -19,5 +20,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IQueryDispatcher, QueryDispatcher>();
         services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ITokenService, TokenService>();
     }
 }

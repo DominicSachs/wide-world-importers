@@ -10,6 +10,7 @@ public interface IAppDbContext
     public DbSet<Country> Countries { get; set; }
     public DbSet<StateProvince> StateProvinces { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<User> Users { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken token);
 }

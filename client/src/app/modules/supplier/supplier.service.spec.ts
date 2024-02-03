@@ -31,7 +31,7 @@ describe('SupplierService', () => {
     const filter = new DataFilter();
     filter.sortColumn = 'name';
 
-    spyOn(httpClient, 'get').and.returnValue(of(pagedResult));
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<SupplierListReponse>;
     sut.getSuppliers(filter).subscribe(s => result = s);
