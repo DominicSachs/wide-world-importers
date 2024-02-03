@@ -1,10 +1,9 @@
 import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AUTHORIZE_INTERCEPTOR } from '@app/auth/auth-http-interceptor';
 import { AuthService } from '@app/auth/auth.service';
-import { CacheService } from '@app/shared/services/cache.service';
 
 describe('AUTHORIZE_INTERCEPTOR', () => {
   let authService: AuthService;
@@ -24,8 +23,7 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
       providers: [
         provideHttpClient(withInterceptors([AUTHORIZE_INTERCEPTOR])),
         provideHttpClientTesting(),
-        { provide: Router, useValue: router },
-        CacheService
+        { provide: Router, useValue: router }
       ]
     });
 
@@ -39,8 +37,8 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
   });
 
   it('redirects to login and call logout', fakeAsync(() => {
-    spyOn(router, 'navigate');
-    spyOn(authService, 'logout');
+    jest.spyOn(router, 'navigate');
+    jest.spyOn(authService, 'logout');
 
     const url = '/api';
 
@@ -48,14 +46,14 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
 
     const request = httpTestingController.expectOne(url);
     request.flush('', { status: 401, statusText: 'Unauthorized' });
+    tick(100);
 
     expect(authService.logout).toHaveBeenCalledWith(true);
-    expect(router.navigate).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/login'], { queryParams: { redirectUrl: undefined } });
   }));
 
   it('does not redirect to login and return error', fakeAsync(() => {
-    spyOn(router, 'navigate');
+    jest.spyOn(router, 'navigate');
     let expectedError: HttpErrorResponse;
     const url = '/api';
 
@@ -69,7 +67,7 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
   }));
 
   it('returns 200', fakeAsync(() => {
-    spyOn(router, 'navigate');
+    jest.spyOn(router, 'navigate');
     let expectedError: HttpErrorResponse;
     let expectedResult: object;
     const url = '/api';

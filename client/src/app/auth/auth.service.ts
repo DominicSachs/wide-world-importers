@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly authStatusSubject$ = new BehaviorSubject<AuthStatus>(DEFAULT_AUTH_STATUS);
+  private readonly authStatusSubject$ = new BehaviorSubject<AuthStatus>(this.getAuthStatusFromToken());
   readonly authStatus$ = this.authStatusSubject$.asObservable();
 
   constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) { }
@@ -49,15 +49,21 @@ export class AuthService {
   }
 
   private getAuthStatusFromToken(): AuthStatus {
-    const token = jwtDecode<Auth0JwtPayload>(this.getToken());
+    const token = this.getToken();
 
     if (!token) {
       return DEFAULT_AUTH_STATUS;
     }
 
+    const decoded = jwtDecode<Auth0JwtPayload>(this.getToken());
+
+    if (!decoded) {
+      return DEFAULT_AUTH_STATUS;
+    }
+
     return {
-      isAuthenticated: token.email ? true : false,
-      userId: parseInt(token.sub!, 10)
+      isAuthenticated: decoded.email ? true : false,
+      userId: parseInt(decoded.sub!, 10)
     };
   }
 }
