@@ -24,7 +24,7 @@ describe('AuthService', () => {
   });
 
   it('logout calls removeItem and resets the auth status to default', fakeAsync(() => {
-    spyOn(cacheService, 'removeItem');
+    jest.spyOn(cacheService, 'removeItem');
     let status = {} as AuthStatus;
 
     sut.logout(true);
@@ -36,7 +36,7 @@ describe('AuthService', () => {
   }));
 
   it('logout does not call removeItem', () => {
-    spyOn(cacheService, 'removeItem');
+    jest.spyOn(cacheService, 'removeItem');
 
     sut.logout(false);
 
@@ -44,7 +44,7 @@ describe('AuthService', () => {
   });
 
   it('getToken returns token from cache', () => {
-    spyOn(cacheService, 'getItem').and.returnValue('token-value');
+    jest.spyOn(cacheService, 'getItem').mockReturnValue('token-value');
 
     const token = sut.getToken();
 
@@ -53,7 +53,7 @@ describe('AuthService', () => {
   });
 
   it('getToken returns empty string if cache is empty', () => {
-    spyOn(cacheService, 'getItem').and.returnValue(null);
+    jest.spyOn(cacheService, 'getItem').mockReturnValue(null);
 
     const token = sut.getToken();
 

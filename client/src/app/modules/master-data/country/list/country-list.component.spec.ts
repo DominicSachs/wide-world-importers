@@ -1,9 +1,13 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CountryListComponent } from '@app/modules/master-data/country/list/country-list.component';
+import { CountryListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { of } from 'rxjs';
+import { PagedResponse } from '@app/shared/models/paged-response.model';
+import { firstValueFrom, of } from 'rxjs';
 
 describe('CountryListComponent', () => {
   let sut: CountryListComponent;
@@ -30,17 +34,19 @@ describe('CountryListComponent', () => {
 
     fixture = TestBed.createComponent(CountryListComponent);
     sut = fixture.componentInstance;
+    sut.paginator = {} as unknown as MatPaginator;
+    sut.sort = {} as unknown as MatSort;
+
   });
 
-  it('calls getCountries on ngAfterViewInit', fakeAsync(() => {
-    const spy = spyOn(service, 'getCountries');
+  it('calls getCountries on ngAfterViewInit', fakeAsync(async () => {
+    const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<CountryListReponse>;
+    jest.spyOn(service, 'getCountries').mockReturnValue(of(mockResult));
 
-    fixture.detectChanges();
-    spy.calls.reset();
-
-    sut.data$.subscribe();
     sut.ngAfterViewInit();
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    const response = await firstValueFrom(sut.data$);
+    expect(response).toStrictEqual(mockResult);
+    expect(service.getCountries).toHaveBeenCalledTimes(1);
   }));
 });

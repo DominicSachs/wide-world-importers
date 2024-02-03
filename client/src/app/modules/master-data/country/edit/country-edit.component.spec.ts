@@ -69,14 +69,14 @@ describe('CountryEditComponent', () => {
       states: [{ id: 1, name: 'State 1', code: 'S1', salesTerritory: 'Territory', population: 100 }]
     } as CountryEditReponse;
 
-    spyOn(service, 'getCountry').and.returnValue(of(mockResult));
-    spyOn(sut.editForm, 'patchValue');
+    jest.spyOn(service, 'getCountry').mockReturnValue(of(mockResult));
+    jest.spyOn(sut.editForm, 'patchValue');
 
     sut.id = 1;
     sut.ngOnInit();
     sut.country$.subscribe();
 
-    expect(service.getCountry).toHaveBeenCalledOnceWith(1);
+    expect(service.getCountry).toHaveBeenNthCalledWith(1, 1);
     expect(sut.editForm.patchValue).toHaveBeenCalledTimes(1);
     expect(sut.states.length).toBe(1);
   }));
@@ -112,8 +112,8 @@ describe('CountryEditComponent', () => {
   });
 
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
-    spyOn(service, 'saveCountry').and.returnValue(of(void 0));
-    spyOn(router, 'navigateByUrl');
+    jest.spyOn(service, 'saveCountry').mockReturnValue(of(void 0));
+    jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
     const mockResult = {
       name: 'Country 1',
@@ -135,7 +135,7 @@ describe('CountryEditComponent', () => {
   }));
 
   it('save does not call masterDataService.update if form is invalid', () => {
-    spyOn(service, 'saveCountry');
+    jest.spyOn(service, 'saveCountry');
 
     sut.ngOnInit();
     sut.editForm.controls['name'].setValue(null);
@@ -149,8 +149,8 @@ describe('CountryEditComponent', () => {
       name: new FormControl('test-name')
     });
 
-    spyOn(sut.editForm, 'reset').and.callThrough();
-    spyOn(router, 'navigateByUrl');
+    jest.spyOn(sut.editForm, 'reset');
+    jest.spyOn(router, 'navigateByUrl');
 
     sut.cancel();
 

@@ -8,7 +8,7 @@ export class CacheService {
   getItem<T>(key: string): T | null {
     const data = this.windowRef.nativeWindow.localStorage.getItem(key);
 
-    return data != null ? JSON.parse(data) : null;
+    return data ? JSON.parse(data) : null;
   }
 
   setItem(key: string, data: object | string): void {

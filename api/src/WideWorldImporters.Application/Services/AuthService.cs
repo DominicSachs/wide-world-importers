@@ -3,7 +3,7 @@ using WideWorldImporters.Domain.Models;
 
 namespace WideWorldImporters.Application.Abstractions;
 
-internal class AuthService : IAuthService
+internal sealed class AuthService : IAuthService
 {
     private readonly IAppDbContext _context;
     private readonly ITokenService _tokenService;

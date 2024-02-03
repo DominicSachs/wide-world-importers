@@ -20,20 +20,30 @@ describe('CachService', () => {
   });
 
   test.each([
-    ['', null],
     [null, null],
-    ['value', 'value']
-  ])('getItem calls localStorage.getItem  for %p to %p', (cacheValue: string | null, expected: string | null) => {
-    spyOn(windowRef.nativeWindow.localStorage, 'getItem').and.returnValue(cacheValue);
+    ['{ "value": 1 }', { value: 1 }]
+  ])('getItem calls localStorage.getItem  for %p to %p', (cacheValue: string | null, expected: string | object | null) => {
+    jest.spyOn(windowRef.nativeWindow.localStorage, 'getItem').mockReturnValue(cacheValue);
 
     const result = sut.getItem('the-key');
 
-    expect(result).toBe(expected);
+    expect(result).toStrictEqual(expected);
     expect(windowRef.nativeWindow.localStorage.getItem).toHaveBeenCalledWith('the-key');
   });
 
+  test.each([
+    ['value', 'value'],
+    [{ value: 1 }, JSON.stringify({ value: 1 })]
+  ])('setItem calls localStorage.setItem  for %p to %p', (cacheValue: string | object, expected: string) => {
+    jest.spyOn(windowRef.nativeWindow.localStorage, 'setItem');
+
+    sut.setItem('the-key', cacheValue);
+
+    expect(windowRef.nativeWindow.localStorage.setItem).toHaveBeenCalledWith('the-key', expected);
+  });
+
   it('removeItem calls localStorage.removeItem', () => {
-    spyOn(windowRef.nativeWindow.localStorage, 'removeItem');
+    jest.spyOn(windowRef.nativeWindow.localStorage, 'removeItem');
 
     sut.removeItem('the-key');
 

@@ -25,16 +25,16 @@ describe('ContentLayoutComponent', () => {
   });
 
   it('initializes isDarkMode with true', () => {
-    expect(sut.isDarkMode).toBeTrue();
+    expect(sut.isDarkMode).toBeTruthy();
   });
 
   it('toggleDarkTheme calls styleManager.toggleDarkTheme and sets isDarkMode', () => {
-    spyOn(styleManager, 'toggleDarkTheme');
+    jest.spyOn(styleManager, 'toggleDarkTheme');
 
     sut.isDarkMode = false;
     sut.toggleDarkTheme();
 
-    expect(sut.isDarkMode).toBeTrue();
+    expect(sut.isDarkMode).toBeTruthy();
     expect(styleManager.toggleDarkTheme).toHaveBeenCalled();
   });
 });

@@ -1,48 +1,51 @@
 import { Injectable } from '@angular/core';
+import { WindowRef } from '@app/shared/services/window.ref';
 
 @Injectable({ providedIn: 'root' })
 export class StyleManager {
   isDark = false;
 
+  constructor(private readonly windowRef: WindowRef) { }
+
   toggleDarkTheme(): void {
     if (this.isDark) {
       this.removeStyle('dark-theme');
-      document.body.classList.remove('dark-theme');
+      this.windowRef.nativeDocument.body.classList.remove('dark-theme');
       this.isDark = false;
     } else {
       const href = 'dark-theme.css';
-      getLinkElementForKey('dark-theme').setAttribute('href', href);
-      document.body.classList.add('dark-theme');
+      this.getLinkElementForKey('dark-theme').setAttribute('href', href);
+      this.windowRef.nativeDocument.body.classList.add('dark-theme');
       this.isDark = true;
     }
   }
 
   removeStyle(key: string): void {
-    const existingLinkElement = getExistingLinkElementByKey(key);
+    const existingLinkElement = this.getExistingLinkElementByKey(key);
     if (existingLinkElement) {
-      document.head.removeChild(existingLinkElement);
+      this.windowRef.nativeDocument.head.removeChild(existingLinkElement);
     }
   }
-}
 
-function getLinkElementForKey(key: string): Element {
-  return getExistingLinkElementByKey(key) || createLinkElementWithKey(key);
-}
+  private getLinkElementForKey(key: string): Element {
+    return this.getExistingLinkElementByKey(key) || this.createLinkElementWithKey(key);
+  }
 
-function getExistingLinkElementByKey(key: string): Element | null {
-  return document.head.querySelector(
-    `link[rel="stylesheet"].${getClassNameForKey(key)}`
-  );
-}
+  private getExistingLinkElementByKey(key: string): Element | null {
+    return this.windowRef.nativeDocument.head.querySelector(
+      `link[rel="stylesheet"].${this.getClassNameForKey(key)}`
+    );
+  }
 
-function createLinkElementWithKey(key: string): HTMLLinkElement {
-  const linkEl = document.createElement('link');
-  linkEl.setAttribute('rel', 'stylesheet');
-  linkEl.classList.add(getClassNameForKey(key));
-  document.head.appendChild(linkEl);
-  return linkEl;
-}
+  private createLinkElementWithKey(key: string): HTMLLinkElement {
+    const linkEl = document.createElement('link');
+    linkEl.setAttribute('rel', 'stylesheet');
+    linkEl.classList.add(this.getClassNameForKey(key));
+    document.head.appendChild(linkEl);
+    return linkEl;
+  }
 
-function getClassNameForKey(key: string): string {
-  return `style-manager-${key}`;
+  private getClassNameForKey(key: string): string {
+    return `style-manager-${key}`;
+  }
 }
