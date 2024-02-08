@@ -1,1 +1,57 @@
-<p>list works!</p>
+@if ((data$ | async) || { items: [], count: 0 }; as data) {
+  <mat-table [dataSource]="data.items" matSort matSortActive="orderedOn" matSortDisableClear matSortDirection="desc" (matSortChange)="sortChange($event)">
+    <ng-container matColumnDef="customerPurchaseOrderNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CPON</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.customerPurchaseOrderNumber }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="orderedOn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Order date</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.orderedOn | date }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="expectedDeliveryOn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Expected delivery</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.expectedDeliveryOn | date }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.customerName }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="contactName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Contact</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.contactName }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastEditedByName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Last editor</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.lastEditedByName }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastEditedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Last edited</mat-header-cell>
+      <mat-cell *matCellDef="let t">
+        {{ t.lastEditedAt | date: 'medium' }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let c">
+        <a mat-icon-button [routerLink]="['/', 'orders', c.id]" title="Details">
+          <mat-icon color="primary">edit</mat-icon>
+        </a>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns" />
+    <mat-row *matRowDef="let row; columns: displayedColumns" />
+  </mat-table>
+  <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
+}
