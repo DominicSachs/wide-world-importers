@@ -6,6 +6,7 @@ import { MAT_TABLE } from '@app/import-groups';
 import { SupplierListReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { BaseTableComponent } from '@app/shared/components/base/base-table.component';
+import { TableQueryStringDirective } from '@app/shared/directives/table-query-string.directive';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { Observable } from 'rxjs';
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
   selector: 'app-supplier-list',
   templateUrl: './supplier-list.component.html',
   styleUrls: ['./supplier-list.component.scss'],
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
   providers: [SupplierService]
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {

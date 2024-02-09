@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, SortDirection } from '@angular/material/sort';
-import { DataFilter, ListSortDirection } from '@app/shared/models/data-filter.model';
+import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { Observable, merge, of } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
@@ -15,22 +15,25 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
   paginator!: MatPaginator;
 
   data$!: Observable<PagedResponse<T>>;
-  dataFilter: DataFilter;
+  dataFilter: DataFilter = { } as DataFilter;
 
   constructor(protected sortColumn: string, protected sortDirection: 'asc' | 'desc' = 'asc', protected pageSize = 10) {
-    this.dataFilter = new DataFilter(0, pageSize, sortColumn, this.getSortDirection(sortDirection));
+    this.dataFilter = new DataFilter(0, pageSize, sortColumn, sortDirection);
   }
 
   ngAfterViewInit(): void {
-    this.data$ = merge(this.sort.sortChange, this.paginator.page)
+    setTimeout(() => {
+      this.data$ = merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.dataFilter = new DataFilter(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.getSortDirection(this.sort.direction));
+          this.dataFilter = new DataFilter(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction);
+          console.log('dataFilter base table: ', this.dataFilter);
           return this.loadData(this.dataFilter);
         }),
         catchError(() => of({ items: [], count: 0 } as PagedResponse<T>))
       );
+    }, 0);
   }
 
   reloadToFirstPage(): void {
@@ -39,7 +42,7 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
 
   protected abstract loadData(filter: DataFilter): Observable<PagedResponse<T>>;
 
-  private getSortDirection(direction: SortDirection): ListSortDirection {
-    return direction === 'asc' ? ListSortDirection.Ascending : ListSortDirection.Descending;
+  private getSortDirection(direction: SortDirection): number {
+    return direction === 'asc' ? 0 : 1;
   }
 }
