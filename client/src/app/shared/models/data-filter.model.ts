@@ -7,6 +7,13 @@ export class DataFilter {
   pageSize = 10;
   searchTerm: string | null = null;
 
+  constructor(page = 0, pageSize = 10, sortColumn = '', sortDirection = ListSortDirection.Ascending) {
+    this.sortColumn = sortColumn;
+    this.sortDirection = sortDirection;
+    this.page = page;
+    this.pageSize = pageSize;
+  }
+
   reset(): void {
     this.page = 0;
     this.pageSize = 10;

@@ -1,5 +1,5 @@
 @if ((data$ | async) || { items: [], count: 0 }; as data) {
-  <mat-table [dataSource]="data.items" matSort matSortActive="name" matSortDisableClear matSortDirection="asc" (matSortChange)="sortChange($event)">
+  <mat-table [dataSource]="data.items" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let t">
@@ -29,5 +29,5 @@
     <mat-header-row *matHeaderRowDef="displayedColumns" />
     <mat-row *matRowDef="let row; columns: displayedColumns" />
   </mat-table>
-  <mat-paginator (page)="pageChange($event)" [pageSize]="dataFilter.pageSize" [length]="data.count" />
+  <mat-paginator [pageSize]="dataFilter.pageSize" [length]="data.count" />
 }
