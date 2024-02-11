@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   private validateLogin(route?: ActivatedRouteSnapshot): Observable<boolean> {
     return this.authService.authStatus$.pipe(
       map(authStatus => {
-        console.log(authStatus);
         const isLoginAllowed = authStatus.isAuthenticated;
 
         if (!isLoginAllowed) {

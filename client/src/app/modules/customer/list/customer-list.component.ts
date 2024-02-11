@@ -22,7 +22,7 @@ export class CustomerListComponent extends BaseTableComponent<CustomerListRepons
   displayedColumns = ['name', 'postalAddress', 'deliveryAddress', 'actions'];
 
   constructor(private customerService: CustomerService) {
-    super('name', 'asc', 10);
+    super();
   }
 
   protected override loadData(filter: DataFilter): Observable<PagedResponse<CustomerListReponse>> {

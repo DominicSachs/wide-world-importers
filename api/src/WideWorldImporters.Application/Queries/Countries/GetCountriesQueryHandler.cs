@@ -18,7 +18,7 @@ internal sealed class GetCountriesQueryHandler : IQueryHandlerAsync<GetCountries
     public async Task<PagedResult<CountryListResponse>> HandleAsync(GetCountriesQuery query, CancellationToken token)
     {
         query.Filter.SetSortStrategy(new CountryListSortStrategy());
-        var sortColumn = query.Filter.SortColumn ?? nameof(Country.Name);
+        var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(Country.Name) : query.Filter.SortColumn;
 
         var countries = await _context.Countries.AsNoTracking()
             .OrderBy(sortColumn, query.Filter.SortDirection)

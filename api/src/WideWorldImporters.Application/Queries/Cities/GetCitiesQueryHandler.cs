@@ -19,7 +19,7 @@ internal sealed class GetCitiesQueryHandler : IQueryHandlerAsync<GetCitiesQuery,
     public async Task<PagedResult<CityListResponse>> HandleAsync(GetCitiesQuery query, CancellationToken token)
     {
         query.Filter.SetSortStrategy(new CityListSortStrategy());
-        var sortColumn = query.Filter.SortColumn ?? nameof(City.Name);
+        var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(City.Name) : query.Filter.SortColumn;
         var expression = new CitySearchSpecification(query.Filter.SearchTerm!).ToExpression();
 
         var cities = await _context.Cities.AsNoTracking()

@@ -23,7 +23,8 @@ export class SupplierListComponent extends BaseTableComponent<SupplierListRepons
   displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];
 
   constructor(private supplierService: SupplierService) {
-    super('name', 'asc', 20);
+    super();
+    this.dataFilter.pageSize = 20;
   }
 
   protected override loadData(filter: DataFilter): Observable<PagedResponse<SupplierListReponse>> {

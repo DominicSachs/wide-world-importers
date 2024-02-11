@@ -1,50 +1,43 @@
-import { AfterViewInit, Directive, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataFilter } from '@app/shared/models/data-filter.model';
 
 @Directive({
   standalone: true,
   selector: '[appTableQueryString]'
 })
-export class TableQueryStringDirective implements AfterViewInit, OnInit {
+export class TableQueryStringDirective implements AfterViewInit {
   @Input()
   paginator!: MatPaginator;
 
-  @Input()
-  filter!: DataFilter;
+  constructor(private readonly sort: MatSort, private readonly router: Router, private readonly route: ActivatedRoute) { }
 
-  constructor(private readonly sort: MatSort, private readonly router: Router, private readonly route: ActivatedRoute) {}
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.route.queryParamMap.subscribe(paramMap => {
       const pageIndex = Number(paramMap.get('pageIndex'));
       const pageSize = Number(paramMap.get('pageSize'));
       const sortActive = paramMap.get('sortActive');
-      const sortDirection = paramMap.get('sortDirection');
+      const sortDirection = paramMap.get('sortDirection') as SortDirection;
 
       if (sortActive) {
         this.sort.active = sortActive;
       }
 
-      const direction = sortDirection as SortDirection;
-      if (direction) {
-        this.sort.direction = direction;
+      if (sortDirection) {
+        this.sort.direction = sortDirection;
       }
 
       if (pageSize) {
-        this.filter.pageSize = this.paginator.pageSize = this.paginator.pageSizeOptions.includes(pageSize) ? pageSize : 20;
+        this.paginator.pageSize = this.paginator.pageSizeOptions.includes(pageSize) ? pageSize : 20;
       }
 
       if (pageIndex) {
-        this.filter.page = this.paginator.pageIndex = pageIndex;
+        this.paginator.pageIndex = pageIndex;
        }
     });
-  }
 
-  ngAfterViewInit(): void {
-    this.paginator.page.subscribe(_ => this.syncChangesToUrlQueryParams() );
+    this.paginator.page.subscribe(_ => this.syncChangesToUrlQueryParams());
     this.sort.sortChange.subscribe(_ => this.syncChangesToUrlQueryParams());
   }
 

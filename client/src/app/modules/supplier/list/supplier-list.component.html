@@ -1,5 +1,5 @@
 @if ((data$ | async) || { items: [], count: 0 }; as data) {
-  <mat-table [dataSource]="data.items" appTableQueryString [paginator]="paginator" [filter]="dataFilter" matSort [matSortActive]="dataFilter.sortColumn" matSortDisableClear [matSortDirection]="dataFilter.sortDirection">
+  <mat-table [dataSource]="data.items" appTableQueryString [paginator]="paginator" matSort [matSortActive]="dataFilter.sortColumn" matSortDisableClear [matSortDirection]="dataFilter.sortDirection">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let t">

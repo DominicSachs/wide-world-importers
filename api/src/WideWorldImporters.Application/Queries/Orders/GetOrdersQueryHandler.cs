@@ -18,7 +18,7 @@ internal sealed class GetOrdersQueryHandler : IQueryHandlerAsync<GetOrdersQuery,
     public async Task<PagedResult<OrderListResponse>> HandleAsync(GetOrdersQuery query, CancellationToken token)
     {
         query.Filter.SetSortStrategy(new OrderListSortStrategy());
-        var sortColumn = query.Filter.SortColumn ?? nameof(Order.OrderedOn);
+        var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(Order.OrderedOn) : query.Filter.SortColumn;
 
         var orders = await _context.Orders.AsNoTracking()
             .OrderBy(sortColumn, query.Filter.SortDirection)

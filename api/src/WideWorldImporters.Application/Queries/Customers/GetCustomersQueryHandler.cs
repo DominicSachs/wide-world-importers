@@ -18,7 +18,7 @@ internal sealed class GetCustomersQueryHandler : IQueryHandlerAsync<GetCustomers
     public async Task<PagedResult<CustomerListResponse>> HandleAsync(GetCustomersQuery query, CancellationToken token)
     {
         query.Filter.SetSortStrategy(new CustomerListSortStrategy());
-        var sortColumn = query.Filter.SortColumn ?? nameof(Customer.Name);
+        var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(Customer.Name) : query.Filter.SortColumn;
 
         var customers = await _context.Customers.AsNoTracking()
             .OrderBy(sortColumn, query.Filter.SortDirection)

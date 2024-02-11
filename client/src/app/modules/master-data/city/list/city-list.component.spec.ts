@@ -45,6 +45,7 @@ describe('CityListComponent', () => {
     jest.spyOn(service, 'getCities').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
+    tick(1);
 
     const response = await firstValueFrom(sut.data$);
     expect(response).toStrictEqual(mockResult);

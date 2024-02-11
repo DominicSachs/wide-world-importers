@@ -23,8 +23,8 @@ export class DataFilter {
 
   toQueryString(): string {
     let params = new HttpParams()
-      .set('page', this.page.toString())
-      .set('pageSize', this.pageSize.toString())
+      .set('page', this.page)
+      .set('pageSize', this.pageSize)
       .set('sortColumn', this.sortColumn)
       .set('sortDirection', this.sortDirection === 'asc' ? 0 : 1);
 

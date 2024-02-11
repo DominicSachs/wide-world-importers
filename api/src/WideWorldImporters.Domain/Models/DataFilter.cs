@@ -7,7 +7,7 @@ public sealed class DataFilter
 {
     public DataFilter() { }
 
-    public DataFilter(int page, int pageSize, string sortColumn, ListSortDirection sortDirection, string? searchTerm)
+    public DataFilter(int page, int pageSize, string? sortColumn, ListSortDirection sortDirection, string? searchTerm)
     {
         Page = page;
         PageSize = pageSize;
@@ -19,7 +19,7 @@ public sealed class DataFilter
     private SortMapStrategy? _strategy;
     private string _sortColumn = default!;
 
-    public string SortColumn
+    public string? SortColumn
     {
         get => _strategy == null ? _sortColumn : _strategy.Map(_sortColumn);
         set => _sortColumn = value;

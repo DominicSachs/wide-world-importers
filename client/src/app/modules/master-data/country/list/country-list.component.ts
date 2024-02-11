@@ -22,7 +22,7 @@ export class CountryListComponent extends BaseTableComponent<CountryListReponse>
   displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];
 
   constructor(private masterDataService: MasterDataService) {
-    super('name', 'asc', 15);
+    super();
   }
 
   protected override loadData(filter: DataFilter): Observable<PagedResponse<CountryListReponse>> {

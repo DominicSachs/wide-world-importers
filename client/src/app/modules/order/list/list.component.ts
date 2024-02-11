@@ -22,7 +22,7 @@ export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   displayedColumns = ['customerPurchaseOrderNumber', 'orderedOn', 'expectedDeliveryOn', 'customerName', 'contactName', 'lastEditedByName', 'lastEditedAt', 'actions'];
 
   constructor(private orderService: OrderService) {
-    super('orderedOn', 'desc', 10);
+    super();
   }
 
   protected override loadData(filter: DataFilter): Observable<PagedResponse<OrderListReponse>> {

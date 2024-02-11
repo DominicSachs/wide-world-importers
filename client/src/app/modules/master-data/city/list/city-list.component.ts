@@ -28,7 +28,7 @@ export class CityListComponent extends BaseTableComponent<CityListReponse> {
   citySearch = new FormControl<string | null>(null);
 
   constructor(private masterDataService: MasterDataService) {
-    super('name', 'asc', 15);
+    super();
 
     this.citySearch.valueChanges.pipe(
       debounceTime(400),
