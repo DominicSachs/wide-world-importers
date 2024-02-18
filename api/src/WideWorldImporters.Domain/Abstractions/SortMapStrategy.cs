@@ -13,7 +13,7 @@ public abstract class SortMapStrategy
 
     protected abstract void InitializeMap();
 
-    public string Map(string propertyName)
+    public string? Map(string? propertyName)
     {
         return !string.IsNullOrWhiteSpace(propertyName) && _mappings.TryGetValue(propertyName.FirstCharToUpper()!, out var value) ? value : propertyName;
     }

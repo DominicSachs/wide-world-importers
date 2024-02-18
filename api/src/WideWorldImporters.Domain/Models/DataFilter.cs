@@ -17,7 +17,7 @@ public sealed class DataFilter
     }
 
     private SortMapStrategy? _strategy;
-    private string _sortColumn = default!;
+    private string? _sortColumn;
 
     public string? SortColumn
     {
