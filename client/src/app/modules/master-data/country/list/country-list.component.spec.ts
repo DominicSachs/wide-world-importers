@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +44,7 @@ describe('CountryListComponent', () => {
     jest.spyOn(service, 'getCountries').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
+    tick(1);
 
     const response = await firstValueFrom(sut.data$);
     expect(response).toStrictEqual(mockResult);

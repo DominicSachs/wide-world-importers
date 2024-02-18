@@ -1,11 +1,19 @@
 import { HttpParams } from '@angular/common/http';
+import { SortDirection } from '@angular/material/sort';
 
 export class DataFilter {
   sortColumn = '';
-  sortDirection = ListSortDirection.Ascending;
+  sortDirection: SortDirection = 'asc';
   page = 0;
   pageSize = 10;
   searchTerm: string | null = null;
+
+  constructor(page = 0, pageSize = 10, sortColumn = '', sortDirection: SortDirection = 'asc') {
+    this.sortColumn = sortColumn;
+    this.sortDirection = sortDirection;
+    this.page = page;
+    this.pageSize = pageSize;
+  }
 
   reset(): void {
     this.page = 0;
@@ -15,10 +23,10 @@ export class DataFilter {
 
   toQueryString(): string {
     let params = new HttpParams()
-      .set('page', this.page.toString())
-      .set('pageSize', this.pageSize.toString())
+      .set('page', this.page)
+      .set('pageSize', this.pageSize)
       .set('sortColumn', this.sortColumn)
-      .set('sortDirection', this.sortDirection);
+      .set('sortDirection', this.sortDirection === 'asc' ? 0 : 1);
 
       if (this.searchTerm) {
         params = params.set('searchTerm', this.searchTerm);
@@ -26,9 +34,4 @@ export class DataFilter {
 
     return params.toString();
   }
-}
-
-export enum ListSortDirection {
-  Ascending = 0,
-  Descending = 1
 }

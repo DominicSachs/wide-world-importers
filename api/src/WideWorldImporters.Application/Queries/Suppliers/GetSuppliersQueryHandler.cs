@@ -18,7 +18,7 @@ internal sealed class GetSuppliersQueryHandler : IQueryHandlerAsync<GetSuppliers
     public async Task<PagedResult<SupplierListResponse>> HandleAsync(GetSuppliersQuery query, CancellationToken token)
     {
         query.Filter.SetSortStrategy(new SupplierListSortStrategy());
-        var sortColumn = query.Filter.SortColumn ?? nameof(Supplier.Name);
+        var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(Supplier.Name) : query.Filter.SortColumn;
 
         var suppliers = await _context.Suppliers.AsNoTracking()
             .OrderBy(sortColumn, query.Filter.SortDirection)

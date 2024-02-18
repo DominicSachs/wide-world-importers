@@ -1,0 +1,13 @@
+@use 'src/styles/mixins' as *;
+
+.mat-mdc-table {
+  @include mat-table-columns((
+    customerPurchaseOrderNumber: (width: 5%),
+    orderedOn: (width: 10%),
+    expectedDeliveryOn: (width: 10%),
+    contactName: (width: 15%),
+    lastEditedByName: (width: 15%),
+    lastEditedAt: (width: 12%),
+    actions: (width: 70px)
+  ));
+}
