@@ -57,10 +57,6 @@ export class AuthService {
 
     const decoded = jwtDecode<Auth0JwtPayload>(this.getToken());
 
-    if (!decoded) {
-      return DEFAULT_AUTH_STATUS;
-    }
-
     return {
       isAuthenticated: decoded.email ? true : false,
       userId: parseInt(decoded.sub!, 10)
