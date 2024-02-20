@@ -17,6 +17,7 @@ module.exports = {
     '/src/app/app.routes.ts',
     '/src/app/modules/customer/customer.routes.ts',
     '/src/app/modules/master-data/master-data.routes.ts',
+    '/src/app/modules/order/order.routes.ts',
     '/src/app/modules/supplier/supplier.routes.ts'
   ],
   coverageReporters: [
@@ -27,7 +28,7 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      lines: 10,
+      lines: 90,
     }
   },
   reporters: [
