@@ -67,12 +67,6 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "stylePreprocessorOptions": {
-                "includePaths": [
-                  "node_modules",
-                  "src/styles"
-                ]
-              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
