@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
-@use 'src/styles/mixins' as *;
+@use 'src/styles/mixins';
 
 .mat-mdc-table {
-  @include mat-table-columns((
+  @include mixins.mat-table-columns((
     state: (width: 25%),
     country: (width: 25%),
     population: (width: 10%),

@@ -1,7 +1,7 @@
-@use 'src/styles/mixins' as *;
+@use 'src/styles/mixins';
 
 .mat-mdc-table {
-  @include mat-table-columns((
+  @include mixins.mat-table-columns((
     name: (width: 15%),
     region: (width: 10%),
     subregion: (width: 15%),
