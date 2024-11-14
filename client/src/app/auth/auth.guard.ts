@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { EnvironmentInjector, Injectable, runInInjectionContext } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { AuthService } from '@app/auth/auth.service';
-import { Observable, map, take } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private readonly authService: AuthService, private readonly router: Router) { }
+  constructor(private readonly authService: AuthService, private readonly router: Router, private injector: EnvironmentInjector) { }
 
   canActivate(route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.validateLogin(route);
@@ -20,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private validateLogin(route?: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.authService.authStatus$.pipe(
+    return runInInjectionContext(this.injector, () => toObservable(this.authService.authStatus).pipe(
       map(authStatus => {
         const isLoginAllowed = authStatus.isAuthenticated;
 
@@ -31,7 +32,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         return isLoginAllowed;
       }),
       take(1)
-    );
+    ));
   }
 
   private getResolvedUrl(route?: ActivatedRouteSnapshot): string {

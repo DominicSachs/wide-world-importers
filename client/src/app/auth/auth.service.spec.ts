@@ -3,7 +3,7 @@ import { fakeAsync, tick } from '@angular/core/testing';
 import { AuthResponse, AuthStatus, DEFAULT_AUTH_STATUS } from '@app/auth/auth.models';
 import { AuthService } from '@app/auth/auth.service';
 import { CacheService } from '@app/shared/services/cache.service';
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 
 describe('AuthService', () => {
   let sut: AuthService;
@@ -32,7 +32,7 @@ describe('AuthService', () => {
     jest.spyOn(cacheService, 'getItem').mockReturnValue(jwt);
 
     sut.login('test@example.com');
-    const status: AuthStatus = await firstValueFrom(sut.authStatus$);
+    const status: AuthStatus = sut.authStatus();
 
     expect(status.isAuthenticated).toBeTruthy();
     expect(status.userId).toBe(1);
@@ -46,7 +46,7 @@ describe('AuthService', () => {
     jest.spyOn(cacheService, 'getItem').mockReturnValue(token);
 
     sut.login('test@example.com');
-    const status: AuthStatus = await firstValueFrom(sut.authStatus$);
+    const status: AuthStatus = sut.authStatus();
 
     expect(status).toBe(DEFAULT_AUTH_STATUS);
     expect(cacheService.setItem).toHaveBeenCalledWith('jwt', token);
@@ -57,7 +57,7 @@ describe('AuthService', () => {
     let status = {} as AuthStatus;
 
     sut.logout(true);
-    sut.authStatus$.subscribe(s => status = s);
+    status = sut.authStatus();
     tick(50);
 
     expect(cacheService.removeItem).toHaveBeenCalledWith('jwt');
