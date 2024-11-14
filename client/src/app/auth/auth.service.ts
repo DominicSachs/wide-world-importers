@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Auth0JwtPayload, AuthResponse, AuthStatus, DEFAULT_AUTH_STATUS } from '@app/auth/auth.models';
 import { CacheService } from '@app/shared/services/cache.service';
 import { environment } from '@env/environment';
 import { jwtDecode } from 'jwt-decode';
-import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly authStatusSubject$ = new BehaviorSubject<AuthStatus>(this.getAuthStatusFromToken());
-  readonly authStatus$ = this.authStatusSubject$.asObservable();
+  private authSignal = signal(this.getAuthStatusFromToken());
+  readonly authStatus = this.authSignal.asReadonly();
 
   constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) { }
 
@@ -20,7 +20,7 @@ export class AuthService {
           this.setToken(v.accessToken);
           return this.getAuthStatusFromToken();
         }),
-        tap(s => this.authStatusSubject$.next(s))
+        tap(s => this.authSignal.set(s))
       );
 
     loginResponse$.subscribe();
@@ -33,7 +33,7 @@ export class AuthService {
       this.clearToken();
     }
 
-    setTimeout(() => this.authStatusSubject$.next(DEFAULT_AUTH_STATUS), 0);
+    setTimeout(() => this.authSignal.set(DEFAULT_AUTH_STATUS), 0);
   }
 
   getToken(): string {
