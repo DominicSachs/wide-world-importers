@@ -11,12 +11,11 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-order-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  imports: [AsyncPipe, DatePipe, MatIcon, ...MAT_TABLE, RouterLink],
-  providers: [OrderService]
+    selector: 'app-order-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    imports: [AsyncPipe, DatePipe, MatIcon, ...MAT_TABLE, RouterLink],
+    providers: [OrderService]
 })
 export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   displayedColumns = ['customerPurchaseOrderNumber', 'orderedOn', 'expectedDeliveryOn', 'customerName', 'contactName', 'lastEditedByName', 'lastEditedAt', 'actions'];

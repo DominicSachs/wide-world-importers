@@ -13,27 +13,26 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-city-edit',
-  templateUrl: './city-edit.component.html',
-  styleUrls: ['./city-edit.component.scss'],
-  imports: [
-    AsyncPipe,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatError,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatOption,
-    MatSelect,
-    ReactiveFormsModule
-  ],
-  providers: [MasterDataService]
+    selector: 'app-city-edit',
+    templateUrl: './city-edit.component.html',
+    styleUrls: ['./city-edit.component.scss'],
+    imports: [
+        AsyncPipe,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatError,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        MatOption,
+        MatSelect,
+        ReactiveFormsModule
+    ],
+    providers: [MasterDataService]
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;

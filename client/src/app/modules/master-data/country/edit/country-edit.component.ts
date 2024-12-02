@@ -13,31 +13,31 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-edit',
-  templateUrl: './country-edit.component.html',
-  styleUrls: ['./country-edit.component.scss'],
-  imports: [
-    AsyncPipe,
-    MatAccordion,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
-    MatError,
-    MatExpansionPanel,
-    MatExpansionPanelDescription,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatFormField,
-    MatIcon,
-    MatIconButton,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule],
-  providers: [MasterDataService]
+    selector: 'app-edit',
+    templateUrl: './country-edit.component.html',
+    styleUrls: ['./country-edit.component.scss'],
+    imports: [
+        AsyncPipe,
+        MatAccordion,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardHeader,
+        MatCardContent,
+        MatCardTitle,
+        MatError,
+        MatExpansionPanel,
+        MatExpansionPanelDescription,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        MatFormField,
+        MatIcon,
+        MatIconButton,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule
+    ],
+    providers: [MasterDataService]
 })
 export class CountryEditComponent implements OnInit {
   editForm: FormGroup;

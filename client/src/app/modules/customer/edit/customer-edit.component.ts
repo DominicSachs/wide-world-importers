@@ -12,27 +12,26 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-customer-edit',
-  templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.scss'],
-  imports: [
-    AddressComponent,
-    AsyncPipe,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardSubtitle,
-    MatCardTitle,
-    MatError,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    ReactiveFormsModule
-  ],
-  providers: [CustomerService]
+    selector: 'app-customer-edit',
+    templateUrl: './customer-edit.component.html',
+    styleUrls: ['./customer-edit.component.scss'],
+    imports: [
+        AddressComponent,
+        AsyncPipe,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardContent,
+        MatCardHeader,
+        MatCardSubtitle,
+        MatCardTitle,
+        MatError,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule
+    ],
+    providers: [CustomerService]
 })
 export class CustomerEditComponent implements OnInit {
   editForm: FormGroup;
