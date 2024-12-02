@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Input } from '@angular/core';
+import { AfterViewInit, Directive, input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,8 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: '[appTableQueryString]'
 })
 export class TableQueryStringDirective implements AfterViewInit {
-  @Input()
-  paginator!: MatPaginator;
+  readonly paginator = input.required<MatPaginator>();
 
   constructor(private readonly sort: MatSort, private readonly router: Router, private readonly route: ActivatedRoute) { }
 
@@ -28,15 +27,16 @@ export class TableQueryStringDirective implements AfterViewInit {
       this.sort.direction = sortDirection;
     }
 
+    const paginator = this.paginator();
     if (pageSize) {
-      this.paginator.pageSize = this.paginator.pageSizeOptions.includes(pageSize) ? pageSize : 20;
+      paginator.pageSize = paginator.pageSizeOptions.includes(pageSize) ? pageSize : 20;
     }
 
     if (pageIndex) {
-      this.paginator.pageIndex = pageIndex;
+      paginator.pageIndex = pageIndex;
     }
 
-    this.paginator.page.subscribe(_ => this.syncChangesToUrlQueryParams());
+    paginator.page.subscribe(_ => this.syncChangesToUrlQueryParams());
     this.sort.sortChange.subscribe(_ => this.syncChangesToUrlQueryParams());
   }
 
@@ -44,8 +44,8 @@ export class TableQueryStringDirective implements AfterViewInit {
     const params = {
       sortActive: this.sort.active,
       sortDirection: this.sort.direction,
-      pageIndex: this.paginator.pageIndex,
-      pageSize: this.paginator.pageSize
+      pageIndex: this.paginator().pageIndex,
+      pageSize: this.paginator().pageSize
     };
 
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });

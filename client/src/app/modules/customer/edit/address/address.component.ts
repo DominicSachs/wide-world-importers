@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -10,6 +10,5 @@ import { MatInput } from '@angular/material/input';
     imports: [MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule]
 })
 export class AddressComponent {
-  @Input()
-  formGroup!: FormGroup;
+  readonly formGroup = input.required<FormGroup>();
 }

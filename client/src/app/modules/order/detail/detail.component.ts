@@ -1,4 +1,4 @@
-import { Component, Input, numberAttribute } from '@angular/core';
+import { Component, input, numberAttribute } from '@angular/core';
 
 @Component({
     selector: 'app-detail',
@@ -7,6 +7,5 @@ import { Component, Input, numberAttribute } from '@angular/core';
     styleUrl: './detail.component.scss'
 })
 export class OrderDetailComponent {
-  @Input({ transform: numberAttribute })
-  id = 0;
+  readonly id = input.required({ transform: numberAttribute });
 }
