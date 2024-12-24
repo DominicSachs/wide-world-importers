@@ -1,10 +1,11 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { CityListComponent } from '@app/modules/master-data/city/list/city-list.component';
 import { CityListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -22,7 +23,8 @@ describe('CityListComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule, RouterTestingModule]
+      imports: [NoopAnimationsModule, ReactiveFormsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
     })
     .overrideComponent(CityListComponent, {
       add: {

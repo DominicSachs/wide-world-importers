@@ -10,6 +10,7 @@ describe('OrderDetailComponent', () => {
     });
 
     fixture = TestBed.createComponent(OrderDetailComponent);
+    fixture.componentRef.setInput('id', 0);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

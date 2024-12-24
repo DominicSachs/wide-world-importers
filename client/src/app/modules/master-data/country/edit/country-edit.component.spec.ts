@@ -1,4 +1,5 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/mas
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { of } from 'rxjs';
 
-describe('CountryEditComponent', () => {
+describe('CountryEditComponent with valid input', () => {
   let sut: CountryEditComponent;
   let fixture: ComponentFixture<CountryEditComponent>;
   let router: Router;
@@ -20,8 +21,7 @@ describe('CountryEditComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [MasterDataService]
+      providers: [MasterDataService, provideHttpClient(), provideHttpClientTesting()]
     })
     .overrideComponent(CountryEditComponent, {
       add: {
@@ -35,6 +35,7 @@ describe('CountryEditComponent', () => {
 
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CountryEditComponent);
+    fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
     fixture.detectChanges();
     sut.states.clear();
@@ -42,6 +43,7 @@ describe('CountryEditComponent', () => {
 
   it('initializes the form', () => {
     fixture = TestBed.createComponent(CountryEditComponent);
+    fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
     sut.ngOnInit();
 
@@ -72,7 +74,6 @@ describe('CountryEditComponent', () => {
     jest.spyOn(service, 'getCountry').mockReturnValue(of(mockResult));
     jest.spyOn(sut.editForm, 'patchValue');
 
-    sut.id = 1;
     sut.ngOnInit();
     sut.country$.subscribe();
 
@@ -114,6 +115,7 @@ describe('CountryEditComponent', () => {
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
     jest.spyOn(service, 'saveCountry').mockReturnValue(of(void 0));
     jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+    fixture.componentRef.setInput('id', 1);
 
     const mockResult = {
       name: 'Country 1',
@@ -127,7 +129,6 @@ describe('CountryEditComponent', () => {
 
     sut.editForm.patchValue(mockResult);
 
-    sut.id = 1;
     sut.save();
 
     expect(service.saveCountry).toHaveBeenCalledWith({ ...mockResult, id: 1 });

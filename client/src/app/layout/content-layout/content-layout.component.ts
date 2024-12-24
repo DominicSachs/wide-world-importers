@@ -1,5 +1,4 @@
 import { Component, Signal } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -13,7 +12,7 @@ import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-
     selector: 'app-content-layout',
     templateUrl: './content-layout.component.html',
     styleUrls: ['./content-layout.component.scss'],
-    imports: [MatIcon, MatIconButton, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
+    imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
 })
 export class ContentLayoutComponent {
   opened = false;

@@ -1,15 +1,15 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router } from '@angular/router';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { of } from 'rxjs';
 
-describe('CityEditComponent', () => {
+describe('CityEditComponent with valid input', () => {
   let sut: CityEditComponent;
   let fixture: ComponentFixture<CityEditComponent>;
   let router: Router;
@@ -24,7 +24,8 @@ describe('CityEditComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, RouterTestingModule.withRoutes([])]
+      imports: [NoopAnimationsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
     })
     .overrideComponent(CityEditComponent, {
       add: {
@@ -38,6 +39,7 @@ describe('CityEditComponent', () => {
 
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CityEditComponent);
+    fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -62,31 +64,11 @@ describe('CityEditComponent', () => {
     jest.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
     jest.spyOn(sut.editForm, 'patchValue');
 
-    sut.id = 1;
     sut.ngOnInit();
     sut.city$.subscribe();
 
     expect(service.getCity).toHaveBeenNthCalledWith(1, 1);
     expect(sut.editForm.patchValue).toHaveBeenCalledTimes(1);
-  }));
-
-  it('ngOnInit does not call masterDataService.getCity if url parameter ist 0 and does not patch the edit form', fakeAsync(() => {
-    const mockResult = {
-      name: 'City 1',
-      population: 1000,
-      countryId: 1,
-      stateId: 1
-    } as CityEditResponse;
-
-    jest.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
-    jest.spyOn(sut.editForm, 'patchValue');
-
-    sut.id = 0;
-    sut.ngOnInit();
-    sut.city$.subscribe();
-
-    expect(service.getCity).not.toHaveBeenCalledTimes(1);
-    expect(sut.editForm.patchValue).not.toHaveBeenCalledTimes(1);
   }));
 
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
@@ -102,7 +84,6 @@ describe('CityEditComponent', () => {
 
     sut.editForm.patchValue(mockResult);
 
-    sut.id = 1;
     sut.save();
     tick(100);
 
@@ -128,4 +109,54 @@ describe('CityEditComponent', () => {
     expect(sut.editForm.controls.name.value).toEqual('');
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/cities');
   });
+});
+
+describe('CityEditComponent', () => {
+  let sut: CityEditComponent;
+  let fixture: ComponentFixture<CityEditComponent>;
+  let service: MasterDataService;
+
+  beforeEach(async () => {
+    service = {
+      getCity: () => of({} as CityEditResponse),
+      getCountryNames: () => of([] as KeyValueItem<number, string>[])
+    } as unknown as MasterDataService;
+
+    await TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
+    })
+    .overrideComponent(CityEditComponent, {
+      add: {
+        providers: [{ provide: MasterDataService, useValue: service }]
+      },
+      remove: {
+        providers: [MasterDataService]
+      }
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CityEditComponent);
+    fixture.componentRef.setInput('id', 0);
+    sut = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('ngOnInit does not call masterDataService.getCity if url parameter ist 0 and does not patch the edit form', fakeAsync(() => {
+    const mockResult = {
+      name: 'City 1',
+      population: 1000,
+      countryId: 1,
+      stateId: 1
+    } as CityEditResponse;
+
+    jest.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
+    jest.spyOn(sut.editForm, 'patchValue');
+
+    sut.ngOnInit();
+    sut.city$.subscribe();
+
+    expect(service.getCity).not.toHaveBeenCalledTimes(1);
+    expect(sut.editForm.patchValue).not.toHaveBeenCalledTimes(1);
+  }));
 });

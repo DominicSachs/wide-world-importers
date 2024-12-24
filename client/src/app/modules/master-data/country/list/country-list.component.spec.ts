@@ -1,4 +1,5 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +21,8 @@ describe('CountryListComponent', () => {
     } as unknown as MasterDataService;
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule]
+      imports: [NoopAnimationsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .overrideComponent(CountryListComponent, {
       add: {

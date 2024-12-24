@@ -1,7 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { ContentLayoutComponent } from '@app/layout/content-layout/content-layout.component';
 import { StyleManager } from '@app/layout/content-layout/style-manager.service';
 
@@ -12,8 +13,8 @@ describe('ContentLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, RouterTestingModule.withRoutes([])],
-      providers: [StyleManager]
+      imports: [NoopAnimationsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([]), StyleManager]
     })
     .compileComponents();
 
