@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit, numberAttribute } from '@angular/core';
+import { Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -13,27 +13,26 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-city-edit',
-  templateUrl: './city-edit.component.html',
-  styleUrls: ['./city-edit.component.scss'],
-  imports: [
-    AsyncPipe,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatError,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatOption,
-    MatSelect,
-    ReactiveFormsModule
-  ],
-  providers: [MasterDataService]
+    selector: 'app-city-edit',
+    templateUrl: './city-edit.component.html',
+    styleUrls: ['./city-edit.component.scss'],
+    imports: [
+        AsyncPipe,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatError,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        MatOption,
+        MatSelect,
+        ReactiveFormsModule
+    ],
+    providers: [MasterDataService]
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;
@@ -41,9 +40,7 @@ export class CityEditComponent implements OnInit {
   states$!: Observable<KeyValueItem<number, string>[]>;
   city$!: Observable<CityEditResponse>;
   editForm: CityFormGroup;
-
-  @Input({ transform: numberAttribute })
-  id = 0;
+  readonly id = input.required({ transform: numberAttribute });
 
   constructor(fb: FormBuilder, private masterDataService: MasterDataService, private router: Router) {
     this.countries$ = this.masterDataService.getCountryNames();
@@ -65,10 +62,11 @@ export class CityEditComponent implements OnInit {
         switchMap(() => this.masterDataService.getStateNamesForCountry(this.editForm.get('countryId')!.value))
       );
 
-    if (this.id === 0) {
+    const id = this.id();
+    if (id === 0) {
       this.city$ = of({} as CityEditResponse);
     } else {
-      this.city$ = this.masterDataService.getCity(this.id).pipe(tap(c => this.editForm.patchValue(c)));
+      this.city$ = this.masterDataService.getCity(id).pipe(tap(c => this.editForm.patchValue(c)));
     }
   }
 
@@ -77,7 +75,7 @@ export class CityEditComponent implements OnInit {
       return;
     }
 
-    const request = { ...this.editForm.value, id: this.id } as CityEditResponse;
+    const request = { ...this.editForm.value, id: this.id() } as CityEditResponse;
     this.masterDataService.saveCity(request).subscribe(() => this.router.navigateByUrl('/settings/cities'));
   }
 

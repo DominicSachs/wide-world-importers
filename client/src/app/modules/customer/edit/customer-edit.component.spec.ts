@@ -1,4 +1,5 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +22,8 @@ describe('CustomerEditComponent', () => {
     } as unknown as CustomerService;
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NoopAnimationsModule, ReactiveFormsModule]
+      imports: [NoopAnimationsModule, ReactiveFormsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .overrideComponent(CustomerEditComponent, {
       add: {
@@ -35,6 +37,7 @@ describe('CustomerEditComponent', () => {
 
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CustomerEditComponent);
+    fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -64,11 +67,10 @@ describe('CustomerEditComponent', () => {
     } as CustomerEditResponse;
 
     sut.ngOnInit();
-    sut.id = 1;
     sut.editForm.patchValue(model);
     sut.save();
 
-    expect(service.update).toHaveBeenCalledWith({ ...model, id: sut.id });
+    expect(service.update).toHaveBeenCalledWith({ ...model, id: sut.id() });
   });
 
   it('save does not call customerService.update if form is invalid', () => {

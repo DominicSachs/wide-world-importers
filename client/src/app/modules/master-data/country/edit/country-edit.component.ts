@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit, numberAttribute } from '@angular/core';
+import { Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -13,38 +13,36 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-edit',
-  templateUrl: './country-edit.component.html',
-  styleUrls: ['./country-edit.component.scss'],
-  imports: [
-    AsyncPipe,
-    MatAccordion,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
-    MatError,
-    MatExpansionPanel,
-    MatExpansionPanelDescription,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatFormField,
-    MatIcon,
-    MatIconButton,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule],
-  providers: [MasterDataService]
+    selector: 'app-edit',
+    templateUrl: './country-edit.component.html',
+    styleUrls: ['./country-edit.component.scss'],
+    imports: [
+        AsyncPipe,
+        MatAccordion,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardHeader,
+        MatCardContent,
+        MatCardTitle,
+        MatError,
+        MatExpansionPanel,
+        MatExpansionPanelDescription,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        MatFormField,
+        MatIcon,
+        MatIconButton,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule
+    ],
+    providers: [MasterDataService]
 })
 export class CountryEditComponent implements OnInit {
   editForm: FormGroup;
   country$!: Observable<CountryEditReponse>;
-
-  @Input({ transform: numberAttribute })
-  id = 0;
+  readonly id = input.required({ transform: numberAttribute });
 
   constructor(private fb: UntypedFormBuilder, private masterDataService: MasterDataService, private router: Router) {
     this.editForm = fb.group({
@@ -71,7 +69,7 @@ export class CountryEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.country$ = this.masterDataService.getCountry(this.id)
+    this.country$ = this.masterDataService.getCountry(this.id())
       .pipe(
         tap(c => {
           this.editForm.patchValue(c);
@@ -107,7 +105,7 @@ export class CountryEditComponent implements OnInit {
       return;
     }
 
-    const request = { ...this.editForm.value, id: this.id } as CountryEditReponse;
+    const request = { ...this.editForm.value, id: this.id() } as CountryEditReponse;
     this.masterDataService.saveCountry(request).subscribe(() => this.router.navigateByUrl('/settings/countries'));
   }
 

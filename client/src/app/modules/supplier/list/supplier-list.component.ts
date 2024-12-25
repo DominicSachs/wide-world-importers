@@ -12,12 +12,11 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-supplier-list',
-  templateUrl: './supplier-list.component.html',
-  styleUrls: ['./supplier-list.component.scss'],
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
-  providers: [SupplierService]
+    selector: 'app-supplier-list',
+    templateUrl: './supplier-list.component.html',
+    styleUrls: ['./supplier-list.component.scss'],
+    imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
+    providers: [SupplierService]
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
   displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];

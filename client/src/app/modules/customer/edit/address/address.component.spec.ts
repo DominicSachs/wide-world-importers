@@ -14,13 +14,14 @@ describe('AddressComponent', () => {
     fixture = TestBed.createComponent(AddressComponent);
     component = fixture.componentInstance;
 
-    component.formGroup = new FormGroup({
+    const formGroup = new FormGroup({
       addressLine1: new FormControl('', Validators.required),
       addressLine2: new FormControl(''),
       postalCode: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required)
     });
 
+    Object.defineProperty(component, 'formGroup', { value: () => formGroup });
     fixture.detectChanges();
   });
 

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit, numberAttribute } from '@angular/core';
+import { Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
@@ -12,34 +12,31 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-customer-edit',
-  templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.scss'],
-  imports: [
-    AddressComponent,
-    AsyncPipe,
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardSubtitle,
-    MatCardTitle,
-    MatError,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    ReactiveFormsModule
-  ],
-  providers: [CustomerService]
+    selector: 'app-customer-edit',
+    templateUrl: './customer-edit.component.html',
+    styleUrls: ['./customer-edit.component.scss'],
+    imports: [
+        AddressComponent,
+        AsyncPipe,
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardContent,
+        MatCardHeader,
+        MatCardSubtitle,
+        MatCardTitle,
+        MatError,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule
+    ],
+    providers: [CustomerService]
 })
 export class CustomerEditComponent implements OnInit {
   editForm: FormGroup;
   customer$!: Observable<CustomerEditResponse>;
-
-  @Input({ transform: numberAttribute })
-  id = 0;
+  readonly id = input.required({ transform: numberAttribute });
 
   constructor(private fb: UntypedFormBuilder, private router: Router, private customerService: CustomerService) {
     this.editForm = this.fb.group({
@@ -62,7 +59,7 @@ export class CustomerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customer$ = this.customerService.getCustomer(this.id).pipe(tap(c => this.editForm.patchValue(c)));
+    this.customer$ = this.customerService.getCustomer(this.id()).pipe(tap(c => this.editForm.patchValue(c)));
   }
 
   save(): void {
@@ -70,7 +67,7 @@ export class CustomerEditComponent implements OnInit {
       return;
     }
 
-    const request = { ...this.editForm.value, id: this.id } as CustomerEditResponse;
+    const request = { ...this.editForm.value, id: this.id() } as CustomerEditResponse;
     this.customerService.update(request).subscribe();
   }
 

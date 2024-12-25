@@ -1,8 +1,8 @@
-import { EventEmitter } from '@angular/core';
-import { fakeAsync } from '@angular/core/testing';
+import { EventEmitter, signal } from '@angular/core';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { TableQueryStringDirective } from '@app/shared/directives/table-query-string.directive';
 
 describe('TableQueryStringDirective', () => {
@@ -22,14 +22,16 @@ describe('TableQueryStringDirective', () => {
       }
     } as unknown as ActivatedRoute;
 
-    testObject = new TableQueryStringDirective(sort, router, route);
-    testObject.paginator = {
-      pageIndex: 0,
-      pageSize: 0,
-      pageSizeOptions: [10],
-      page: new EventEmitter<PageEvent>()
-    } as unknown as MatPaginator;
-
+    TestBed.runInInjectionContext(() => {
+      testObject = new TableQueryStringDirective(sort, router, route);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (testObject as any).paginator = signal({
+        pageIndex: 0,
+        pageSize: 0,
+        pageSizeOptions: [10],
+        page: new EventEmitter<PageEvent>()
+      } as unknown as MatPaginator);
+    });
   });
 
   it('ngAfterViewInit sets sort and page paramaters', () => {
@@ -37,8 +39,8 @@ describe('TableQueryStringDirective', () => {
 
     expect(sort.active).toBe('name');
     expect(sort.direction).toBe('asc');
-    expect(testObject.paginator.pageIndex).toBe(2);
-    expect(testObject.paginator.pageSize).toBe(10);
+    expect(testObject.paginator().pageIndex).toBe(2);
+    expect(testObject.paginator().pageSize).toBe(10);
   });
 
   it('calls router navigate on sorte change event', () => {
@@ -54,7 +56,7 @@ describe('TableQueryStringDirective', () => {
     jest.spyOn(router, 'navigate');
 
     testObject.ngAfterViewInit();
-    testObject.paginator.page.emit({ } as PageEvent);
+    testObject.paginator().page.emit({ } as PageEvent);
 
     expect(router.navigate).toHaveBeenCalledWith([], { queryParams: { sortActive: 'name', sortDirection: 'asc', pageIndex: 2, pageSize: 10 }, queryParamsHandling: 'merge' });
   }));

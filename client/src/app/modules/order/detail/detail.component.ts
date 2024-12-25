@@ -1,13 +1,11 @@
-import { Component, Input, numberAttribute } from '@angular/core';
+import { Component, input, numberAttribute } from '@angular/core';
 
 @Component({
-  selector: 'app-detail',
-  standalone: true,
-  imports: [],
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.scss'
+    selector: 'app-detail',
+    imports: [],
+    templateUrl: './detail.component.html',
+    styleUrl: './detail.component.scss'
 })
 export class OrderDetailComponent {
-  @Input({ transform: numberAttribute })
-  id = 0;
+  readonly id = input.required({ transform: numberAttribute });
 }

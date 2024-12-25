@@ -21,8 +21,8 @@
     width: 40%;
 
     &.density-5 {
-      @include mat.form-field-density(-5);
       font-size: 14px;
+      @include mat.form-field-density(-5);
 
       .mat-icon {
         padding: 6px;
