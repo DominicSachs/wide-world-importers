@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Application.Abstractions;
 using WideWorldImporters.Application.Extensions;
+using WideWorldImporters.Application.Specifications;
+using WideWorldImporters.Application.Specifications.OrderSpecifications;
 using WideWorldImporters.Domain.Entities;
 using WideWorldImporters.Domain.Models;
 
@@ -19,8 +21,10 @@ internal sealed class GetOrdersQueryHandler : IQueryHandlerAsync<GetOrdersQuery,
     {
         query.Filter.SetSortStrategy(new OrderListSortStrategy());
         var sortColumn = string.IsNullOrWhiteSpace(query.Filter.SortColumn) ? nameof(Order.OrderedOn) : query.Filter.SortColumn;
-
-        var orders = await _context.Orders.AsNoTracking()
+        var specification = GetSpecification(query.CustomerId).ToExpression();
+        
+        var orders = await  _context.Orders.AsNoTracking()
+            .Where(specification)
             .OrderBy(sortColumn, query.Filter.SortDirection)
             .Skip(query.Filter.SkippedItems)
             .Take(query.Filter.PageSize)
@@ -37,8 +41,18 @@ internal sealed class GetOrdersQueryHandler : IQueryHandlerAsync<GetOrdersQuery,
             )
             .ToListAsync(token);
 
-        var count = await _context.Orders.CountAsync(token);
+        var count = await _context.Orders.CountAsync(specification, token);
 
         return new(orders, count);
+    }
+
+    private static Specification<Order> GetSpecification(int? customerId)
+    {
+        if (customerId == null)
+        {
+            return new EmptySpecification<Order>();
+        }
+        
+        return new CustomerIdSpecification(customerId.Value);
     }
 }

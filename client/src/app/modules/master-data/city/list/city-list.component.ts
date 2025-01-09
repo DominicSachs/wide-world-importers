@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -22,13 +22,15 @@ import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
     imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
     providers: [MasterDataService]
 })
-export class CityListComponent extends BaseTableComponent<CityListReponse> {
+export class CityListComponent extends BaseTableComponent<CityListReponse> implements OnInit {
   displayedColumns = ['name', 'state', 'country', 'population', 'actions'];
   citySearch = new FormControl<string | null>(null);
 
   constructor(private masterDataService: MasterDataService) {
     super();
+  }
 
+  ngOnInit(): void {
     this.citySearch.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),

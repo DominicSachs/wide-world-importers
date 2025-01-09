@@ -12,7 +12,7 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.Property(p => p.Id).HasColumnName("CustomerID");
         builder.Property(p => p.Name).HasColumnName("CustomerName").IsRequired();
-        builder.Property(p => p.DeliveryMethod).HasColumnName("DeliveryMethodID");
+        builder.Property(p => p.DeliveryMethodId).HasColumnName("DeliveryMethodID");
         builder.Property(p => p.PhoneNumber).IsRequired().HasMaxLength(20).IsRequired();
         builder.Property(p => p.FaxNumber).IsRequired().HasMaxLength(20).IsRequired();
 

@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryEditComponent } from '@app/modules/master-data/country/edit/country-edit.component';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
@@ -139,24 +139,21 @@ describe('CountryEditComponent with valid input', () => {
     jest.spyOn(service, 'saveCountry');
 
     sut.ngOnInit();
-    sut.editForm.controls['name'].setValue(null);
+    sut.editForm.controls['name'].setValue(null!);
     sut.save();
 
     expect(service.saveCountry).not.toHaveBeenCalled();
   });
 
   it('cancel resets the edit form and navigates to list', () => {
-    sut.editForm = new FormGroup({
-      name: new FormControl('test-name')
-    });
-
     jest.spyOn(sut.editForm, 'reset');
     jest.spyOn(router, 'navigateByUrl');
 
+    sut.editForm.controls.name.setValue('test');
     sut.cancel();
 
     expect(sut.editForm.reset).toHaveBeenCalled();
-    expect(sut.editForm.controls['name'].value).toEqual(null);
+    expect(sut.editForm.controls.name.value).toEqual('');
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/countries');
   });
 });

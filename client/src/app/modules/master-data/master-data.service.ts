@@ -5,9 +5,9 @@ import { DataFilter } from '@app/shared/models/data-filter.model';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
-import { EMPTY, Observable, shareReplay } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MasterDataService {
   private countryNamesRequest$!: Observable<KeyValueItem<number, string>[]>;
 
@@ -41,13 +41,8 @@ export class MasterDataService {
     return this.httpClient.put<void>(`${environment.apiUrl}/countries/${request.id}`, request);
   }
 
-  getCountryNames(refresh?: boolean): Observable<KeyValueItem<number, string>[]> {
-    if (!this.countryNamesRequest$ || refresh) {
-      // use shareReplay to cache the response
-      this.countryNamesRequest$ = this.httpClient.get<KeyValueItem<number, string>[]>(`${environment.apiUrl}/countries/names`).pipe(shareReplay(1));
-    }
-
-    return this.countryNamesRequest$;
+  getCountryNames(): Observable<KeyValueItem<number, string>[]> {
+    return this.httpClient.get<KeyValueItem<number, string>[]>(`${environment.apiUrl}/countries/names`);
   }
 
   getStateNamesForCountry(countryId: number): Observable<KeyValueItem<number, string>[]> {

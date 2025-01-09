@@ -23,4 +23,3 @@ export const AUTHORIZE_INTERCEPTOR: HttpInterceptorFn = (req: HttpRequest<unknow
     })
   );
 };
-

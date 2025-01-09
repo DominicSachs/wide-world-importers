@@ -39,4 +39,25 @@ describe('OrderService', () => {
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/orders?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
     expect(result.count).toBe(2);
   }));
+
+  it('gets a list of Orders for customer and sets the correct query string', fakeAsync(() => {
+    const pagedResult = {
+      items: [
+        { id: 1, customerPurchaseOrderNumber: 'CPON 1' },
+        { id: 2, customerPurchaseOrderNumber: 'CPON 2' }
+      ],
+      count: 2
+    } as PagedResponse<OrderListReponse>;
+
+    const filter = new DataFilter();
+    filter.sortColumn = 'name';
+
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
+
+    let result = {} as PagedResponse<OrderListReponse>;
+    sut.getOrders(filter, 1).subscribe(s => result = s);
+
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/orders/1?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
+    expect(result.count).toBe(2);
+  }));
 });

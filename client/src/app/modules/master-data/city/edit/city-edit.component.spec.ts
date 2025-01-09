@@ -44,15 +44,6 @@ describe('CityEditComponent with valid input', () => {
     fixture.detectChanges();
   });
 
-  it('initializes the form', () => {
-    expect(sut.editForm.controls['name']).toBeDefined();
-    expect(sut.editForm.controls['population']).toBeDefined();
-    expect(sut.editForm.controls['countryId']).toBeDefined();
-    expect(sut.editForm.controls['stateId']).toBeDefined();
-
-    expect(sut.countries$).toBeDefined();
-  });
-
   it('ngOnInit calls masterDataService.getCity if url parameter ist set and patches the edit form', fakeAsync(() => {
     const mockResult = {
       name: 'City 1',

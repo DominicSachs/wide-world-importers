@@ -26,8 +26,8 @@
     </ng-container>
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let c">
-        <a mat-icon-button [routerLink]="['/', 'suppliers', c.id]" title="Details">
+      <mat-cell *matCellDef="let t">
+        <a mat-icon-button [routerLink]="['/', 'suppliers', t.id]" title="Details">
           <mat-icon color="primary">edit</mat-icon>
         </a>
       </mat-cell>
