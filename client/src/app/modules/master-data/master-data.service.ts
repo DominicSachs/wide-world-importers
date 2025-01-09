@@ -7,7 +7,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
 import { EMPTY, Observable, shareReplay } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MasterDataService {
   private countryNamesRequest$!: Observable<KeyValueItem<number, string>[]>;
 

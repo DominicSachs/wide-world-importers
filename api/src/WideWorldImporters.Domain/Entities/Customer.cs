@@ -1,11 +1,9 @@
-﻿using WideWorldImporters.Domain.Entities.Enums;
-
-namespace WideWorldImporters.Domain.Entities;
+﻿namespace WideWorldImporters.Domain.Entities;
 
 public sealed class Customer : BaseEntity
 {
     public string Name { get; set; } = default!;
-    public DeliveryMethod DeliveryMethod { get; set; }
+    public int DeliveryMethodId { get; set; }
     public string PhoneNumber { get; set; } = default!;
     public string FaxNumber { get; set; } = default!;
     public Address PostalAddress { get; set; } = default!;

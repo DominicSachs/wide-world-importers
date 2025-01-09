@@ -20,9 +20,9 @@ public sealed class OrdersController : ControllerBase
         _queryDispatcher = queryDispatcher;
     }
 
-    [HttpGet]
-    public Task<PagedResult<OrderListResponse>> Get([FromQuery] DataFilter filter, CancellationToken token)
+    [HttpGet("{customerId:int?}")]
+    public Task<PagedResult<OrderListResponse>> Get([FromQuery] DataFilter filter, int? customerId = null, CancellationToken token = default)
     {
-        return _queryDispatcher.HandleAsync<GetOrdersQuery, PagedResult<OrderListResponse>>(new(_context, filter), token);
+        return _queryDispatcher.HandleAsync<GetOrdersQuery, PagedResult<OrderListResponse>>(new(_context, filter, customerId), token);
     }
 }

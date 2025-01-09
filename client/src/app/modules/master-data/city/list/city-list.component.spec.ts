@@ -60,6 +60,7 @@ describe('CityListComponent', () => {
     sut.citySearch.setValue('test');
     tick(410);
 
+    expect(sut.dataFilter.searchTerm).toBe('test');
     expect(sut.reloadToFirstPage).toHaveBeenCalledTimes(1);
   }));
 });

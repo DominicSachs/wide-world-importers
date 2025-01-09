@@ -1,12 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, input, numberAttribute } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatInput } from '@angular/material/input';
 import { MatError, MatFormField, MatLabel, MatOption, MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { CityFormGroup } from '@app/modules/master-data/city/edit/city-form.model';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
@@ -36,23 +35,20 @@ import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;
+  readonly id = input.required({ transform: numberAttribute });
   readonly countries$: Observable<KeyValueItem<number, string>[]>;
+  readonly editForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    population: new FormControl<number | null>(null!),
+    countryId: new FormControl(0, { nonNullable: true , validators: [Validators.required, Validators.min(1)] }),
+    stateId: new FormControl(0, { nonNullable: true , validators: [Validators.required, Validators.min(1)] })
+  });
   states$!: Observable<KeyValueItem<number, string>[]>;
   city$!: Observable<CityEditResponse>;
-  editForm: CityFormGroup;
-  readonly id = input.required({ transform: numberAttribute });
 
-  constructor(fb: FormBuilder, private masterDataService: MasterDataService, private router: Router) {
+  constructor(private masterDataService: MasterDataService, private router: Router) {
     this.countries$ = this.masterDataService.getCountryNames();
-
-    this.editForm = fb.group({
-      name: fb.nonNullable.control('', Validators.required),
-      population: fb.control<number | null>(null),
-      countryId: fb.nonNullable.control(0, [Validators.required, Validators.min(1)]),
-      stateId: fb.nonNullable.control(0, [Validators.required, Validators.min(1)])
-    });
-
-    this.editForm.controls['countryId']!.valueChanges.subscribe(() => this.statesReloadSubject$.next());
+    this.editForm.controls.countryId.valueChanges.subscribe(() => this.statesReloadSubject$.next());
   }
 
   ngOnInit(): void {
