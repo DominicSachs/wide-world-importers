@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, input, numberAttribute } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -34,29 +34,28 @@ import { Observable, tap } from 'rxjs';
     providers: [CustomerService]
 })
 export class CustomerEditComponent implements OnInit {
-  editForm: FormGroup;
+  readonly editForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    phone: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    fax: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    postalAddress: new FormGroup({
+      addressLine1: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      addressLine2: new FormControl(''),
+      postalCode: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      city: new FormControl('', { nonNullable: true , validators: [Validators.required] })
+    }),
+    deliveryAddress: new FormGroup({
+      addressLine1: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      addressLine2: new FormControl(''),
+      postalCode: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      city: new FormControl('', { nonNullable: true , validators: [Validators.required] })
+    })
+  });
+
   customer$!: Observable<CustomerEditResponse>;
   readonly id = input.required({ transform: numberAttribute });
 
-  constructor(private fb: UntypedFormBuilder, private router: Router, private customerService: CustomerService) {
-    this.editForm = this.fb.group({
-      name: ['', Validators.required],
-      phone: ['', Validators.required],
-      fax: ['', Validators.required],
-      postalAddress: fb.group({
-        addressLine1: ['', Validators.required],
-        addressLine2: [''],
-        postalCode: ['', Validators.required],
-        city: ['', Validators.required]
-      }),
-      deliveryAddress: fb.group({
-        addressLine1: ['', Validators.required],
-        addressLine2: [''],
-        postalCode: ['', Validators.required],
-        city: ['', Validators.required]
-      })
-    });
-  }
+  constructor(private router: Router, private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.customer$ = this.customerService.getCustomer(this.id()).pipe(tap(c => this.editForm.patchValue(c)));

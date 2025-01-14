@@ -1,56 +1,56 @@
 @if (customer$ | async) {
-<form [formGroup]="editForm">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Customer Details</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" maxlength="100" />
-        @if (editForm.get('name')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-        }
-      </mat-form-field>
-      <div class="fx-row fx-gap10">
+  <form [formGroup]="editForm">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Customer Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         <mat-form-field>
-          <mat-label>Phone</mat-label>
-          <input matInput formControlName="phone" maxlength="100" />
-          @if (editForm.get('phone')!.hasError('required')) {
+          <mat-label>Name</mat-label>
+          <input matInput [formControl]="editForm.controls.name" maxlength="100" />
+          @if (editForm.controls.name.hasError('required')) {
             <mat-error>Field ist mandatory.</mat-error>
           }
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>Fax</mat-label>
-          <input matInput formControlName="fax" maxlength="100" />
-          @if (editForm.get('fax')!.hasError('required')) {
-            <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-      </div>
-      <div class="fx-row fx-gap10">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle>Postal address </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <app-address [formGroup]="$any(editForm.get('postalAddress'))"></app-address>
-          </mat-card-content>
-        </mat-card>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle>Delivery address </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <app-address [formGroup]="$any(editForm.get('deliveryAddress'))"></app-address>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </mat-card-content>
-    <mat-card-actions class="actions">
-      <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
-      <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+        <div class="fx-row fx-gap10">
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput [formControl]="editForm.controls.phone" maxlength="100" />
+            @if (editForm.controls.phone.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Fax</mat-label>
+            <input matInput [formControl]="editForm.controls.fax" maxlength="100" />
+            @if (editForm.controls.fax.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="fx-row fx-gap10">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-subtitle>Postal address </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-address [formGroup]="$any(editForm.controls.postalAddress)"></app-address>
+            </mat-card-content>
+          </mat-card>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-subtitle>Delivery address </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-address [formGroup]="$any(editForm.controls.deliveryAddress)"></app-address>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
 }

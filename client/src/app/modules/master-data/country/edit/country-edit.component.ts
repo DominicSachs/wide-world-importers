@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, input, numberAttribute } from '@angular/core';
-import { FormArray, FormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
@@ -40,32 +40,30 @@ import { Observable, tap } from 'rxjs';
     providers: [MasterDataService]
 })
 export class CountryEditComponent implements OnInit {
-  editForm: FormGroup;
-  country$!: Observable<CountryEditReponse>;
   readonly id = input.required({ transform: numberAttribute });
+  editForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    formalName: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    region: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    subregion: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    continent: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+    population: new FormControl<number | null>(null!),
+    states: new FormArray([
+      new FormGroup({
+        id: new FormControl(),
+        name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+        code: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+        salesTerritory: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+        population: new FormControl<number | null>(null, { nonNullable: true , validators: [Validators.required] })
+      })
+    ])
+  });
+  country$!: Observable<CountryEditReponse>;
 
-  constructor(private fb: UntypedFormBuilder, private masterDataService: MasterDataService, private router: Router) {
-    this.editForm = fb.group({
-      name: ['', Validators.required],
-      formalName: ['', Validators.required],
-      region: ['', Validators.required],
-      subregion: ['', Validators.required],
-      continent: ['', Validators.required],
-      population: [''],
-      states: this.fb.array([
-        this.fb.group({
-          id: [],
-          name: ['', Validators.required],
-          code: ['', Validators.required],
-          salesTerritory: ['', Validators.required],
-          population: ['', Validators.required]
-        })
-      ])
-    });
-  }
+  constructor(private masterDataService: MasterDataService, private router: Router) { }
 
   get states(): FormArray {
-    return this.editForm.get('states') as FormArray;
+    return this.editForm.controls.states;
   }
 
   ngOnInit(): void {
@@ -79,12 +77,12 @@ export class CountryEditComponent implements OnInit {
   }
 
   addState(): void {
-    const state = this.fb.group({
-      id: [0],
-      name: ['', Validators.required],
-      code: ['', Validators.required],
-      salesTerritory: ['', Validators.required],
-      population: ['', Validators.required]
+    const state = new FormGroup({
+      id: new FormControl(0),
+      name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      code: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      salesTerritory: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
+      population: new FormControl<number | null>(null, { nonNullable: true , validators: [Validators.required] })
     });
 
     this.states.insert(0, state);
@@ -119,12 +117,12 @@ export class CountryEditComponent implements OnInit {
     statesArray.clear();
 
     states.forEach(s => {
-      statesArray.push(this.fb.group({
-        id: [s.id],
-        name: [s.name, [Validators.required]],
-        code: [s.code, [Validators.required]],
-        salesTerritory: [s.salesTerritory, [Validators.required]],
-        population: [s.population]
+      statesArray.push(new FormGroup({
+        id: new FormControl(s.id),
+        name: new FormControl(s.name, { nonNullable: true , validators: [Validators.required] }),
+        code: new FormControl(s.code, { nonNullable: true , validators: [Validators.required] }),
+        salesTerritory: new FormControl(s.salesTerritory, { nonNullable: true , validators: [Validators.required] }),
+        population: new FormControl<number | undefined>(s.population, { nonNullable: true , validators: [Validators.required] })
       }));
     });
   }

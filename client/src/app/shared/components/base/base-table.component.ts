@@ -23,7 +23,11 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.dataFilter = new DataFilter(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction);
+          this.dataFilter.page = this.paginator.pageIndex;
+          this.dataFilter.pageSize = this.paginator.pageSize;
+          this.dataFilter.sortColumn = this.sort.active;
+          this.dataFilter.sortDirection = this.sort.direction;
+
           return this.loadData(this.dataFilter);
         }),
         catchError(() => of({ items: [], count: 0 } as PagedResponse<T>))
@@ -33,6 +37,7 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
 
   reloadToFirstPage(): void {
     this.paginator.pageIndex = 0;
+    this.paginator.page.emit({ pageIndex: this.paginator.pageIndex, pageSize: this.paginator.pageSize, length: this.paginator.length });
   }
 
   protected abstract loadData(filter: DataFilter): Observable<PagedResponse<T>>;

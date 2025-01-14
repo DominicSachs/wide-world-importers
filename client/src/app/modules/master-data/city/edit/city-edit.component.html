@@ -1,55 +1,55 @@
 @if (city$ | async; as c) {
   <form [formGroup]="editForm">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Country Details</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="fx-row fx-gap10">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" maxlength="60" />
-          @if (editForm.get('name')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Population</mat-label>
-          <input matInput formControlName="population" maxlength="60" />
-          @if (editForm.get('population')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-      </div>
-      <div class="fx-row fx-gap10">
-        <ng-container >
-          @if (countries$ | async; as countries) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Country Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="fx-row fx-gap10">
           <mat-form-field>
-            <mat-label>Country</mat-label>
-            <mat-select formControlName="countryId">
-              @for (c of countries; track c) {
-              <mat-option [value]="c.key">{{ c.value }}</mat-option>
-              }
-            </mat-select>
+            <mat-label>Name</mat-label>
+            <input matInput [formControl]="editForm.controls.name" maxlength="60" />
+            @if (editForm.controls.name.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
           </mat-form-field>
-          }
           <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select formControlName="stateId">
-              @if (states$ | async; as states) {
-                @for (s of states; track s) {
-                <mat-option [value]="s.key">{{ s.value }}</mat-option>
+            <mat-label>Population</mat-label>
+            <input matInput [formControl]="editForm.controls.population" maxlength="60" />
+            @if (editForm.controls.population.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="fx-row fx-gap10">
+          <ng-container>
+            @if (countries$ | async; as countries) {
+              <mat-form-field>
+                <mat-label>Country</mat-label>
+                <mat-select [formControl]="editForm.controls.countryId">
+                  @for (c of countries; track c) {
+                    <mat-option [value]="c.key">{{ c.value }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            }
+            <mat-form-field>
+              <mat-label>State</mat-label>
+              <mat-select [formControl]="editForm.controls.stateId">
+                @if (states$ | async; as states) {
+                  @for (s of states; track s) {
+                    <mat-option [value]="s.key">{{ s.value }}</mat-option>
+                  }
                 }
-              }
-            </mat-select>
-          </mat-form-field>
-        </ng-container>
-      </div>
-    </mat-card-content>
-    <mat-card-actions class="actions">
-      <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
-      <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
 }

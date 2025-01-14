@@ -1,97 +1,97 @@
 @if (country$ | async; as c) {
-<form [formGroup]="editForm">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Country Details</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="fx-row fx-gap10">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" maxlength="60" />
-          @if (editForm.get('name')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Formal Name</mat-label>
-          <input matInput formControlName="formalName" maxlength="60" />
-          @if (editForm.get('formalName')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Population</mat-label>
-          <input matInput formControlName="population" maxlength="60" />
-          @if (editForm.get('population')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-      </div>
-      <div class="fx-row fx-gap10">
-        <mat-form-field>
-          <mat-label>Region</mat-label>
-          <input matInput formControlName="region" maxlength="60" />
-          @if (editForm.get('region')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Subregion</mat-label>
-          <input matInput formControlName="subregion" maxlength="60" />
-          @if (editForm.get('subregion')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Continent</mat-label>
-          <input matInput formControlName="continent" maxlength="60" />
-          @if (editForm.get('continent')!.hasError('required')) {
-          <mat-error>Field ist mandatory.</mat-error>
-          }
-        </mat-form-field>
-      </div>
-      <mat-accordion>
-        <mat-expansion-panel [expanded]="c.states.length === 0">
-          <mat-expansion-panel-header>
-            <mat-panel-title>States of {{ c.name }}</mat-panel-title>
-            <mat-panel-description>{{ c.states.length }} States {{ getUnsavedStateCount() }}</mat-panel-description>
-          </mat-expansion-panel-header>
-          <button mat-icon-button title="Add state" (click)="addState()">
-            <mat-icon>add</mat-icon>
-          </button>
-          <ng-container formArrayName="states">
-            @for(s of states.controls; track s.value; let i = $index) {
-              <div [formGroupName]="i" class="fx-row fx-gap10" ngClass="{'new-state: s.id === 0'}">
-                <mat-form-field style="width: 40%">
-                  <mat-label>Name</mat-label>
-                  <input matInput formControlName="name" />
-                </mat-form-field>
-                <mat-form-field style="width: 10%">
-                  <mat-label>Code</mat-label>
-                  <input matInput formControlName="code" />
-                </mat-form-field>
-                <mat-form-field style="width: 30%">
-                  <mat-label>Sales Territory</mat-label>
-                  <input matInput formControlName="salesTerritory" />
-                </mat-form-field>
-                <mat-form-field style="width: 30%">
-                  <mat-label>Population</mat-label>
-                  <input matInput formControlName="population" />
-                </mat-form-field>
-                <button mat-icon-button title="Remove state" (click)="removeState(i)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
+  <form [formGroup]="editForm">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Country Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="fx-row fx-gap10">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput [formControl]="editForm.controls.name" maxlength="60" />
+            @if (editForm.controls.name.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
             }
-          </ng-container>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </mat-card-content>
-    <mat-card-actions class="actions">
-      <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
-      <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Formal Name</mat-label>
+            <input matInput [formControl]="editForm.controls.formalName" maxlength="60" />
+            @if (editForm.controls.formalName.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Population</mat-label>
+            <input matInput [formControl]="editForm.controls.population" maxlength="60" />
+            @if (editForm.controls.population.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="fx-row fx-gap10">
+          <mat-form-field>
+            <mat-label>Region</mat-label>
+            <input matInput [formControl]="editForm.controls.region" maxlength="60" />
+            @if (editForm.get('region')!.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Subregion</mat-label>
+            <input matInput [formControl]="editForm.controls.subregion" maxlength="60" />
+            @if (editForm.controls.subregion.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Continent</mat-label>
+            <input matInput [formControl]="editForm.controls.continent" maxlength="60" />
+            @if (editForm.controls.continent.hasError('required')) {
+              <mat-error>Field ist mandatory.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="c.states.length === 0">
+            <mat-expansion-panel-header>
+              <mat-panel-title>States of {{ c.name }}</mat-panel-title>
+              <mat-panel-description>{{ c.states.length }} States {{ getUnsavedStateCount() }}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-icon-button title="Add state" (click)="addState()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <ng-container formArrayName="states">
+              @for (s of states.controls; track s.value; let i = $index) {
+                <div [formGroupName]="i" class="fx-row fx-gap10" ngClass="{'new-state: s.id === 0'}">
+                  <mat-form-field style="width: 40%">
+                    <mat-label>Name</mat-label>
+                    <input matInput [formControl]="editForm.controls.states.controls[i].controls.name" />
+                  </mat-form-field>
+                  <mat-form-field style="width: 10%">
+                    <mat-label>Code</mat-label>
+                    <input matInput [formControl]="editForm.controls.states.controls[i].controls.code" />
+                  </mat-form-field>
+                  <mat-form-field style="width: 30%">
+                    <mat-label>Sales Territory</mat-label>
+                    <input matInput [formControl]="editForm.controls.states.controls[i].controls.salesTerritory" />
+                  </mat-form-field>
+                  <mat-form-field style="width: 30%">
+                    <mat-label>Population</mat-label>
+                    <input matInput [formControl]="editForm.controls.states.controls[i].controls.population" />
+                  </mat-form-field>
+                  <button mat-icon-button title="Remove state" (click)="removeState(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              }
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <button mat-stroked-button color="primary" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!(editForm.valid && editForm.dirty)" (click)="save()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
 }

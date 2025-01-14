@@ -1,3 +1,5 @@
+import { AddressResponse } from '@app/shared/models/address.model';
+
 export interface CustomerListReponse {
   id: number;
   name: string;
@@ -12,11 +14,4 @@ export interface CustomerEditResponse {
   fax: string;
   postalAddress: AddressResponse;
   deliveryAddress: AddressResponse;
-}
-
-export interface AddressResponse {
-  addressLine1: string;
-  addressLine2?: string;
-  postalCode: string;
-  city: string;
 }

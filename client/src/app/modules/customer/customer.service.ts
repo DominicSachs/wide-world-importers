@@ -6,7 +6,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CustomerService {
   constructor(private httpClient: HttpClient) { }
 

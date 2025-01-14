@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MAT_TABLE } from '@app/import-groups';
@@ -18,6 +18,8 @@ import { Observable } from 'rxjs';
     providers: [OrderService]
 })
 export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
+  readonly id = input<number>();
+
   displayedColumns = ['customerPurchaseOrderNumber', 'orderedOn', 'expectedDeliveryOn', 'customerName', 'contactName', 'lastEditedByName', 'lastEditedAt', 'actions'];
 
   constructor(private orderService: OrderService) {
@@ -25,7 +27,7 @@ export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   }
 
   protected override loadData(filter: DataFilter): Observable<PagedResponse<OrderListReponse>> {
-    return this.orderService.getOrders(filter);
+    return this.orderService.getOrders(filter, this.id());
   }
 }
 

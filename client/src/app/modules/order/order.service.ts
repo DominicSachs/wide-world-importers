@@ -6,11 +6,15 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OrderService {
   constructor(private httpClient: HttpClient) { }
 
-  getOrders(filter: DataFilter): Observable<PagedResponse<OrderListReponse>> {
+  getOrders(filter: DataFilter, customerId?: number): Observable<PagedResponse<OrderListReponse>> {
+    if (customerId) {
+      return this.httpClient.get<PagedResponse<OrderListReponse>>(`${environment.apiUrl}/orders/${customerId}?${filter.toQueryString()}`);
+    }
+
     return this.httpClient.get<PagedResponse<OrderListReponse>>(`${environment.apiUrl}/orders?${filter.toQueryString()}`);
   }
 }

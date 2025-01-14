@@ -5,7 +5,7 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
 describe('MasterDataService', () => {
   let httpClient: HttpClient;
@@ -109,5 +109,49 @@ describe('MasterDataService', () => {
     sut.saveCountry(countryToUpdate).subscribe();
 
     expect(httpClient.put).toHaveBeenCalledWith(`${environment.apiUrl}/countries/1`, countryToUpdate);
+  }));
+
+  it('gets a list of country names', fakeAsync(() => {
+    const mockResult = [
+        { id: 1, name: 'Country 1' },
+        { id: 2, name: 'Country 2' }
+      ];
+
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
+
+    let result = [];
+    sut.getCountryNames().subscribe(c => result = c);
+
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries/names`);
+    expect(result.length).toBe(2);
+  }));
+
+  it('gets a list of state names for country', fakeAsync(() => {
+    const mockResult = [
+        { id: 1, name: 'State 1' },
+        { id: 2, name: 'State 2' }
+      ];
+
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
+
+    let result = [];
+    sut.getStateNamesForCountry(1).subscribe(c => result = c);
+
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries/1/states`);
+    expect(result.length).toBe(2);
+  }));
+
+  it('gets a EMPTY observable if country id is false', fakeAsync(() => {
+    const mockResult = [
+        { id: 1, name: 'State 1' },
+        { id: 2, name: 'State 2' }
+      ];
+
+    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
+
+    const result = sut.getStateNamesForCountry(0);
+
+    expect(httpClient.get).not.toHaveBeenCalled();
+    expect(result).toBe(EMPTY);
   }));
 });
