@@ -8,36 +8,35 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { Observable, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-edit',
-    templateUrl: './country-edit.component.html',
-    styleUrls: ['./country-edit.component.scss'],
-    imports: [
-        AsyncPipe,
-        MatAccordion,
-        MatButton,
-        MatCard,
-        MatCardActions,
-        MatCardHeader,
-        MatCardContent,
-        MatCardTitle,
-        MatError,
-        MatExpansionPanel,
-        MatExpansionPanelDescription,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        MatFormField,
-        MatIcon,
-        MatIconButton,
-        MatInput,
-        MatLabel,
-        ReactiveFormsModule
-    ],
-    providers: [MasterDataService]
+  selector: 'app-edit',
+  templateUrl: './country-edit.component.html',
+  styleUrl: './country-edit.component.scss',
+  imports: [
+    AsyncPipe,
+    MatAccordion,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardHeader,
+    MatCardContent,
+    MatCardTitle,
+    MatError,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule
+  ]
 })
 export class CountryEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

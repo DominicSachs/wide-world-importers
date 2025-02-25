@@ -1,8 +1,9 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
+import { AuthStatus } from '../../auth/auth.models';
+import { AuthService } from '../../auth/auth.service';
 import { ContentLayoutComponent } from '@app/layout/content-layout/content-layout.component';
 import { StyleManager } from '@app/layout/content-layout/style-manager.service';
 
@@ -13,8 +14,7 @@ describe('ContentLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([]), StyleManager]
+      providers: [MockProvider(AuthService, { authStatus: signal({} as AuthStatus) }), MockProvider(StyleManager), provideRouter([])]
     })
     .compileComponents();
 

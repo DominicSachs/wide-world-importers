@@ -1,14 +1,13 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MockProvider } from 'ng-mocks';
+import { firstValueFrom, of, throwError } from 'rxjs';
 import { SupplierListComponent } from '@app/modules/supplier/list/supplier-list.component';
 import { SupplierListReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { firstValueFrom, of, throwError } from 'rxjs';
 
 describe('SupplierListComponent', () => {
   let sut: SupplierListComponent;
@@ -16,27 +15,15 @@ describe('SupplierListComponent', () => {
   let service: SupplierService;
 
   beforeEach(async () => {
-    service = {
-      getSuppliers: () => of({})
-    } as unknown as SupplierService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
-    })
-    .overrideComponent(SupplierListComponent, {
-      add: {
-        providers: [{ provide: SupplierService, useValue: service }]
-      },
-      remove: {
-        providers: [SupplierService]
-      }
+      providers: [MockProvider(SupplierService)]
     });
 
+    service = TestBed.inject(SupplierService);
     fixture = TestBed.createComponent(SupplierListComponent);
     sut = fixture.componentInstance;
-    sut.paginator = {} as unknown as MatPaginator;
-    sut.sort = {} as unknown as MatSort;
+    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getSuppliers on ngAfterViewInit', fakeAsync(async () => {
@@ -53,7 +40,7 @@ describe('SupplierListComponent', () => {
 
   it('calls getSuppliers on ngAfterViewInit and returns empty result on error', fakeAsync(async () => {
     const mockResult = { count: 0, items: [] } as PagedResponse<SupplierListReponse>;
-    jest.spyOn(service, 'getSuppliers').mockReturnValue(throwError(() => {}));
+    jest.spyOn(service, 'getSuppliers').mockReturnValue(throwError(() => new Error()));
 
     sut.ngAfterViewInit();
     tick(1);

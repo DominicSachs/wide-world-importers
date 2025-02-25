@@ -6,32 +6,31 @@ import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } 
 import { MatInput } from '@angular/material/input';
 import { MatError, MatFormField, MatLabel, MatOption, MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
-import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-city-edit',
-    templateUrl: './city-edit.component.html',
-    styleUrls: ['./city-edit.component.scss'],
-    imports: [
-        AsyncPipe,
-        MatButton,
-        MatCard,
-        MatCardActions,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-        MatError,
-        MatFormField,
-        MatInput,
-        MatLabel,
-        MatOption,
-        MatSelect,
-        ReactiveFormsModule
-    ],
-    providers: [MasterDataService]
+  selector: 'app-city-edit',
+  templateUrl: './city-edit.component.html',
+  styleUrl: './city-edit.component.scss',
+  imports: [
+    AsyncPipe,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatError,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
+  ]
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;

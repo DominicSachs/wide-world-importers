@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { fakeAsync, tick } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { AuthResponse, AuthStatus, DEFAULT_AUTH_STATUS } from '@app/auth/auth.models';
 import { AuthService } from '@app/auth/auth.service';
 import { CacheService } from '@app/shared/services/cache.service';
-import { of } from 'rxjs';
 
 describe('AuthService', () => {
   let sut: AuthService;
@@ -17,9 +17,9 @@ describe('AuthService', () => {
     } as unknown as HttpClient;
 
     cacheService = {
-      getItem: (_: string) => {},
-      setItem: (_key: string, _value: string) => {},
-      removeItem: () => {}
+      getItem: (_: string) => null,
+      setItem: (_key: string, _value: string) => jest.fn(),
+      removeItem: () => jest.fn()
     } as unknown as CacheService;
 
     sut = new AuthService(httpClient, cacheService);

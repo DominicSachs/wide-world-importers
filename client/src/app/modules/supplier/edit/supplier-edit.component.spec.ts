@@ -1,6 +1,8 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { SupplierService } from '../supplier.service';
 import { SupplierEditComponent } from '@app/modules/supplier/edit/supplier-edit.component';
 
 describe('EditComponent', () => {
@@ -9,8 +11,7 @@ describe('EditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SupplierEditComponent],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [MockProvider(SupplierService, { getSupplier: () => of({}) } as unknown as SupplierService), provideNoopAnimations()]
     })
     .compileComponents();
 

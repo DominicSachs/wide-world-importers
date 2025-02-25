@@ -1,7 +1,9 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { MockProvider } from 'ng-mocks';
+import { AuthStatus } from '../auth/auth.models';
+import { AuthService } from '../auth/auth.service';
 import { LoginComponent } from '@app/login/login.component';
 
 describe('LoginComponent', () => {
@@ -10,8 +12,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [
+        MockProvider(AuthService, { authStatus: signal({} as AuthStatus) }),
+        provideNoopAnimations()
+      ]
     })
     .compileComponents();
 

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { fakeAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { CustomerEditResponse, CustomerListReponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
-import { of } from 'rxjs';
 
 describe('CustomerService', () => {
   let httpClient: HttpClient;

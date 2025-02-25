@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MAT_TABLE } from '@app/import-groups';
 import { SupplierListReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
@@ -9,14 +10,12 @@ import { BaseTableComponent } from '@app/shared/components/base/base-table.compo
 import { TableQueryStringDirective } from '@app/shared/directives/table-query-string.directive';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-supplier-list',
-    templateUrl: './supplier-list.component.html',
-    styleUrls: ['./supplier-list.component.scss'],
-    imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
-    providers: [SupplierService]
+  selector: 'app-supplier-list',
+  templateUrl: './supplier-list.component.html',
+  styleUrl: './supplier-list.component.scss',
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective]
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
   displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];

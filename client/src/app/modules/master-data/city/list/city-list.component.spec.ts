@@ -1,17 +1,13 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MockProvider } from 'ng-mocks';
+import { firstValueFrom, of } from 'rxjs';
 import { CityListComponent } from '@app/modules/master-data/city/list/city-list.component';
 import { CityListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { firstValueFrom, of } from 'rxjs';
 
 describe('CityListComponent', () => {
   let sut: CityListComponent;
@@ -19,28 +15,16 @@ describe('CityListComponent', () => {
   let service: MasterDataService;
 
   beforeEach(async () => {
-    service = {
-      getCities: () => of([])
-    } as unknown as MasterDataService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, ReactiveFormsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
-    })
-    .overrideComponent(CityListComponent, {
-      add: {
-        providers: [{ provide: MasterDataService, useValue: service }]
-      },
-      remove: {
-        providers: [MasterDataService]
-      }
+      providers: [MockProvider(MasterDataService, { getCities: () => of([]) } as unknown as MasterDataService)]
     })
     .compileComponents();
 
+    service = TestBed.inject(MasterDataService);
     fixture = TestBed.createComponent(CityListComponent);
     sut = fixture.componentInstance;
-    sut.paginator = { page: new EventEmitter<PageEvent>() } as MatPaginator;
-    sut.sort = {} as unknown as MatSort;
+    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCities on ngAfterViewInit', fakeAsync(async () => {

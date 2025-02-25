@@ -13,11 +13,11 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
 
   beforeEach(() => {
     router = {
-      navigate: _ => {},
+      navigate: () => jest.fn(),
       routerState: {
         snapshot: {}
       }
-    } as Router;
+    }as unknown as Router;
 
     TestBed.configureTestingModule({
       providers: [
@@ -57,7 +57,7 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
     let expectedError: HttpErrorResponse;
     const url = '/api';
 
-    httpClient.get(url).subscribe({ next: () => {}, error: (err: HttpErrorResponse) => { expectedError = err; } });
+    httpClient.get(url).subscribe({ next: () => jest.fn(), error: (err: HttpErrorResponse) => { expectedError = err; } });
 
     const request = httpTestingController.expectOne(url);
     request.flush('', { status: 400, statusText: 'BadRequest' });

@@ -5,22 +5,21 @@ import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 import { MAT_TABLE } from '@app/import-groups';
 import { CityListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { BaseTableComponent } from '@app/shared/components/base/base-table.component';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-    selector: 'app-city-list',
-    templateUrl: './city-list.component.html',
-    styleUrls: ['./city-list.component.scss'],
-    imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
-    providers: [MasterDataService]
+  selector: 'app-city-list',
+  templateUrl: './city-list.component.html',
+  styleUrl: './city-list.component.scss',
+  imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink]
 })
 export class CityListComponent extends BaseTableComponent<CityListReponse> implements OnInit {
   displayedColumns = ['name', 'state', 'country', 'population', 'actions'];

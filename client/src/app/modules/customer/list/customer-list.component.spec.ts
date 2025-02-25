@@ -1,14 +1,13 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MockProvider } from 'ng-mocks';
+import { firstValueFrom, of } from 'rxjs';
 import { CustomerListReponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { CustomerListComponent } from '@app/modules/customer/list/customer-list.component';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { firstValueFrom, of } from 'rxjs';
 
 describe('CustomerListComponent', () => {
   let sut: CustomerListComponent;
@@ -16,28 +15,16 @@ describe('CustomerListComponent', () => {
   let service: CustomerService;
 
   beforeEach(async () => {
-    service = {
-      getCustomers: () => of({})
-    } as unknown as CustomerService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
-    })
-    .overrideComponent(CustomerListComponent, {
-      add: {
-        providers: [{ provide: CustomerService, useValue: service }]
-      },
-      remove: {
-        providers: [CustomerService]
-      }
+      providers: [MockProvider(CustomerService, { getCustomers: () => of({}) } as unknown as CustomerService)]
     })
     .compileComponents();
 
+    service = TestBed.inject(CustomerService);
     fixture = TestBed.createComponent(CustomerListComponent);
     sut = fixture.componentInstance;
-    sut.paginator = {} as unknown as MatPaginator;
-    sut.sort = {} as unknown as MatSort;
+    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCustomers on ngAfterViewInit', fakeAsync(async () => {

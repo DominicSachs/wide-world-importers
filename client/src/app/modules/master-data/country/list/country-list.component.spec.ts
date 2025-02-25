@@ -1,14 +1,13 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MockProvider } from 'ng-mocks';
+import { firstValueFrom, of } from 'rxjs';
 import { CountryListComponent } from '@app/modules/master-data/country/list/country-list.component';
 import { CountryListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
-import { firstValueFrom, of } from 'rxjs';
 
 describe('CountryListComponent', () => {
   let sut: CountryListComponent;
@@ -16,29 +15,16 @@ describe('CountryListComponent', () => {
   let service: MasterDataService;
 
   beforeEach(async () => {
-    service = {
-      getCountries: () => of([])
-    } as unknown as MasterDataService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
-    })
-    .overrideComponent(CountryListComponent, {
-      add: {
-        providers: [{ provide: MasterDataService, useValue: service }]
-      },
-      remove: {
-        providers: [MasterDataService]
-      }
+      providers: [MockProvider(MasterDataService, { getCountries: () => of({}) } as unknown as MasterDataService)]
     })
     .compileComponents();
 
+    service = TestBed.inject(MasterDataService);
     fixture = TestBed.createComponent(CountryListComponent);
     sut = fixture.componentInstance;
-    sut.paginator = {} as unknown as MatPaginator;
-    sut.sort = {} as unknown as MatSort;
-
+    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCountries on ngAfterViewInit', fakeAsync(async () => {

@@ -13,7 +13,7 @@ describe('TableQueryStringDirective', () => {
 
   beforeEach(() => {
     router = {
-      navigate: () => {}
+      navigate: () => jest.fn()
     } as unknown as Router;
 
     route = {
@@ -24,7 +24,7 @@ describe('TableQueryStringDirective', () => {
 
     TestBed.runInInjectionContext(() => {
       testObject = new TableQueryStringDirective(sort, router, route);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       (testObject as any).paginator = signal({
         pageIndex: 0,
         pageSize: 0,

@@ -5,16 +5,16 @@ import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } 
 import { MatFormField, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { AuthService } from '@app/auth/auth.service';
 import { EMAIL_VALIDATION } from '@app/shared/validation/validators';
-import { UntilDestroy } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss',
-    imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatFormField, MatHint, MatInput, ReactiveFormsModule]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
+  imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatFormField, MatHint, MatInput, ReactiveFormsModule]
 })
 export class LoginComponent {
   readonly redirectUrl = input('');

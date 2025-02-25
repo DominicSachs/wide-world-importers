@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
@@ -9,7 +9,6 @@ export interface RequestCacheEntry {
   lastRead: number;
 }
 
-// eslint-disable-next-line max-classes-per-file
 @Injectable({ providedIn: 'root' })
 export class RequestCache {
   private readonly cache = new Map<string, RequestCacheEntry>();

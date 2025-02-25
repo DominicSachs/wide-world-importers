@@ -9,9 +9,9 @@ describe('CachService', () => {
     windowRef = {
       nativeWindow: {
         localStorage: {
-          getItem: () => {},
-          setItem: () => {},
-          removeItem: () => {}
+          getItem: () => jest.fn(),
+          setItem: () => jest.fn(),
+          removeItem: () => jest.fn()
         }
       }
     } as unknown as WindowRef;

@@ -9,10 +9,10 @@ import { StyleManager } from '@app/layout/content-layout/style-manager.service';
 import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-menu.component';
 
 @Component({
-    selector: 'app-content-layout',
-    templateUrl: './content-layout.component.html',
-    styleUrls: ['./content-layout.component.scss'],
-    imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
+  selector: 'app-content-layout',
+  templateUrl: './content-layout.component.html',
+  styleUrl: './content-layout.component.scss',
+  imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
 })
 export class ContentLayoutComponent {
   opened = false;
