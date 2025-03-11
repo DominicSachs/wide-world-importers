@@ -15,12 +15,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/client"
+              "base": "dist/client",
+              "browser": ""
             },
             "index": "src/index.html",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -39,7 +41,6 @@
               }
             ],
             "scripts": [],
-            "browser": "src/main.ts",
             "stylePreprocessorOptions": {
               "includePaths": [
                 "."
@@ -78,7 +79,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 5001,
             "ssl": true,
@@ -111,7 +112,8 @@
             "lintFilePatterns": [
               "src/**/*.ts",
               "src/**/*.html"
-            ]
+            ],
+            "eslintConfig": "./eslint.config.mjs"
           }
         }
       }

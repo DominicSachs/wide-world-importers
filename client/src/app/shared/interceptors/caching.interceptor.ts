@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { CACHE_HEADER } from '@app/app.constants';
-import { RequestCache } from '@app/shared/services/request-cache.service';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CACHE_HEADER } from '@app/app.constants';
+import { RequestCache } from '@app/shared/services/request-cache.service';
 
 export const REQUEST_CACHE_INTERCEPTOR: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const cache = inject(RequestCache);

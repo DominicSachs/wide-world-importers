@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { fakeAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { OrderListReponse } from '@app/modules/order/order.model';
 import { OrderService } from '@app/modules/order/order.service';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
-import { of } from 'rxjs';
 
 describe('OrderService', () => {
   let httpClient: HttpClient;

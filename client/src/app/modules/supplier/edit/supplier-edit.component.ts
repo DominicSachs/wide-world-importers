@@ -6,28 +6,29 @@ import { MatOption } from '@angular/material/core';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { Observable, tap } from 'rxjs';
 import { SupplierEditReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
-import { Observable, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-edit',
-    templateUrl: './supplier-edit.component.html',
-    styleUrl: './supplier-edit.component.scss',
-    imports: [
-      AsyncPipe,
-      MatCard,
-      MatCardContent,
-      MatCardHeader,
-      MatCardTitle,
-      MatError,
-      MatFormField,
-      MatLabel,
-      MatInput,
-      MatOption,
-      MatSelect,
-      ReactiveFormsModule]
+  selector: 'app-edit',
+  templateUrl: './supplier-edit.component.html',
+  styleUrl: './supplier-edit.component.scss',
+  imports: [
+    AsyncPipe,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatError,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
+  ]
 })
 export class SupplierEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

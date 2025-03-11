@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CustomerEditResponse, CustomerListReponse } from '@app/modules/customer/customer.model';
 import { DataFilter } from '@app/shared/models/data-filter.model';
 import { PagedResponse } from '@app/shared/models/paged-response.model';
 import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {

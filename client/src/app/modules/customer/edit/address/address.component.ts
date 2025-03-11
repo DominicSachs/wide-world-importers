@@ -6,7 +6,7 @@ import { MatInput } from '@angular/material/input';
 @Component({
     selector: 'app-address',
     templateUrl: './address.component.html',
-    styleUrls: ['./address.component.scss'],
+    styleUrl: './address.component.scss',
     imports: [MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule]
 })
 export class AddressComponent {

@@ -6,32 +6,31 @@ import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardSubtitle
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { AddressComponent } from '@app/modules/customer/edit/address/address.component';
-import { Observable, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-customer-edit',
-    templateUrl: './customer-edit.component.html',
-    styleUrls: ['./customer-edit.component.scss'],
-    imports: [
-        AddressComponent,
-        AsyncPipe,
-        MatButton,
-        MatCard,
-        MatCardActions,
-        MatCardContent,
-        MatCardHeader,
-        MatCardSubtitle,
-        MatCardTitle,
-        MatError,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        ReactiveFormsModule
-    ],
-    providers: [CustomerService]
+  selector: 'app-customer-edit',
+  templateUrl: './customer-edit.component.html',
+  styleUrl: './customer-edit.component.scss',
+  imports: [
+    AddressComponent,
+    AsyncPipe,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardSubtitle,
+    MatCardTitle,
+    MatError,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule
+  ]
 })
 export class CustomerEditComponent implements OnInit {
   readonly editForm = new FormGroup({

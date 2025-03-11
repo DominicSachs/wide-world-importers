@@ -1,13 +1,11 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { CustomerEditComponent } from '@app/modules/customer/edit/customer-edit.component';
-import { of } from 'rxjs';
 
 describe('CustomerEditComponent', () => {
   let sut: CustomerEditComponent;
@@ -16,25 +14,15 @@ describe('CustomerEditComponent', () => {
   let service: CustomerService;
 
   beforeEach(async () => {
-    service = {
-      getCustomer: () => of({} as CustomerEditResponse),
-      update: () => of(void 0)
-    } as unknown as CustomerService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, ReactiveFormsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
-    })
-    .overrideComponent(CustomerEditComponent, {
-      add: {
-        providers: [{ provide: CustomerService, useValue: service }]
-      },
-      remove: {
-        providers: [CustomerService]
-      }
+      providers: [
+        MockProvider(CustomerService, { getCustomer: () => of({}), update: () => of(void 0) } as unknown as CustomerService),
+        provideNoopAnimations()
+      ]
     })
     .compileComponents();
 
+    service = TestBed.inject(CustomerService);
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CustomerEditComponent);
     fixture.componentRef.setInput('id', 1);

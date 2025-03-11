@@ -1,12 +1,11 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
 import { CountryEditComponent } from '@app/modules/master-data/country/edit/country-edit.component';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
-import { of } from 'rxjs';
 
 describe('CountryEditComponent with valid input', () => {
   let sut: CountryEditComponent;
@@ -15,24 +14,12 @@ describe('CountryEditComponent with valid input', () => {
   let service: MasterDataService;
 
   beforeEach(async () => {
-    service = {
-      getCountry: () => of({}),
-      saveCountry: () => of(void 0)
-    } as unknown as MasterDataService;
-
     await TestBed.configureTestingModule({
-      providers: [MasterDataService, provideHttpClient(), provideHttpClientTesting()]
-    })
-    .overrideComponent(CountryEditComponent, {
-      add: {
-        providers: [{ provide: MasterDataService, useValue: service }]
-      },
-      remove: {
-        providers: [MasterDataService]
-      }
+      providers: [MockProvider(MasterDataService, { getCountry: () => of({}), saveCountry: () => of(void 0) } as unknown as MasterDataService)]
     })
     .compileComponents();
 
+    service = TestBed.inject(MasterDataService);
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CountryEditComponent);
     fixture.componentRef.setInput('id', 1);

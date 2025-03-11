@@ -1,13 +1,12 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter, Router } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
-import { of } from 'rxjs';
 
 describe('CityEditComponent with valid input', () => {
   let sut: CityEditComponent;
@@ -16,27 +15,20 @@ describe('CityEditComponent with valid input', () => {
   let service: MasterDataService;
 
   beforeEach(async () => {
-    service = {
-      getCountryNames: () => of([] as KeyValueItem<number, string>[]),
-      getStateNamesForCountry: () => of([] as KeyValueItem<number, string>[]),
-      getCity: () => of({} as CityEditResponse),
-      saveCity: () => of(void 0)
-    } as unknown as MasterDataService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
-    })
-    .overrideComponent(CityEditComponent, {
-      add: {
-        providers: [{ provide: MasterDataService, useValue: service }]
-      },
-      remove: {
-        providers: [MasterDataService]
-      }
+      providers: [
+        MockProvider(MasterDataService, {
+          getCountryNames: () => of([] as KeyValueItem<number, string>[]),
+          getStateNamesForCountry: () => of([] as KeyValueItem<number, string>[]),
+          getCity: () => of({} as CityEditResponse),
+          saveCity: () => of(void 0)
+        } as unknown as MasterDataService),
+        provideNoopAnimations()
+      ]
     })
     .compileComponents();
 
+    service = TestBed.inject(MasterDataService);
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(CityEditComponent);
     fixture.componentRef.setInput('id', 1);
@@ -108,25 +100,18 @@ describe('CityEditComponent', () => {
   let service: MasterDataService;
 
   beforeEach(async () => {
-    service = {
-      getCity: () => of({} as CityEditResponse),
-      getCountryNames: () => of([] as KeyValueItem<number, string>[])
-    } as unknown as MasterDataService;
-
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
-    })
-    .overrideComponent(CityEditComponent, {
-      add: {
-        providers: [{ provide: MasterDataService, useValue: service }]
-      },
-      remove: {
-        providers: [MasterDataService]
-      }
+      providers: [
+        MockProvider(MasterDataService, {
+          getCity: () => of({} as CityEditResponse),
+          getCountryNames: () => of([] as KeyValueItem<number, string>[])
+        } as unknown as MasterDataService),
+        provideNoopAnimations()
+      ]
     })
     .compileComponents();
 
+    service = TestBed.inject(MasterDataService);
     fixture = TestBed.createComponent(CityEditComponent);
     fixture.componentRef.setInput('id', 0);
     sut = fixture.componentInstance;

@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/named
+
 import { JwtPayload } from 'jwt-decode';
 
 export interface AuthStatus {
