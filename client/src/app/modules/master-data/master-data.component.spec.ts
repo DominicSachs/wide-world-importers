@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
 import { MasterDataComponent } from '@app/modules/master-data/master-data.component';
 
 describe('MasterDataComponent', () => {
@@ -8,7 +9,7 @@ describe('MasterDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideRouter([])]
+      providers: [MockProvider(ActivatedRoute), provideRouter([])]
     });
     fixture = TestBed.createComponent(MasterDataComponent);
     component = fixture.componentInstance;
