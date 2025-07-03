@@ -40,7 +40,7 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 })
 export class CountryEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });
-  editForm = new FormGroup({
+  readonly editForm = new FormGroup({
     name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
     formalName: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
     region: new FormControl('', { nonNullable: true , validators: [Validators.required] }),

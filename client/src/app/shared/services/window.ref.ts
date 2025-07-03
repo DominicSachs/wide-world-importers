@@ -5,8 +5,4 @@ export class WindowRef {
   get nativeWindow(): Window {
     return window;
   }
-
-  get nativeDocument(): Document {
-    return window.document;
-  }
 }

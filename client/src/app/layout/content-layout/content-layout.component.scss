@@ -1,9 +1,8 @@
-@use 'src/styles/variables' as *;
+$header-height: 60px;
 
 .mat-toolbar {
   height: $header-height;
   a {
-    color: #fff;
     text-decoration: none;
 
     h1 {
@@ -20,14 +19,13 @@
 .app-container {
   height: 100%;
 }
-$sidebar-width: 90px;
 
 mat-sidenav-container {
   flex: 1;
   min-height: calc(100% - $header-height);
 
   mat-sidenav {
-    width: $sidebar-width;
+    width: 90px;
 
     &.mat-drawer-side {
       border-right: none;

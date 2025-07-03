@@ -1,30 +1,8 @@
+@use 'reset';
 @use "@angular/material" as mat;
 @use 'mat-card' as *;
 @use 'mat-form' as *;
-@use './themes/light';
-@use './components';
-
-@include mat.elevation-classes();
-@include mat.app-background();
-
-@include mat.elevation-classes();
-@include mat.app-background();
-@include mat.button-theme(light.$my-app-light-theme);
-@include mat.icon-button-theme(light.$my-app-light-theme);
-@include mat.card-theme(light.$my-app-light-theme);
-@include mat.form-field-theme(light.$my-app-light-theme);
-@include mat.icon-theme(light.$my-app-light-theme);
-@include mat.input-theme(light.$my-app-light-theme);
-@include mat.list-theme(light.$my-app-light-theme);
-@include mat.table-theme(light.$my-app-light-theme);
-@include mat.tabs-theme(light.$my-app-light-theme);
-@include mat.paginator-theme(light.$my-app-light-theme);
-@include mat.sidenav-theme(light.$my-app-light-theme);
-@include mat.select-theme(light.$my-app-light-theme);
-@include mat.sort-theme(light.$my-app-light-theme);
-@include mat.toolbar-theme(light.$my-app-light-theme);
-@include mat.tooltip-theme(light.$my-app-light-theme);
-@include components.theme(light.$my-app-light-theme);
+@use 'theming/themes';
 
 html,
 body {
@@ -32,14 +10,11 @@ body {
 }
 
 body {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+a {
+  color: inherit;
 }
 
 .no-select {

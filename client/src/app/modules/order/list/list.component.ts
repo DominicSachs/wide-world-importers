@@ -18,7 +18,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 })
 export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   readonly id = input<number>();
-  displayedColumns = ['customerPurchaseOrderNumber', 'orderedOn', 'expectedDeliveryOn', 'customerName', 'contactName', 'lastEditedByName', 'lastEditedAt', 'actions'];
+  readonly displayedColumns = ['customerPurchaseOrderNumber', 'orderedOn', 'expectedDeliveryOn', 'customerName', 'contactName', 'lastEditedByName', 'lastEditedAt', 'actions'];
 
   constructor(private orderService: OrderService) {
     super();

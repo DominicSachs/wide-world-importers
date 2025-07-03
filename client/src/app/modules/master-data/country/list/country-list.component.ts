@@ -17,7 +17,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink]
 })
 export class CountryListComponent extends BaseTableComponent<CountryListReponse> {
-  displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];
+  readonly displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];
 
   constructor(private masterDataService: MasterDataService) {
     super();

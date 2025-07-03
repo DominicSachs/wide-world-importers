@@ -2,7 +2,7 @@
   @for (item of items; track item.title) {
     <a mat-list-item class="no-select" [routerLink]="[item.route]" routerLinkActive="active">
       <div class="list-item-content">
-        <mat-icon color="primary">{{ item.icon }}</mat-icon>
+        <mat-icon>{{ item.icon }}</mat-icon>
         <div class="list-item-text">{{ item.title }}</div>
       </div>
     </a>

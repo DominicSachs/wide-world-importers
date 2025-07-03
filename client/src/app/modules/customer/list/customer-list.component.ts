@@ -17,7 +17,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink]
 })
 export class CustomerListComponent extends BaseTableComponent<CustomerListReponse> {
-  displayedColumns = ['name', 'postalAddress', 'deliveryAddress', 'actions'];
+  readonly displayedColumns = ['name', 'postalAddress', 'deliveryAddress', 'actions'];
 
   constructor(private customerService: CustomerService) {
     super();
