@@ -22,8 +22,8 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink]
 })
 export class CityListComponent extends BaseTableComponent<CityListReponse> implements OnInit {
-  displayedColumns = ['name', 'state', 'country', 'population', 'actions'];
-  citySearch = new FormControl<string | null>(null);
+  readonly displayedColumns = ['name', 'state', 'country', 'population', 'actions'];
+  readonly citySearch = new FormControl<string | null>(null);
 
   constructor(private masterDataService: MasterDataService) {
     super();

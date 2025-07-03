@@ -18,7 +18,7 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective]
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
-  displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];
+  readonly displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];
 
   constructor(private supplierService: SupplierService) {
     super();

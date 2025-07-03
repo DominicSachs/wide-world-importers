@@ -33,6 +33,7 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
   ]
 })
 export class CustomerEditComponent implements OnInit {
+  readonly id = input.required({ transform: numberAttribute });
   readonly editForm = new FormGroup({
     name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
     phone: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
@@ -52,7 +53,6 @@ export class CustomerEditComponent implements OnInit {
   });
 
   customer$!: Observable<CustomerEditResponse>;
-  readonly id = input.required({ transform: numberAttribute });
 
   constructor(private router: Router, private customerService: CustomerService) { }
 

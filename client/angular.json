@@ -33,12 +33,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/styles.scss",
-              {
-                "input": "src/styles/themes/dark.scss",
-                "bundleName": "dark-theme",
-                "inject": false
-              }
+              "src/styles/styles.scss"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {

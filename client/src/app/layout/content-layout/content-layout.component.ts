@@ -1,11 +1,11 @@
-import { Component, Signal } from '@angular/core';
+import { Component, signal, Signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { WindowRef } from '../../shared/services/window.ref';
 import { AuthStatus } from '@app/auth/auth.models';
 import { AuthService } from '@app/auth/auth.service';
-import { StyleManager } from '@app/layout/content-layout/style-manager.service';
 import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-menu.component';
 
 @Component({
@@ -15,16 +15,15 @@ import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-
   imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
 })
 export class ContentLayoutComponent {
-  opened = false;
-  isDarkMode = this.styleManager.isDark;
+  readonly isDarkMode = signal(false);
   readonly authStatus: Signal<AuthStatus>;
 
-  constructor(private readonly styleManager: StyleManager, private readonly authService: AuthService) {
+  constructor(private readonly windowRef: WindowRef, private readonly authService: AuthService) {
     this.authStatus = this.authService.authStatus;
   }
 
   toggleDarkTheme(): void {
-    this.styleManager.toggleDarkTheme();
-    this.isDarkMode = !this.isDarkMode;
+    this.windowRef.nativeDocument.body.classList.toggle('dark-mode');
+    this.isDarkMode.set(!this.isDarkMode());
   }
 }

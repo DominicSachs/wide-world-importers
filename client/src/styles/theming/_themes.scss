@@ -1,0 +1,39 @@
+@use "@angular/material" as mat;
+
+:root {
+  --mat-sidenav-container-shape: 0;
+  --mat-list-active-indicator-shape: 0;
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color: var(--mat-sys-primary)
+  ));
+
+  @include mat.paginator-overrides((
+    enabled-icon-color: var(--mat-sys-primary)
+  ));
+
+  @include mat.icon-overrides((
+    color: var(--mat-sys-primary)
+  ));
+
+  @include mat.sidenav-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+  ));
+}
+
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$magenta-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body.dark-mode {
+  color-scheme: dark;
+}
