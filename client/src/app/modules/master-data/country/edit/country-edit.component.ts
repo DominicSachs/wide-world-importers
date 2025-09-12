@@ -14,8 +14,6 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './country-edit.component.html',
-  styleUrl: './country-edit.component.scss',
   imports: [
     AsyncPipe,
     MatAccordion,
@@ -36,7 +34,9 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
     MatInput,
     MatLabel,
     ReactiveFormsModule
-  ]
+  ],
+  templateUrl: './country-edit.component.html',
+  styleUrl: './country-edit.component.scss'
 })
 export class CountryEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

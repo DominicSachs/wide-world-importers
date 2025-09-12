@@ -12,9 +12,9 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 
 @Component({
   selector: 'app-list',
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
   templateUrl: './country-list.component.html',
-  styleUrl: './country-list.component.scss',
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink]
+  styleUrl: './country-list.component.scss'
 })
 export class CountryListComponent extends BaseTableComponent<CountryListReponse> {
   readonly displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];

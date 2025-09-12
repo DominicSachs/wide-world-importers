@@ -17,9 +17,9 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 @UntilDestroy()
 @Component({
   selector: 'app-city-list',
+  imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
   templateUrl: './city-list.component.html',
-  styleUrl: './city-list.component.scss',
-  imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink]
+  styleUrl: './city-list.component.scss'
 })
 export class CityListComponent extends BaseTableComponent<CityListReponse> implements OnInit {
   readonly displayedColumns = ['name', 'state', 'country', 'population', 'actions'];

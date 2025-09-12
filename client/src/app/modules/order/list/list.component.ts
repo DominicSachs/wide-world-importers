@@ -12,9 +12,9 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 
 @Component({
   selector: 'app-order-list',
+  imports: [AsyncPipe, DatePipe, MatIcon, ...MAT_TABLE, RouterLink],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
-  imports: [AsyncPipe, DatePipe, MatIcon, ...MAT_TABLE, RouterLink]
+  styleUrl: './list.component.scss'
 })
 export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   readonly id = input<number>();

@@ -4,8 +4,8 @@ import { MatSort, SortDirection } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Directive({
-  standalone: true,
-  selector: '[appTableQueryString]'
+  selector: '[appTableQueryString]',
+  standalone: true
 })
 export class TableQueryStringDirective implements AfterViewInit {
   readonly paginator = input.required<MatPaginator>();

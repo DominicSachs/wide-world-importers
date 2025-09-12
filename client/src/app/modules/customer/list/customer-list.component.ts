@@ -12,9 +12,9 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 
 @Component({
   selector: 'app-customer-list',
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
   templateUrl: './customer-list.component.html',
-  styleUrl: './customer-list.component.scss',
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink]
+  styleUrl: './customer-list.component.scss'
 })
 export class CustomerListComponent extends BaseTableComponent<CustomerListReponse> {
   readonly displayedColumns = ['name', 'postalAddress', 'deliveryAddress', 'actions'];

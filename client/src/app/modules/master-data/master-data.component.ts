@@ -5,9 +5,9 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 
 @Component({
   selector: 'app-master-data',
+  imports: [MatTabLink, MatTabNav, MatTabNavPanel, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './master-data.component.html',
-  styleUrl: './master-data.component.scss',
-  imports: [MatTabLink, MatTabNav, MatTabNavPanel, RouterLink, RouterLinkActive, RouterOutlet]
+  styleUrl: './master-data.component.scss'
 })
 export class MasterDataComponent {
   readonly menuItems = [
