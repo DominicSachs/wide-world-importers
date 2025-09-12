@@ -23,13 +23,13 @@ describe('CountryListComponent', () => {
     service = TestBed.inject(MasterDataService);
     fixture = TestBed.createComponent(CountryListComponent);
     sut = fixture.componentInstance;
-    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
-    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
+    vi.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCountries on ngAfterViewInit', fakeAsync(async () => {
     const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<CountryListReponse>;
-    jest.spyOn(service, 'getCountries').mockReturnValue(of(mockResult));
+    vi.spyOn(service, 'getCountries').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
     tick(1);

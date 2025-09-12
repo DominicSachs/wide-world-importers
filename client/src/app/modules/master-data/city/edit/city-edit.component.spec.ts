@@ -44,8 +44,8 @@ describe('CityEditComponent with valid input', () => {
       stateId: 1
     } as CityEditResponse;
 
-    jest.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
-    jest.spyOn(sut.editForm, 'patchValue');
+    vi.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
+    vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
     sut.city$.subscribe();
@@ -55,8 +55,8 @@ describe('CityEditComponent with valid input', () => {
   }));
 
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
-    jest.spyOn(service, 'saveCity').mockReturnValue(of(void 0));
-    jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+    vi.spyOn(service, 'saveCity').mockReturnValue(of(void 0));
+    vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
     const mockResult = {
       name: 'City 1',
@@ -75,7 +75,7 @@ describe('CityEditComponent with valid input', () => {
   }));
 
   it('save does not call masterDataService.update if form is invalid', () => {
-    jest.spyOn(service, 'saveCity');
+    vi.spyOn(service, 'saveCity');
 
     sut.ngOnInit();
     sut.save();
@@ -84,7 +84,7 @@ describe('CityEditComponent with valid input', () => {
   });
 
   it('cancel resets the edit form and navigates to list', () => {
-    jest.spyOn(router, 'navigateByUrl');
+    vi.spyOn(router, 'navigateByUrl');
 
     sut.editForm.controls.name.setValue('test-name');
     sut.cancel();
@@ -104,7 +104,8 @@ describe('CityEditComponent', () => {
       providers: [
         MockProvider(MasterDataService, {
           getCity: () => of({} as CityEditResponse),
-          getCountryNames: () => of([] as KeyValueItem<number, string>[])
+          getCountryNames: () => of([] as KeyValueItem<number, string>[]),
+          getStateNamesForCountry: () => of([] as KeyValueItem<number, string>[])
         } as unknown as MasterDataService),
         provideNoopAnimations()
       ]
@@ -126,8 +127,8 @@ describe('CityEditComponent', () => {
       stateId: 1
     } as CityEditResponse;
 
-    jest.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
-    jest.spyOn(sut.editForm, 'patchValue');
+    vi.spyOn(service, 'getCity').mockReturnValue(of(mockResult));
+    vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
     sut.city$.subscribe();

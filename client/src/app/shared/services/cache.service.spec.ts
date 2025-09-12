@@ -9,9 +9,9 @@ describe('CachService', () => {
     windowRef = {
       nativeWindow: {
         localStorage: {
-          getItem: () => jest.fn(),
-          setItem: () => jest.fn(),
-          removeItem: () => jest.fn()
+          getItem: () => vi.fn(),
+          setItem: () => vi.fn(),
+          removeItem: () => vi.fn()
         }
       }
     } as unknown as WindowRef;
@@ -23,7 +23,7 @@ describe('CachService', () => {
     [null, null],
     ['{ "value": 1 }', { value: 1 }]
   ])('getItem calls localStorage.getItem  for %p to %p', (cacheValue: string | null, expected: string | object | null) => {
-    jest.spyOn(windowRef.nativeWindow.localStorage, 'getItem').mockReturnValue(cacheValue);
+    vi.spyOn(windowRef.nativeWindow.localStorage, 'getItem').mockReturnValue(cacheValue);
 
     const result = sut.getItem('the-key');
 
@@ -35,7 +35,7 @@ describe('CachService', () => {
     ['value', 'value'],
     [{ value: 1 }, JSON.stringify({ value: 1 })]
   ])('setItem calls localStorage.setItem  for %p to %p', (cacheValue: string | object, expected: string) => {
-    jest.spyOn(windowRef.nativeWindow.localStorage, 'setItem');
+    vi.spyOn(windowRef.nativeWindow.localStorage, 'setItem');
 
     sut.setItem('the-key', cacheValue);
 
@@ -43,7 +43,7 @@ describe('CachService', () => {
   });
 
   it('removeItem calls localStorage.removeItem', () => {
-    jest.spyOn(windowRef.nativeWindow.localStorage, 'removeItem');
+    vi.spyOn(windowRef.nativeWindow.localStorage, 'removeItem');
 
     sut.removeItem('the-key');
 

@@ -23,13 +23,13 @@ describe('CustomerListComponent', () => {
     service = TestBed.inject(CustomerService);
     fixture = TestBed.createComponent(CustomerListComponent);
     sut = fixture.componentInstance;
-    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
-    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
+    vi.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCustomers on ngAfterViewInit', fakeAsync(async () => {
     const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<CustomerListReponse>;
-    jest.spyOn(service, 'getCustomers').mockReturnValue(of(mockResult));
+    vi.spyOn(service, 'getCustomers').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
     tick(1);

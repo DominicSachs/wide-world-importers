@@ -20,7 +20,7 @@ describe('RequestCache', () => {
     const response = new HttpResponse({ body: 'test' });
 
     testObject.put(request, response);
-    jest.spyOn(Date, 'now').mockReturnValue(mockDate.valueOf());
+    vi.spyOn(Date, 'now').mockReturnValue(mockDate.valueOf());
 
     expect(testObject.get(request)).toBeUndefined();
   });
@@ -34,7 +34,7 @@ describe('RequestCache', () => {
     const response2 = new HttpResponse({ body: 'test2' });
 
     testObject.put(request, response);
-    const dateSpy = jest.spyOn(Date, 'now').mockReturnValue(mockDate.valueOf());
+    const dateSpy = vi.spyOn(Date, 'now').mockReturnValue(mockDate.valueOf());
 
     testObject.put(request2, response2);
     dateSpy.mockReturnValue(new Date().valueOf());

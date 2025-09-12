@@ -98,8 +98,10 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {}
+          "builder": "@analogjs/vitest-angular:test",
+          "options": {
+            "coverage": true
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

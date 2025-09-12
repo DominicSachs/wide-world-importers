@@ -31,7 +31,7 @@ describe('CustomerService', () => {
 
     const filter = new DataFilter();
     filter.sortColumn = 'name';
-    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
+    vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<CustomerListReponse>;
     sut.getCustomers(filter).subscribe(c => result = c);
@@ -42,7 +42,7 @@ describe('CustomerService', () => {
 
   it('gets a customers and sets the correct paramter', fakeAsync(() => {
     const mockResult = { id: 1, name: 'Customer 1' };
-    jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
+    vi.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
     let result = {};
     sut.getCustomer(1).subscribe(c => result = c);
@@ -52,7 +52,7 @@ describe('CustomerService', () => {
   }));
 
   it('updates a customer', fakeAsync(() => {
-    jest.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
+    vi.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const customerToUpdate = { id: 1, name: 'Customer 1' } as CustomerEditResponse;
 
     sut.update(customerToUpdate).subscribe();
