@@ -13,7 +13,7 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
 
   beforeEach(() => {
     router = {
-      navigate: () => jest.fn(),
+      navigate: () => vi.fn(),
       routerState: {
         snapshot: {}
       }
@@ -37,8 +37,8 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
   });
 
   it('redirects to login and call logout', fakeAsync(() => {
-    jest.spyOn(router, 'navigate');
-    jest.spyOn(authService, 'logout');
+    vi.spyOn(router, 'navigate');
+    vi.spyOn(authService, 'logout');
 
     const url = '/api';
 
@@ -53,11 +53,11 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
   }));
 
   it('does not redirect to login and return error', fakeAsync(() => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
     let expectedError: HttpErrorResponse;
     const url = '/api';
 
-    httpClient.get(url).subscribe({ next: () => jest.fn(), error: (err: HttpErrorResponse) => { expectedError = err; } });
+    httpClient.get(url).subscribe({ next: () => vi.fn(), error: (err: HttpErrorResponse) => { expectedError = err; } });
 
     const request = httpTestingController.expectOne(url);
     request.flush('', { status: 400, statusText: 'BadRequest' });
@@ -67,7 +67,7 @@ describe('AUTHORIZE_INTERCEPTOR', () => {
   }));
 
   it('returns 200', fakeAsync(() => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
     let expectedError: HttpErrorResponse;
     let expectedResult: object;
     const url = '/api';

@@ -18,8 +18,8 @@ describe('AuthService', () => {
 
     cacheService = {
       getItem: (_: string) => null,
-      setItem: (_key: string, _value: string) => jest.fn(),
-      removeItem: () => jest.fn()
+      setItem: (_key: string, _value: string) => vi.fn(),
+      removeItem: () => vi.fn()
     } as unknown as CacheService;
 
     sut = new AuthService(httpClient, cacheService);
@@ -27,9 +27,9 @@ describe('AuthService', () => {
 
   it('login sets the token and publishes the auth status from the valid token', fakeAsync(async() => {
     const jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDg0MDAxNDUsInN1YiI6IjEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20ifQ.VTY80IwT9x-z6H7m6RE-_GGOjPnmkjUhl-4wPMrmjTQ';
-    jest.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: jwt } as AuthResponse));
-    jest.spyOn(cacheService, 'setItem');
-    jest.spyOn(cacheService, 'getItem').mockReturnValue(jwt);
+    vi.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: jwt } as AuthResponse));
+    vi.spyOn(cacheService, 'setItem');
+    vi.spyOn(cacheService, 'getItem').mockReturnValue(jwt);
 
     sut.login('test@example.com');
     const status: AuthStatus = sut.authStatus();
@@ -41,9 +41,9 @@ describe('AuthService', () => {
 
   it('login sets the token and publishes the default auth status because of the empty token', async() => {
     const token = '';
-    jest.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: token } as AuthResponse));
-    jest.spyOn(cacheService, 'setItem');
-    jest.spyOn(cacheService, 'getItem').mockReturnValue(token);
+    vi.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: token } as AuthResponse));
+    vi.spyOn(cacheService, 'setItem');
+    vi.spyOn(cacheService, 'getItem').mockReturnValue(token);
 
     sut.login('test@example.com');
     const status: AuthStatus = sut.authStatus();
@@ -53,7 +53,7 @@ describe('AuthService', () => {
   });
 
   it('logout calls removeItem and resets the auth status to default', fakeAsync(() => {
-    jest.spyOn(cacheService, 'removeItem');
+    vi.spyOn(cacheService, 'removeItem');
     let status = {} as AuthStatus;
 
     sut.logout(true);
@@ -65,7 +65,7 @@ describe('AuthService', () => {
   }));
 
   it('logout does not call removeItem', () => {
-    jest.spyOn(cacheService, 'removeItem');
+    vi.spyOn(cacheService, 'removeItem');
 
     sut.logout(false);
 
@@ -73,7 +73,7 @@ describe('AuthService', () => {
   });
 
   it('getToken returns token from cache', () => {
-    jest.spyOn(cacheService, 'getItem').mockReturnValue('token-value');
+    vi.spyOn(cacheService, 'getItem').mockReturnValue('token-value');
 
     const token = sut.getToken();
 
@@ -82,7 +82,7 @@ describe('AuthService', () => {
   });
 
   it('getToken returns empty string if cache is empty', () => {
-    jest.spyOn(cacheService, 'getItem').mockReturnValue(null);
+    vi.spyOn(cacheService, 'getItem').mockReturnValue(null);
 
     const token = sut.getToken();
 

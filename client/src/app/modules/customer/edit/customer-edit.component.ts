@@ -13,8 +13,6 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
 
 @Component({
   selector: 'app-customer-edit',
-  templateUrl: './customer-edit.component.html',
-  styleUrl: './customer-edit.component.scss',
   imports: [
     AddressComponent,
     AsyncPipe,
@@ -30,7 +28,9 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
     MatLabel,
     MatInput,
     ReactiveFormsModule
-  ]
+  ],
+  templateUrl: './customer-edit.component.html',
+  styleUrl: './customer-edit.component.scss'
 })
 export class CustomerEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

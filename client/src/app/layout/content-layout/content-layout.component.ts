@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, signal, Signal } from '@angular/core';
+import { Component, Inject, signal, Signal, DOCUMENT } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -10,9 +9,9 @@ import { NavigationMenuComponent } from '@app/layout/navigation-menu/navigation-
 
 @Component({
   selector: 'app-content-layout',
+  imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet],
   templateUrl: './content-layout.component.html',
-  styleUrl: './content-layout.component.scss',
-  imports: [MatIcon, MatSidenav, MatSidenavContainer, MatSidenavContent, MatToolbar, NavigationMenuComponent, RouterLink, RouterOutlet]
+  styleUrl: './content-layout.component.scss'
 })
 export class ContentLayoutComponent {
   readonly isDarkMode = signal(false);

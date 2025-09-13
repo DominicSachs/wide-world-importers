@@ -13,9 +13,9 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
 
 @Component({
   selector: 'app-supplier-list',
+  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
   templateUrl: './supplier-list.component.html',
-  styleUrl: './supplier-list.component.scss',
-  imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective]
+  styleUrl: './supplier-list.component.scss'
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
   readonly displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];

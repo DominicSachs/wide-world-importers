@@ -34,7 +34,7 @@ export default tseslint.config(
       languageOptions : {
         parser: tsparser,
         parserOptions: {
-          project: './tsconfig.json',
+          project: './tsconfig.eslint.json',
           tsconfigRootDir: import.meta.dirname,
         },
       },
@@ -56,6 +56,7 @@ export default tseslint.config(
           prefix: "app",
           style: "kebab-case"
         }],
+        "@angular-eslint/prefer-inject": "off",
         "@angular-eslint/prefer-on-push-component-change-detection": "off",
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/no-explicit-any": "off",

@@ -13,8 +13,6 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './supplier-edit.component.html',
-  styleUrl: './supplier-edit.component.scss',
   imports: [
     AsyncPipe,
     MatCard,
@@ -28,7 +26,9 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
     MatOption,
     MatSelect,
     ReactiveFormsModule
-  ]
+  ],
+  templateUrl: './supplier-edit.component.html',
+  styleUrl: './supplier-edit.component.scss'
 })
 export class SupplierEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

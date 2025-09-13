@@ -30,7 +30,7 @@ describe('ContentLayoutComponent', () => {
   });
 
   it('toggleDarkTheme calls styleManager.toggleDarkTheme and sets isDarkMode', () => {
-    jest.spyOn(document.body.classList, 'toggle');
+    vi.spyOn(document.body.classList, 'toggle');
 
     sut.toggleDarkTheme();
 

@@ -5,10 +5,10 @@ import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'app-address',
+    imports: [MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
     templateUrl: './address.component.html',
-    styleUrl: './address.component.scss',
-    imports: [MatError, MatFormField, MatInput, MatLabel, ReactiveFormsModule]
-})
+    styleUrl: './address.component.scss'
+  })
 export class AddressComponent {
   readonly formGroup = input.required<FormGroup>();
 }

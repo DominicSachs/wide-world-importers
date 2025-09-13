@@ -15,7 +15,7 @@ describe('CountryEditComponent with valid input', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [MockProvider(MasterDataService, { getCountry: () => of({}), saveCountry: () => of(void 0) } as unknown as MasterDataService)]
+      providers: [MockProvider(MasterDataService, { getCountry: () => of({ states: [] }), saveCountry: () => of(void 0) } as unknown as MasterDataService)]
     })
     .compileComponents();
 
@@ -25,7 +25,7 @@ describe('CountryEditComponent with valid input', () => {
     fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
     fixture.detectChanges();
-    sut.states.clear();
+    // sut.states.clear();
   });
 
   it('initializes the form', () => {
@@ -58,8 +58,8 @@ describe('CountryEditComponent with valid input', () => {
       states: [{ id: 1, name: 'State 1', code: 'S1', salesTerritory: 'Territory', population: 100 }]
     } as CountryEditReponse;
 
-    jest.spyOn(service, 'getCountry').mockReturnValue(of(mockResult));
-    jest.spyOn(sut.editForm, 'patchValue');
+    vi.spyOn(service, 'getCountry').mockReturnValue(of(mockResult));
+    vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
     sut.country$.subscribe();
@@ -100,8 +100,8 @@ describe('CountryEditComponent with valid input', () => {
   });
 
   it('save calls masterDataService.update if form is valid', fakeAsync(() => {
-    jest.spyOn(service, 'saveCountry').mockReturnValue(of(void 0));
-    jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+    vi.spyOn(service, 'saveCountry').mockReturnValue(of(void 0));
+    vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
     fixture.componentRef.setInput('id', 1);
 
     const mockResult = {
@@ -123,7 +123,7 @@ describe('CountryEditComponent with valid input', () => {
   }));
 
   it('save does not call masterDataService.update if form is invalid', () => {
-    jest.spyOn(service, 'saveCountry');
+    vi.spyOn(service, 'saveCountry');
 
     sut.ngOnInit();
     sut.editForm.controls['name'].setValue(null!);
@@ -133,8 +133,8 @@ describe('CountryEditComponent with valid input', () => {
   });
 
   it('cancel resets the edit form and navigates to list', () => {
-    jest.spyOn(sut.editForm, 'reset');
-    jest.spyOn(router, 'navigateByUrl');
+    vi.spyOn(sut.editForm, 'reset');
+    vi.spyOn(router, 'navigateByUrl');
 
     sut.editForm.controls.name.setValue('test');
     sut.cancel();

@@ -23,13 +23,13 @@ describe('CityListComponent', () => {
     service = TestBed.inject(MasterDataService);
     fixture = TestBed.createComponent(CityListComponent);
     sut = fixture.componentInstance;
-    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
-    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
+    vi.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getCities on ngAfterViewInit', fakeAsync(async () => {
     const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<CityListReponse>;
-    jest.spyOn(service, 'getCities').mockReturnValue(of(mockResult));
+    vi.spyOn(service, 'getCities').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
     tick(1);
@@ -40,7 +40,7 @@ describe('CityListComponent', () => {
   }));
 
   it('search value change loads data', fakeAsync(() => {
-    jest.spyOn(sut, 'reloadToFirstPage');
+    vi.spyOn(sut, 'reloadToFirstPage');
 
     sut.ngOnInit();
     sut.citySearch.setValue('test');

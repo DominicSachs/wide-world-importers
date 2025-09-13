@@ -22,13 +22,13 @@ describe('SupplierListComponent', () => {
     service = TestBed.inject(SupplierService);
     fixture = TestBed.createComponent(SupplierListComponent);
     sut = fixture.componentInstance;
-    jest.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
-    jest.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
+    vi.spyOn(sut, 'paginator').mockReturnValue({ page: new EventEmitter<PageEvent>() } as MatPaginator);
+    vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
   it('calls getSuppliers on ngAfterViewInit', fakeAsync(async () => {
     const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<SupplierListReponse>;
-    jest.spyOn(service, 'getSuppliers').mockReturnValue(of(mockResult));
+    vi.spyOn(service, 'getSuppliers').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
     tick(1);
@@ -40,7 +40,7 @@ describe('SupplierListComponent', () => {
 
   it('calls getSuppliers on ngAfterViewInit and returns empty result on error', fakeAsync(async () => {
     const mockResult = { count: 0, items: [] } as PagedResponse<SupplierListReponse>;
-    jest.spyOn(service, 'getSuppliers').mockReturnValue(throwError(() => new Error()));
+    vi.spyOn(service, 'getSuppliers').mockReturnValue(throwError(() => new Error()));
 
     sut.ngAfterViewInit();
     tick(1);

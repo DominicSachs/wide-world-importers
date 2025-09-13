@@ -13,7 +13,7 @@ describe('TableQueryStringDirective', () => {
 
   beforeEach(() => {
     router = {
-      navigate: () => jest.fn()
+      navigate: () => vi.fn()
     } as unknown as Router;
 
     route = {
@@ -44,7 +44,7 @@ describe('TableQueryStringDirective', () => {
   });
 
   it('calls router navigate on sorte change event', () => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
 
     testObject.ngAfterViewInit();
     sort.sort({ id: 'test', start: 'desc', disableClear: true });
@@ -53,7 +53,7 @@ describe('TableQueryStringDirective', () => {
   });
 
   it('calls router navigate on page event', fakeAsync(() => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
 
     testObject.ngAfterViewInit();
     testObject.paginator().page.emit({ } as PageEvent);

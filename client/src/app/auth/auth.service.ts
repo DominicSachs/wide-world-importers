@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly authSignal = signal(this.getAuthStatusFromToken());
+  private readonly authSignal = signal(DEFAULT_AUTH_STATUS);
   readonly authStatus = this.authSignal.asReadonly();
 
   constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) { }

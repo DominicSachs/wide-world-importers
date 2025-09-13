@@ -13,8 +13,6 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 
 @Component({
   selector: 'app-city-edit',
-  templateUrl: './city-edit.component.html',
-  styleUrl: './city-edit.component.scss',
   imports: [
     AsyncPipe,
     MatButton,
@@ -30,7 +28,9 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
     MatOption,
     MatSelect,
     ReactiveFormsModule
-  ]
+  ],
+  templateUrl: './city-edit.component.html',
+  styleUrl: './city-edit.component.scss'
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;

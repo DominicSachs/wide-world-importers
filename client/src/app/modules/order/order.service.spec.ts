@@ -31,7 +31,7 @@ describe('OrderService', () => {
     const filter = new DataFilter();
     filter.sortColumn = 'name';
 
-    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
+    vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<OrderListReponse>;
     sut.getOrders(filter).subscribe(s => result = s);
@@ -52,7 +52,7 @@ describe('OrderService', () => {
     const filter = new DataFilter();
     filter.sortColumn = 'name';
 
-    jest.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
+    vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
     let result = {} as PagedResponse<OrderListReponse>;
     sut.getOrders(filter, 1).subscribe(s => result = s);

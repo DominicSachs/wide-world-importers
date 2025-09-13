@@ -12,9 +12,9 @@ import { EMAIL_VALIDATION } from '@app/shared/validation/validators';
 @UntilDestroy()
 @Component({
   selector: 'app-login',
+  imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatFormField, MatHint, MatInput, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatFormField, MatHint, MatInput, ReactiveFormsModule]
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   readonly redirectUrl = input('');
