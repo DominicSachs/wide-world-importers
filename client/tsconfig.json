@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "sourceMap": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
@@ -15,10 +15,6 @@
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "paths": {
       "@env/*": [
         "src/environments/*"
