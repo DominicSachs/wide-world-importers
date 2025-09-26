@@ -2,27 +2,23 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { MAT_CARD_EDIT } from '../../../../import-groups';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 
 @Component({
   selector: 'app-edit',
   imports: [
+    ...MAT_CARD_EDIT,
     AsyncPipe,
     MatAccordion,
     MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
     MatError,
     MatExpansionPanel,
     MatExpansionPanelDescription,

@@ -23,13 +23,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   private validateLogin(route?: ActivatedRouteSnapshot): Observable<boolean> {
     return runInInjectionContext(this.injector, () => toObservable(this.authService.authStatus).pipe(
       map(authStatus => {
-        const isLoginAllowed = authStatus.isAuthenticated;
+        const isAuthenticated = authStatus.isAuthenticated;
 
-        if (!isLoginAllowed) {
+        if (!isAuthenticated) {
           this.router.navigate(['login'], { queryParams: { redirectUrl: this.getResolvedUrl(route) } });
         }
 
-        return isLoginAllowed;
+        return isAuthenticated;
       }),
       take(1)
     ));
