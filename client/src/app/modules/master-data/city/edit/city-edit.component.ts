@@ -2,11 +2,11 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatInput } from '@angular/material/input';
 import { MatError, MatFormField, MatLabel, MatOption, MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Observable, Subject, of, startWith, switchMap, tap } from 'rxjs';
+import { MAT_CARD_EDIT } from '../../../../import-groups';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { KeyValueItem } from '@app/shared/models/key-value-item.model';
@@ -14,13 +14,9 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
 @Component({
   selector: 'app-city-edit',
   imports: [
+    ...MAT_CARD_EDIT,
     AsyncPipe,
     MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
     MatError,
     MatFormField,
     MatInput,

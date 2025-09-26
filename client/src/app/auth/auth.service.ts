@@ -11,7 +11,9 @@ export class AuthService {
   private readonly authSignal = signal(DEFAULT_AUTH_STATUS);
   readonly authStatus = this.authSignal.asReadonly();
 
-  constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) { }
+  constructor(private readonly httpClient: HttpClient, private readonly cacheService: CacheService) {
+    this.authSignal.set(this.getAuthStatusFromToken());
+  }
 
   login(email: string): Observable<void> {
     const loginResponse$ = this.httpClient.post<AuthResponse>(`${environment.apiUrl}/auth/login`, { email })
