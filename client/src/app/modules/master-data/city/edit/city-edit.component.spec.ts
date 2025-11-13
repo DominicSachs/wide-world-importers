@@ -1,8 +1,8 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { CityEditComponent } from '@app/modules/master-data/city/edit/city-edit.component';
 import { CityEditResponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -36,7 +36,7 @@ describe('CityEditComponent with valid input', () => {
     fixture.detectChanges();
   });
 
-  it('ngOnInit calls masterDataService.getCity if url parameter ist set and patches the edit form', fakeAsync(() => {
+  it('ngOnInit calls masterDataService.getCity if url parameter ist set and patches the edit form', async () => {
     const mockResult = {
       name: 'City 1',
       population: 1000,
@@ -48,13 +48,13 @@ describe('CityEditComponent with valid input', () => {
     vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
-    sut.city$.subscribe();
+    await firstValueFrom(sut.city$);
 
     expect(service.getCity).toHaveBeenNthCalledWith(1, 1);
     expect(sut.editForm.patchValue).toHaveBeenCalledTimes(1);
-  }));
+  });
 
-  it('save calls masterDataService.update if form is valid', fakeAsync(() => {
+  it('save calls masterDataService.update if form is valid', () => {
     vi.spyOn(service, 'saveCity').mockReturnValue(of(void 0));
     vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
@@ -68,11 +68,10 @@ describe('CityEditComponent with valid input', () => {
     sut.editForm.patchValue(mockResult);
 
     sut.save();
-    tick(100);
 
     expect(service.saveCity).toHaveBeenCalledWith({ ...mockResult, id: 1 });
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/cities');
-  }));
+  });
 
   it('save does not call masterDataService.update if form is invalid', () => {
     vi.spyOn(service, 'saveCity');
@@ -119,7 +118,7 @@ describe('CityEditComponent', () => {
     fixture.detectChanges();
   });
 
-  it('ngOnInit does not call masterDataService.getCity if url parameter ist 0 and does not patch the edit form', fakeAsync(() => {
+  it('ngOnInit does not call masterDataService.getCity if url parameter ist 0 and does not patch the edit form', async () => {
     const mockResult = {
       name: 'City 1',
       population: 1000,
@@ -131,9 +130,9 @@ describe('CityEditComponent', () => {
     vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
-    sut.city$.subscribe();
+    await firstValueFrom(sut.city$);
 
     expect(service.getCity).not.toHaveBeenCalledTimes(1);
     expect(sut.editForm.patchValue).not.toHaveBeenCalledTimes(1);
-  }));
+  });
 });

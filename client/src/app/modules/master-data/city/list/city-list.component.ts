@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -19,7 +19,8 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   selector: 'app-city-list',
   imports: [AsyncPipe, MatFormField, MatIcon, MatInput, MatSuffix, ...MAT_TABLE, ReactiveFormsModule, RouterLink],
   templateUrl: './city-list.component.html',
-  styleUrl: './city-list.component.scss'
+  styleUrl: './city-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityListComponent extends BaseTableComponent<CityListReponse> implements OnInit {
   readonly displayedColumns = ['name', 'state', 'country', 'population', 'actions'];

@@ -1,4 +1,4 @@
-import { Component, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatHint } from '@angular/material/form-field';
@@ -14,7 +14,8 @@ import { EMAIL_VALIDATION } from '@app/shared/validation/validators';
   selector: 'app-login',
   imports: [...MAT_CARD_EDIT, MatButton, MatFormField, MatHint, MatInput, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   readonly redirectUrl = input('');

@@ -1,5 +1,5 @@
 import { EventEmitter, signal } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
@@ -52,12 +52,12 @@ describe('TableQueryStringDirective', () => {
     expect(router.navigate).toHaveBeenCalledWith([], { queryParams: { sortActive: 'test', sortDirection: 'desc', pageIndex: 2, pageSize: 10 }, queryParamsHandling: 'merge' });
   });
 
-  it('calls router navigate on page event', fakeAsync(() => {
+  it('calls router navigate on page event', () => {
     vi.spyOn(router, 'navigate');
 
     testObject.ngAfterViewInit();
     testObject.paginator().page.emit({ } as PageEvent);
 
     expect(router.navigate).toHaveBeenCalledWith([], { queryParams: { sortActive: 'name', sortDirection: 'asc', pageIndex: 2, pageSize: 10 }, queryParamsHandling: 'merge' });
-  }));
+  });
 });

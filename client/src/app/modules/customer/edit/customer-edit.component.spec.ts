@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { CustomerEditResponse } from '@app/modules/customer/customer.model';
 import { CustomerService } from '@app/modules/customer/customer.service';
 import { CustomerEditComponent } from '@app/modules/customer/edit/customer-edit.component';
@@ -30,7 +30,7 @@ describe('CustomerEditComponent', () => {
     fixture.detectChanges();
   });
 
-  it('ngOnInit patches the form if async data is loaded', fakeAsync(() => {
+  it('ngOnInit patches the form if async data is loaded', async () => {
     const mockResult = {
       name: 'test', phone: '111', fax: '111',
       postalAddress: { addressLine1: 'pl1', addressLine2: '', postalCode: 'pc1', city: 'pcy1' },
@@ -41,10 +41,10 @@ describe('CustomerEditComponent', () => {
     vi.spyOn(sut.editForm,'patchValue');
 
     sut.ngOnInit();
-    sut.customer$.subscribe();
+    await firstValueFrom(sut.customer$);
 
     expect(sut.editForm.patchValue).toHaveBeenNthCalledWith(1, mockResult);
-  }));
+  });
 
   it('save calls customerService.update if form is valid', () => {
     vi.spyOn(service, 'update').mockReturnValue(of(void 0));

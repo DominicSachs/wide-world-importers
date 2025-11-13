@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
@@ -32,7 +32,8 @@ import { MasterDataService } from '@app/modules/master-data/master-data.service'
     ReactiveFormsModule
   ],
   templateUrl: './country-edit.component.html',
-  styleUrl: './country-edit.component.scss'
+  styleUrl: './country-edit.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });
