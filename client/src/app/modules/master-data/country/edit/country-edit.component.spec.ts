@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { CountryEditComponent } from '@app/modules/master-data/country/edit/country-edit.component';
 import { CountryEditReponse, StateProvinces } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
@@ -24,8 +24,10 @@ describe('CountryEditComponent with valid input', () => {
     fixture = TestBed.createComponent(CountryEditComponent);
     fixture.componentRef.setInput('id', 1);
     sut = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
     // sut.states.clear();
+
+    await fixture.whenStable();
   });
 
   it('initializes the form', () => {
@@ -48,7 +50,7 @@ describe('CountryEditComponent with valid input', () => {
     expect(statesArray.at(0).get('population')).toBeDefined();
   });
 
-  it('ngOnInit calls masterDataService.getCountry and patches the edit form', fakeAsync(() => {
+  it('ngOnInit calls masterDataService.getCountry and patches the edit form', async () => {
     const mockResult = {
       name: 'Country 1',
       formalName: 'Country 1',
@@ -62,27 +64,27 @@ describe('CountryEditComponent with valid input', () => {
     vi.spyOn(sut.editForm, 'patchValue');
 
     sut.ngOnInit();
-    sut.country$.subscribe();
+    await firstValueFrom(sut.country$);
 
     expect(service.getCountry).toHaveBeenNthCalledWith(1, 1);
     expect(sut.editForm.patchValue).toHaveBeenCalledTimes(1);
     expect(sut.states.length).toBe(1);
-  }));
+  });
 
-  it('getUnsavedStateCount returns count of new states in form array', fakeAsync(() => {
+  it('getUnsavedStateCount returns count of new states in form array', () => {
     sut.addState();
     sut.states.at(0).get('id')?.setValue(1);
     sut.addState();
 
     expect(sut.states.length).toBe(2);
     expect(sut.getUnsavedStateCount()).toBe('(Unsaved: 1)');
-  }));
+  });
 
-  it('getUnsavedStateCount returns null if there are no new states in the form array', fakeAsync(() => {
+  it('getUnsavedStateCount returns null if there are no new states in the form array', () => {
     sut.states.clear();
 
     expect(sut.getUnsavedStateCount()).toBeNull();
-  }));
+  });
 
   it('adds a state to the form group array', () => {
     sut.addState();
@@ -99,7 +101,7 @@ describe('CountryEditComponent with valid input', () => {
     expect(sut.states.length).toBe(1);
   });
 
-  it('save calls masterDataService.update if form is valid', fakeAsync(() => {
+  it('save calls masterDataService.update if form is valid', () => {
     vi.spyOn(service, 'saveCountry').mockReturnValue(of(void 0));
     vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
     fixture.componentRef.setInput('id', 1);
@@ -120,7 +122,7 @@ describe('CountryEditComponent with valid input', () => {
 
     expect(service.saveCountry).toHaveBeenCalledWith({ ...mockResult, id: 1 });
     expect(router.navigateByUrl).toHaveBeenCalledWith('/settings/countries');
-  }));
+  });
 
   it('save does not call masterDataService.update if form is invalid', () => {
     vi.spyOn(service, 'saveCountry');

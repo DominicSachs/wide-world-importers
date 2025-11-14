@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { fakeAsync } from '@angular/core/testing';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY, firstValueFrom, of } from 'rxjs';
 import { CityEditResponse, CityListReponse, CountryEditReponse, CountryListReponse } from '@app/modules/master-data/master-data.model';
 import { MasterDataService } from '@app/modules/master-data/master-data.service';
 import { DataFilter } from '@app/shared/models/data-filter.model';
@@ -21,7 +20,7 @@ describe('MasterDataService', () => {
     sut = new MasterDataService(httpClient);
   });
 
-  it('gets a list of cities and sets the correct query string', fakeAsync(() => {
+  it('gets a list of cities and sets the correct query string', async () => {
     const pagedResult = {
       items: [
         { id: 1, name: 'City 1' },
@@ -35,43 +34,41 @@ describe('MasterDataService', () => {
     filter.searchTerm = 'Denver';
     vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
-    let result = {} as PagedResponse<CityListReponse>;
-    sut.getCities(filter).subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getCities(filter));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/cities?page=0&pageSize=10&sortColumn=name&sortDirection=0&searchTerm=Denver`);
     expect(result.count).toBe(2);
-  }));
+  });
 
-  it('gets a city and sets the correct paramter', fakeAsync(() => {
+  it('gets a city and sets the correct paramter', async () => {
     const mockResult = { id: 1, name: 'City 1' };
     vi.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
-    let result = {};
-    sut.getCity(1).subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getCity(1));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/cities/1`);
     expect(result).toEqual(mockResult);
-  }));
+  });
 
-  it('updates a city', fakeAsync(() => {
+  it('updates a city', async () => {
     vi.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const cityToUpdate = { id: 1, name: 'City 1' } as CityEditResponse;
 
-    sut.saveCity(cityToUpdate).subscribe();
+    await firstValueFrom(sut.saveCity(cityToUpdate));
 
     expect(httpClient.put).toHaveBeenCalledWith(`${environment.apiUrl}/cities/1`, cityToUpdate);
-  }));
+  });
 
-  it('creates a city', fakeAsync(() => {
+  it('creates a city', async () => {
     vi.spyOn(httpClient, 'post').mockReturnValue(of(void 0));
     const cityToUpdate = { id: 0, name: 'City 1' } as CityEditResponse;
 
-    sut.saveCity(cityToUpdate).subscribe();
+    await firstValueFrom(sut.saveCity(cityToUpdate));
 
     expect(httpClient.post).toHaveBeenCalledWith(`${environment.apiUrl}/cities`, cityToUpdate);
-  }));
+  });
 
-  it('gets a list of countries and sets the correct query string', fakeAsync(() => {
+  it('gets a list of countries and sets the correct query string', async () => {
     const pagedResult = {
       items: [
         { id: 1, name: 'Country 1' },
@@ -84,34 +81,32 @@ describe('MasterDataService', () => {
     filter.sortColumn = 'name';
     vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
-    let result = {} as PagedResponse<CountryListReponse>;
-    sut.getCountries(filter).subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getCountries(filter));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
     expect(result.count).toBe(2);
-  }));
+  });
 
-  it('gets a country and sets the correct paramter', fakeAsync(() => {
+  it('gets a country and sets the correct paramter', async () => {
     const mockResult = { id: 1, name: 'Country 1' };
     vi.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
-    let result = {};
-    sut.getCountry(1).subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getCountry(1));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries/1`);
     expect(result).toEqual(mockResult);
-  }));
+  });
 
-  it('updates a country', fakeAsync(() => {
+  it('updates a country', async () => {
     vi.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const countryToUpdate = { id: 1, name: 'Country 1' } as CountryEditReponse;
 
-    sut.saveCountry(countryToUpdate).subscribe();
+    await firstValueFrom(sut.saveCountry(countryToUpdate));
 
     expect(httpClient.put).toHaveBeenCalledWith(`${environment.apiUrl}/countries/1`, countryToUpdate);
-  }));
+  });
 
-  it('gets a list of country names', fakeAsync(() => {
+  it('gets a list of country names', async () => {
     const mockResult = [
         { id: 1, name: 'Country 1' },
         { id: 2, name: 'Country 2' }
@@ -119,14 +114,13 @@ describe('MasterDataService', () => {
 
     vi.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
-    let result = [];
-    sut.getCountryNames().subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getCountryNames());
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries/names`);
     expect(result.length).toBe(2);
-  }));
+  });
 
-  it('gets a list of state names for country', fakeAsync(() => {
+  it('gets a list of state names for country', async () => {
     const mockResult = [
         { id: 1, name: 'State 1' },
         { id: 2, name: 'State 2' }
@@ -134,14 +128,13 @@ describe('MasterDataService', () => {
 
     vi.spyOn(httpClient, 'get').mockReturnValue(of(mockResult));
 
-    let result = [];
-    sut.getStateNamesForCountry(1).subscribe(c => result = c);
+    const result = await firstValueFrom(sut.getStateNamesForCountry(1));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/countries/1/states`);
     expect(result.length).toBe(2);
-  }));
+  });
 
-  it('gets a EMPTY observable if country id is false', fakeAsync(() => {
+  it('gets a EMPTY observable if country id is false', () => {
     const mockResult = [
         { id: 1, name: 'State 1' },
         { id: 2, name: 'State 2' }
@@ -153,5 +146,5 @@ describe('MasterDataService', () => {
 
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(result).toBe(EMPTY);
-  }));
+  });
 });

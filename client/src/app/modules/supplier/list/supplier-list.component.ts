@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,7 +15,8 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   selector: 'app-supplier-list',
   imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink, TableQueryStringDirective],
   templateUrl: './supplier-list.component.html',
-  styleUrl: './supplier-list.component.scss'
+  styleUrl: './supplier-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierListComponent extends BaseTableComponent<SupplierListReponse> {
   readonly displayedColumns = ['name', 'category', 'phone', 'fax', 'actions'];

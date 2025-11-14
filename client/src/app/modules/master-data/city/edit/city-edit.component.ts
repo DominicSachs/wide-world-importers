@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -26,7 +26,8 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
     ReactiveFormsModule
   ],
   templateUrl: './city-edit.component.html',
-  styleUrl: './city-edit.component.scss'
+  styleUrl: './city-edit.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityEditComponent implements OnInit {
   private statesReloadSubject$ = new Subject<void>;

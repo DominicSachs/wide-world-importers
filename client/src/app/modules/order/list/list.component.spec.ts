@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MockProvider } from 'ng-mocks';
@@ -29,15 +29,14 @@ describe('OrderListComponent', () => {
     vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
-  it('calls getOrders on ngAfterViewInit', fakeAsync(async () => {
+  it('calls getOrders on ngAfterViewInit', async () => {
     const mockResult = { count: 1, items: [{ customerName:'test' }] } as PagedResponse<OrderListReponse>;
     vi.spyOn(service, 'getOrders').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
-    tick();
 
     const response = await firstValueFrom(sut.data$);
     expect(response).toStrictEqual(mockResult);
     expect(service.getOrders).toHaveBeenCalledTimes(1);
-  }));
+  });
 });

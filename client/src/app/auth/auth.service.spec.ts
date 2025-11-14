@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { fakeAsync, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AuthResponse, AuthStatus, DEFAULT_AUTH_STATUS } from '@app/auth/auth.models';
 import { AuthService } from '@app/auth/auth.service';
@@ -25,7 +24,7 @@ describe('AuthService', () => {
     sut = new AuthService(httpClient, cacheService);
   });
 
-  it('login sets the token and publishes the auth status from the valid token', fakeAsync(async() => {
+  it('login sets the token and publishes the auth status from the valid token', () => {
     const jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDg0MDAxNDUsInN1YiI6IjEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20ifQ.VTY80IwT9x-z6H7m6RE-_GGOjPnmkjUhl-4wPMrmjTQ';
     vi.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: jwt } as AuthResponse));
     vi.spyOn(cacheService, 'setItem');
@@ -37,9 +36,9 @@ describe('AuthService', () => {
     expect(status.isAuthenticated).toBeTruthy();
     expect(status.userId).toBe(1);
     expect(cacheService.setItem).toHaveBeenCalledWith('jwt', jwt);
-  }));
+  });
 
-  it('login sets the token and publishes the default auth status because of the empty token', async() => {
+  it('login sets the token and publishes the default auth status because of the empty token', () => {
     const token = '';
     vi.spyOn(httpClient, 'post').mockReturnValue(of({ accessToken: token } as AuthResponse));
     vi.spyOn(cacheService, 'setItem');
@@ -52,17 +51,16 @@ describe('AuthService', () => {
     expect(cacheService.setItem).toHaveBeenCalledWith('jwt', token);
   });
 
-  it('logout calls removeItem and resets the auth status to default', fakeAsync(() => {
+  it('logout calls removeItem and resets the auth status to default', () => {
     vi.spyOn(cacheService, 'removeItem');
     let status = {} as AuthStatus;
 
     sut.logout(true);
     status = sut.authStatus();
-    tick(50);
 
     expect(cacheService.removeItem).toHaveBeenCalledWith('jwt');
     expect(status).toBe(DEFAULT_AUTH_STATUS);
-  }));
+  });
 
   it('logout does not call removeItem', () => {
     vi.spyOn(cacheService, 'removeItem');

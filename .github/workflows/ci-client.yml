@@ -24,6 +24,6 @@ jobs:
       - name: npm install and npm run CI commands
         working-directory: './client'
         run: |
-          npm i
+          npm i --force
           npm run test
           npm run build

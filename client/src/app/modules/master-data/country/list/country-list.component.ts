@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,7 +14,8 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   selector: 'app-list',
   imports: [AsyncPipe, MatIcon, ...MAT_TABLE, RouterLink],
   templateUrl: './country-list.component.html',
-  styleUrl: './country-list.component.scss'
+  styleUrl: './country-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryListComponent extends BaseTableComponent<CountryListReponse> {
   readonly displayedColumns = ['name', 'formalName', 'region', 'subregion', 'continent', 'stateProvinceCount', 'population', 'actions'];

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input, numberAttribute } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCardSubtitle } from '@angular/material/card';
@@ -16,7 +16,8 @@ import { AddressComponent } from '@app/modules/customer/edit/address/address.com
   selector: 'app-customer-edit',
   imports: [...MAT_CARD_EDIT, AddressComponent, AsyncPipe, MatButton, MatCardSubtitle, MatError, MatFormField, MatLabel, MatInput, ReactiveFormsModule],
   templateUrl: './customer-edit.component.html',
-  styleUrl: './customer-edit.component.scss'
+  styleUrl: './customer-edit.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomerEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

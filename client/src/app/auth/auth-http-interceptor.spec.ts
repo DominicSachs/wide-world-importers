@@ -1,84 +1,83 @@
 import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
 import { AUTHORIZE_INTERCEPTOR } from '@app/auth/auth-http-interceptor';
 import { AuthService } from '@app/auth/auth.service';
 
-describe('AUTHORIZE_INTERCEPTOR', () => {
+describe('AUTHORIZE_INTERCEPTOR (Angular TestBed)', () => {
+  let http: HttpClient;
+  let httpMock: HttpTestingController;
   let authService: AuthService;
-  let httpTestingController: HttpTestingController;
-  let httpClient: HttpClient;
   let router: Router;
 
   beforeEach(() => {
-    router = {
-      navigate: () => vi.fn(),
-      routerState: {
-        snapshot: {}
-      }
-    }as unknown as Router;
-
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptors([AUTHORIZE_INTERCEPTOR])),
         provideHttpClientTesting(),
-        { provide: Router, useValue: router }
+        MockProvider(AuthService, { getToken: vi.fn(), logout: vi.fn() }),
+        MockProvider(Router, { navigate: () => vi.fn(), routerState: { snapshot: { url: '/current' } } } as unknown as Router)
       ]
     });
 
+    http = TestBed.inject(HttpClient);
+    httpMock = TestBed.inject(HttpTestingController);
     authService = TestBed.inject(AuthService);
-    httpTestingController = TestBed.inject(HttpTestingController);
-    httpClient = TestBed.inject(HttpClient);
+    router = TestBed.inject(Router);
   });
 
   afterEach(() => {
-    httpTestingController.verify();
+    httpMock.verify();
   });
 
-  it('redirects to login and call logout', fakeAsync(() => {
-    vi.spyOn(router, 'navigate');
+  it('adds authorization header', () => {
+    authService.getToken.mockReturnValue('mock-token');
+
+    http.get('/api/test').subscribe();
+
+    const req = httpMock.expectOne('/api/test');
+    expect(req.request.headers.get('authorization')).toBe('Bearer mock-token');
+    req.flush({ ok: true });
+  });
+
+  it('calls logout and navigate on 401 error', () => {
+    vi.spyOn(authService, 'getToken').mockReturnValue('expired-token');
     vi.spyOn(authService, 'logout');
+    vi.spyOn(router, 'navigate');
 
-    const url = '/api';
+    http.get('/api/protected').subscribe({
+      next: res => {
+        expect(res).toEqual({});
+      }
+    });
 
-    httpClient.get(url).subscribe();
-
-    const request = httpTestingController.expectOne(url);
-    request.flush('', { status: 401, statusText: 'Unauthorized' });
-    tick(100);
+    const req = httpMock.expectOne('/api/protected');
+    req.flush({}, { status: 401, statusText: 'Unauthorized' });
 
     expect(authService.logout).toHaveBeenCalledWith(true);
-    expect(router.navigate).toHaveBeenCalledWith(['/login'], { queryParams: { redirectUrl: undefined } });
-  }));
+    expect(router.navigate).toHaveBeenCalledWith(['/login'], {
+      queryParams: { redirectUrl: '/current' }
+    });
+  });
 
-  it('does not redirect to login and return error', fakeAsync(() => {
+  it('rethrows non-401 errors', () => {
+    vi.spyOn(authService, 'getToken').mockReturnValue('valid-token');
+    vi.spyOn(authService, 'logout');
     vi.spyOn(router, 'navigate');
-    let expectedError: HttpErrorResponse;
-    const url = '/api';
 
-    httpClient.get(url).subscribe({ next: () => vi.fn(), error: (err: HttpErrorResponse) => { expectedError = err; } });
+    let caughtError: HttpErrorResponse | null = null;
 
-    const request = httpTestingController.expectOne(url);
-    request.flush('', { status: 400, statusText: 'BadRequest' });
+    http.get('/api/fail').subscribe({
+      error: err => caughtError = err
+    });
 
-    expect(expectedError!.status).toBe(400);
+    const req = httpMock.expectOne('/api/fail');
+    req.flush('Server error', { status: 500, statusText: 'Server Error' });
+
+    expect(authService.logout).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
-  }));
-
-  it('returns 200', fakeAsync(() => {
-    vi.spyOn(router, 'navigate');
-    let expectedError: HttpErrorResponse;
-    let expectedResult: object;
-    const url = '/api';
-
-    httpClient.get(url).subscribe({ next: v => expectedResult = v, error: (err: HttpErrorResponse) => { expectedError = err; } });
-
-    const request = httpTestingController.expectOne(url);
-    request.flush('Ok', { status: 200, statusText: 'Ok' });
-
-    expect(expectedResult!.toString()).toBe('Ok');
-    expect(expectedError!).toBeUndefined();
-    expect(router.navigate).not.toHaveBeenCalled();
-  }));
+    expect(caughtError!.status).toBe(500);
+  });
 });

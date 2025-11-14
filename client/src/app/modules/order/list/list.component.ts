@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,7 +14,8 @@ import { PagedResponse } from '@app/shared/models/paged-response.model';
   selector: 'app-order-list',
   imports: [AsyncPipe, DatePipe, MatIcon, ...MAT_TABLE, RouterLink],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent extends BaseTableComponent<OrderListReponse> {
   readonly id = input<number>();

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { fakeAsync } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { SupplierListReponse } from '@app/modules/supplier/supplier.model';
 import { SupplierService } from '@app/modules/supplier/supplier.service';
 import { DataFilter } from '@app/shared/models/data-filter.model';
@@ -19,7 +18,7 @@ describe('SupplierService', () => {
     sut = new SupplierService(httpClient);
   });
 
-  it('gets a list of suppliers and sets the correct query string', fakeAsync(() => {
+  it('gets a list of suppliers and sets the correct query string', async () => {
     const pagedResult = {
       items: [
         { id: 1, name: 'Supplier 1' },
@@ -30,13 +29,11 @@ describe('SupplierService', () => {
 
     const filter = new DataFilter();
     filter.sortColumn = 'name';
-
     vi.spyOn(httpClient, 'get').mockReturnValue(of(pagedResult));
 
-    let result = {} as PagedResponse<SupplierListReponse>;
-    sut.getSuppliers(filter).subscribe(s => result = s);
+    const result = await firstValueFrom(sut.getSuppliers(filter));
 
     expect(httpClient.get).toHaveBeenCalledWith(`${environment.apiUrl}/suppliers?page=0&pageSize=10&sortColumn=name&sortDirection=0`);
     expect(result.count).toBe(2);
-  }));
+  });
 });

@@ -14,7 +14,6 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
   dataFilter: DataFilter = new DataFilter();
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
       this.data$ = merge(this.sort().sortChange, this.paginator().page)
       .pipe(
         startWith({}),
@@ -28,7 +27,6 @@ export abstract class BaseTableComponent<T> implements AfterViewInit {
         }),
         catchError(() => of({ items: [], count: 0 } as PagedResponse<T>))
       );
-    }, 0);
   }
 
   reloadToFirstPage(): void {

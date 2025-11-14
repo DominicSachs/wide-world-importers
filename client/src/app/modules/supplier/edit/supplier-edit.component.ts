@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, input, numberAttribute, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, numberAttribute, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
@@ -28,7 +28,8 @@ import { KeyValueItem } from '@app/shared/models/key-value-item.model';
     ReactiveFormsModule
   ],
   templateUrl: './supplier-edit.component.html',
-  styleUrl: './supplier-edit.component.scss'
+  styleUrl: './supplier-edit.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierEditComponent implements OnInit {
   readonly id = input.required({ transform: numberAttribute });

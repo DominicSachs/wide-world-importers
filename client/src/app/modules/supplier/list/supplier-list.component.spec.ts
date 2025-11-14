@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MockProvider } from 'ng-mocks';
@@ -26,27 +26,25 @@ describe('SupplierListComponent', () => {
     vi.spyOn(sut, 'sort').mockReturnValue({ sortChange: new EventEmitter<Sort>() } as MatSort);
   });
 
-  it('calls getSuppliers on ngAfterViewInit', fakeAsync(async () => {
+  it('calls getSuppliers on ngAfterViewInit', async () => {
     const mockResult = { count: 1, items: [{ name:'test' }] } as PagedResponse<SupplierListReponse>;
     vi.spyOn(service, 'getSuppliers').mockReturnValue(of(mockResult));
 
     sut.ngAfterViewInit();
-    tick(1);
 
     const response = await firstValueFrom(sut.data$);
     expect(response).toStrictEqual(mockResult);
     expect(service.getSuppliers).toHaveBeenCalledTimes(1);
-  }));
+  });
 
-  it('calls getSuppliers on ngAfterViewInit and returns empty result on error', fakeAsync(async () => {
+  it('calls getSuppliers on ngAfterViewInit and returns empty result on error', async () => {
     const mockResult = { count: 0, items: [] } as PagedResponse<SupplierListReponse>;
     vi.spyOn(service, 'getSuppliers').mockReturnValue(throwError(() => new Error()));
 
     sut.ngAfterViewInit();
-    tick(1);
 
     const response = await firstValueFrom(sut.data$);
     expect(response).toStrictEqual(mockResult);
     expect(service.getSuppliers).toHaveBeenCalledTimes(1);
-  }));
+  });
 });
