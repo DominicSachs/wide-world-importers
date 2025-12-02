@@ -65,7 +65,7 @@ describe('CustomerEditComponent', () => {
     vi.spyOn(service, 'update');
 
     sut.ngOnInit();
-    sut.editForm.controls['name'].setValue(null!);
+    sut.editForm.controls.name.setValue(null!);
     sut.save();
 
     expect(service.update).not.toHaveBeenCalled();

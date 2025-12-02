@@ -36,12 +36,12 @@ describe('CountryEditComponent with valid input', () => {
     sut = fixture.componentInstance;
     sut.ngOnInit();
 
-    expect(sut.editForm.controls['name']).toBeDefined();
-    expect(sut.editForm.controls['formalName']).toBeDefined();
-    expect(sut.editForm.controls['region']).toBeDefined();
-    expect(sut.editForm.controls['subregion']).toBeDefined();
-    expect(sut.editForm.controls['continent']).toBeDefined();
-    expect(sut.editForm.controls['population']).toBeDefined();
+    expect(sut.editForm.controls.name).toBeDefined();
+    expect(sut.editForm.controls.formalName).toBeDefined();
+    expect(sut.editForm.controls.region).toBeDefined();
+    expect(sut.editForm.controls.subregion).toBeDefined();
+    expect(sut.editForm.controls.continent).toBeDefined();
+    expect(sut.editForm.controls.population).toBeDefined();
     const statesArray = sut.editForm.get('states') as FormArray;
     expect(statesArray.at(0).get('id')).toBeDefined();
     expect(statesArray.at(0).get('name')).toBeDefined();
@@ -128,7 +128,7 @@ describe('CountryEditComponent with valid input', () => {
     vi.spyOn(service, 'saveCountry');
 
     sut.ngOnInit();
-    sut.editForm.controls['name'].setValue(null!);
+    sut.editForm.controls.name.setValue(null!);
     sut.save();
 
     expect(service.saveCountry).not.toHaveBeenCalled();

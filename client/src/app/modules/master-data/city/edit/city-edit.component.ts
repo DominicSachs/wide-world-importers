@@ -35,7 +35,7 @@ export class CityEditComponent implements OnInit {
   readonly countries$: Observable<KeyValueItem<number, string>[]>;
   readonly editForm = new FormGroup({
     name: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
-    population: new FormControl<number | null>(null!),
+    population: new FormControl<number | null>(null),
     countryId: new FormControl(0, { nonNullable: true , validators: [Validators.required, Validators.min(1)] }),
     stateId: new FormControl(0, { nonNullable: true , validators: [Validators.required, Validators.min(1)] })
   });

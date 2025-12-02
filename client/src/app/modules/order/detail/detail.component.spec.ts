@@ -5,9 +5,8 @@ describe('OrderDetailComponent', () => {
   let component: OrderDetailComponent;
   let fixture: ComponentFixture<OrderDetailComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-    });
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
 
     fixture = TestBed.createComponent(OrderDetailComponent);
     fixture.componentRef.setInput('id', 0);

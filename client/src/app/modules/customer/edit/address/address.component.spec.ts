@@ -7,10 +7,11 @@ describe('AddressComponent', () => {
   let component: AddressComponent;
   let fixture: ComponentFixture<AddressComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, ReactiveFormsModule]
     });
+
     fixture = TestBed.createComponent(AddressComponent);
     component = fixture.componentInstance;
 

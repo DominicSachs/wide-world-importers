@@ -14,8 +14,8 @@ describe('OrderListComponent', () => {
   let fixture: ComponentFixture<OrderListComponent>;
   let service: OrderService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [
         MockProvider(OrderService, { getOrders: () => of({ items: [], count: 0 }) })
       ]
