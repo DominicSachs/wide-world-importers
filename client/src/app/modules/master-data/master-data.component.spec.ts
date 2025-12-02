@@ -7,10 +7,11 @@ describe('MasterDataComponent', () => {
   let component: MasterDataComponent;
   let fixture: ComponentFixture<MasterDataComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [MockProvider(ActivatedRoute), provideRouter([])]
     });
+
     fixture = TestBed.createComponent(MasterDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

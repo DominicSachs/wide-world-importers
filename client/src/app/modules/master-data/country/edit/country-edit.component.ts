@@ -43,7 +43,7 @@ export class CountryEditComponent implements OnInit {
     region: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
     subregion: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
     continent: new FormControl('', { nonNullable: true , validators: [Validators.required] }),
-    population: new FormControl<number | null>(null!),
+    population: new FormControl<number | null>(null),
     states: new FormArray([
       new FormGroup({
         id: new FormControl(),

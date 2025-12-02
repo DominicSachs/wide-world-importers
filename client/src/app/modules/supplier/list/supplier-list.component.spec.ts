@@ -14,8 +14,8 @@ describe('SupplierListComponent', () => {
   let fixture: ComponentFixture<SupplierListComponent>;
   let service: SupplierService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [MockProvider(SupplierService)]
     });
 

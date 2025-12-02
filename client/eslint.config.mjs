@@ -1,7 +1,7 @@
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import tsparser from '@typescript-eslint/parser';
-import tsstylistic from '@stylistic/eslint-plugin-ts';
+import tsstylistic from '@stylistic/eslint-plugin';
 import angular from "angular-eslint";
 import eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginUnusedImports from "eslint-plugin-unused-imports";
@@ -23,8 +23,8 @@ export default tseslint.config(
       },
       extends: [
         eslint.configs.recommended,
-        ...tseslint.configs.recommended,
-        ...tseslint.configs.stylistic,
+        ...tseslint.configs.recommendedTypeChecked,
+        ...tseslint.configs.stylisticTypeChecked,
         ...angular.configs.tsAll,
         // ...tseslint.configs.strictTypeChecked,
         // ...tseslint.configs.stylisticTypeChecked,
@@ -64,6 +64,14 @@ export default tseslint.config(
         "@stylistic/ts/brace-style": ["error", "1tbs", { allowSingleLine: true}],
         "@typescript-eslint/explicit-function-return-type": ["error", { allowExpressions: true }],
         "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "no-public" }],
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/unbound-method": "off",
         "@stylistic/ts/member-delimiter-style": ["error", {
           multiline: {
             delimiter: "semi",

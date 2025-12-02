@@ -5,8 +5,8 @@ describe('NavigationMenuComponent', () => {
   let testObject: NavigationMenuComponent;
   let fixture: ComponentFixture<NavigationMenuComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({ });
+  beforeEach(() => {
+    TestBed.configureTestingModule({ });
 
     fixture = TestBed.createComponent(NavigationMenuComponent);
     testObject = fixture.componentInstance;

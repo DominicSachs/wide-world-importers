@@ -48,7 +48,7 @@ describe('CustomerService', () => {
     expect(result).toEqual(mockResult);
   });
 
-  it('updates a customer', async () => {
+  it('updates a customer', () => {
     vi.spyOn(httpClient, 'put').mockReturnValue(of(void 0));
     const customerToUpdate = { id: 1, name: 'Customer 1' } as CustomerEditResponse;
 
